@@ -127,10 +127,12 @@
                 <div class="form-group col">
 
                     <input type="text" formControlName="pancard" placeholder="Pancard" class="form-control"
-                        [ngClass]="{ 'is-invalid': submitted && f.pancard.errors }" pattern="^[A-Za-z]{5}[0-9]{4}[A-Za-z]$"/>
+                        [ngClass]="{ 'is-invalid': submitted && f.pancard.errors }" pattern=""/>
                     <div *ngIf="submitted && f.pancard.errors" class="invalid-feedback">
                         <div *ngIf="f.pancard.errors.required">Pancard must be a valid</div>
+                        <div *ngIf="f.pancard.errors.pattern">Pancard must be a valid</div>
                     </div>
+                   
                 </div>
 
 
@@ -168,13 +170,9 @@
 
                 <div class="form-group col">
 
-                    <select formControlName="state" placeholder="State" class="form-control"
+                    <input formControlName="state" placeholder="State" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
-                        <option value="">Select State</option>
-                        <option value="mh">Maharashrta</option>
-                        <option value="ga">Goa</option>
-                        <option value="kar">Karanataka</option>
-                    </select>
+                       
                     <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
                         <div *ngIf="f.state.errors.required">State is required</div>
                     </div>
@@ -184,13 +182,9 @@
             <div class="form-row">
                 <div class="form-group col-3">
 
-                    <select formControlName="city" placeholder="city" class="form-control"
+                    <input formControlName="city" placeholder="city" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
-                        <option value="">Select City</option>
-                        <option value="pune">Pune</option>
-                        <option value="satar">Satara</option>
-                        <option value="karad">Karad</option>
-                    </select>
+                    
                     <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
                         <div *ngIf="f.city.errors.required">City is required</div>
                     </div>

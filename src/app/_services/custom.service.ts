@@ -21,7 +21,7 @@ export class CustomService {
       let params = new HttpParams()
       .set('email', email);
       
-    return this.http.get(`http://localhost/letssecure/index.php/api/common/checkDuplicateEmail/`  , {params}).pipe(
+    return this.http.get(`${environment.apiUrl}/common/checkDuplicateEmail/`  , {params}).pipe(
         map((statusList) => statusList )
          )
   }
@@ -29,7 +29,7 @@ export class CustomService {
   checkMobileNotTaken(mobile: string) {
     let params = new HttpParams()
     .set('mobile', mobile);
-    return this.http.get(`http://localhost/letssecure/index.php/api/common/checkDuplicateMobile`  , {params}).pipe(
+    return this.http.get(`${environment.apiUrl}/common/checkDuplicateMobile`  , {params}).pipe(
         map((statusList) => statusList )
          )
   }

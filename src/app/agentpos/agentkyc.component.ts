@@ -49,11 +49,11 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       dob: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       mobile: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      extramobile: ['', Validators.required],
+      extramobile: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       qualification: ['', Validators.required],
-      pancard: ['', Validators.required],
+      pancard: ['',[ Validators.required, Validators.pattern(/^[A-Za-z]{5}[0-9]{4}[A-Za-z]$/)]],
       address1: ['', Validators.required],
       address2: ['', Validators.required],
       address3: ['', Validators.required],
@@ -78,12 +78,16 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       this._session = JSON.parse(sessionStorage.getItem("agentinfo"));
       //console.log(this._session)
       if (this._session['agentphone']) {
-        console.log("hi")
         this.posKycForm.controls.mobile.setValue(this._session['agentphone']);
         this.posKycForm.controls.email.setValue(this._session['agentemail']);
-        this.posKycForm.controls.pincode.setValue(this._session['pincode']);
+        this.posKycForm.controls.pincode.setValue(this._session['pincode'].Pincode);
+        this.posKycForm.controls.city.setValue(this._session['pincode'].City);
+        this.posKycForm.controls.state.setValue(this._session['pincode'].State);
         this.posKycForm.controls.mobile.disable();
         this.posKycForm.controls.email.disable();
+        this.posKycForm.controls.pincode.disable();
+        this.posKycForm.controls.city.disable();
+        this.posKycForm.controls.state.disable();
       }
 
     }
