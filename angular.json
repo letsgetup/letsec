@@ -29,7 +29,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.less"
+              "src/styles.less",
+              "src/assets/style/style.css"
             ],
             "scripts": []
           },

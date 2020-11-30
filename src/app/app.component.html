@@ -1,17 +1,58 @@
-﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user; else elseBlock">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-    </div>
-</nav>
-<ng-template #elseBlock><nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/agentpos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Become Agent</a>
-    </div>
-</nav></ng-template>
+﻿<div class="w-100">
+    <header>
+        <div class=" container text-right">
+            <ul class="list-inline top-list-items mb-0">
+                <li class="text-muted">Sales : 1800-123-4567</li>
+                <li><a href="#" class="text-muted">Contact Us</a> </li>
+                <li><a routerLink="/agent/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        class="text-muted">Agent Login</a></li>
+            </ul>
+        </div>
+        <div class="bg-light">
+            <div class="container">
+                <nav class="navbar navbar-expand-sm navbar-light bg-light px-0"> <a class="navbar-brand" href="#"><img
+                            src="../assets/images/logo.png" class="mt-2" /></a>
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                        data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
+                        aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+                    <div class="navbar-collapse collapse" id="navbarsExample03" style="">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle text-body"
+                                    data-toggle="dropdown">Health Insurance</a>
+                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> <a href="#"
+                                        class="dropdown-item">Individual</a> <a href="#" class="dropdown-item">Family
+                                        Floater Insurance</a> <a href="#" class="dropdown-item">Corona viruse
+                                        Special</a> </div>
+                            </li>
+                            <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle text-body"
+                                    data-toggle="dropdown">Motor Insurance</a>
+                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> <a href="#"
+                                        class="dropdown-item">Car Insurance</a> <a href="#" class="dropdown-item">Two
+                                        wheeler Insurance</a> <a href="#" class="dropdown-item">Commercial Vehical
+                                        Insurance</a> <a href="#" class="dropdown-item">Taxi Insurance</a> <a href="#"
+                                        class="dropdown-item">Third Party Insurance</a> <a href="#"
+                                        class="dropdown-item">Used Car Insurance</a> <a href="#"
+                                        class="dropdown-item">Pay as you Drive Insurance</a> <a href="#"
+                                        class="dropdown-item">Third Party Bike Insurance</a> <a href="#"
+                                        class="dropdown-item">Car Insurance Calculator</a> <a href="#"
+                                        class="dropdown-item">Two wheeler Insurance Calculator</a> <a href="#"
+                                        class="dropdown-item">Car Insurance Claim</a> <a href="#"
+                                        class="dropdown-item">Motor Floater Insurance</a> </div>
+                            </li>
+                            <li><a routerLink="/agentpos" routerLinkActive="active"
+                                    [routerLinkActiveOptions]="{exact: true}" class="nav-link text-body">POS -
+                                    Agents</a></li>
+                            <li><a href="#" class="nav-link text-body pr-0">myAccount</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+</div>
+
+
+
 
 <!-- main app container -->
 <div class="app-container" [ngClass]="{ 'bg-light': user }">
@@ -19,10 +60,76 @@
     <router-outlet></router-outlet>
 </div>
 
+
+
+
 <!-- credits -->
-<div class="text-center  navbar-dark bg-dark navbar">
-    <p>
-        Footer
-    </p>
-    
-</div>
+<footer class="bg-black py-5">
+    <div class="container">
+        <div class="row footer-links">
+            <div class="col-md-3 text-white">
+                <h5>Quicklinks</h5>
+                <ul class="list-unstyled">
+                    <li>About Us</li>
+                    <li>Careers</li>
+                    <li>Legal & Admin Policies</li>
+                    <li>ISNP</li>
+                </ul>
+
+            </div>
+            <div class="col-md-3 text-white">
+                <h5>Health Insurance</h5>
+                <ul class="list-unstyled">
+                    <li>Individual</li>
+                    <li>Family Floater</li>
+                    <li>Corona Special</li>
+                    <li>Senior Citizen Health Insurance</li>
+                </ul>
+            </div>
+            <div class="col-md-3 text-white">
+                <h5>Motor Insurance</h5>
+                <ul class="list-unstyled">
+                    <li>New Car Insurance</li>
+                    <li>Used Car Insurance</li>
+                    <li>Taxi Insurance </li>
+                    <li>Heavy Vehical Insurance</li>
+                </ul>
+            </div>
+            <div class="col-md-3 text-white">
+                <h5>Other Insurance</h5>
+                <ul class="list-unstyled">
+                    <li>Special Insurance</li>
+                    <li>Benefit Insurance</li>
+                    <li>Group Health Insurance </li>
+                    <li>Cancer Care Insurance</li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12 text-center text-mutedc bg-dark  rounded small p-3 my-3">
+                Insurance is the subject matter of solicitation. Visitors are hereby informed that their information
+                submitted on the website may be shared with insurers.
+
+                Product information is authentic and solely based on the information received from the Insurer ©
+                Copyright 2008-2020 letecure.com. All Rights Reserved.
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-white">Payment Methods</h3>
+                <p><img src="../assets/images/logo-payments.png" /></p>
+            </div>
+            <div class="col-md-6 text-right">
+                <p><img src="../assets/images/logo-tweet.png" /> <img src="images/logo-fb.png" class="mx-2" /><img
+                        src="../assets/images/logo-in.png" /></p>
+            </div>
+            <div class="clearfix">
+                <hr />
+            </div>
+            <p class="text-center small text-mutedc">Discount is offered by the Insurance company as approved by IRDAI
+                for the product under File & Use guidelines #On the basis of your profile.
+                Insurance is the subject matter of solicitation.
+
+                Visitors are hereby informed that their information submitted on the website may be shared with
+                insurers.</p>
+        </div>
+
+    </div>
+</footer>

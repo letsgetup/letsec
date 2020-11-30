@@ -1,0 +1,58 @@
+html,body{font-family:'Open Sans', sans-serif;font-size:.95rem}
+.top-list-items li{display:inline-block;margin-left:1rem;font-size:0.8rem}
+/*********CSS Menu******/
+/* CSS Document */
+
+
+
+/* Media Queries
+--------------------------------------------- */
+
+
+/*********CSS Menu ends******/
+.banner-home{background:url(../images/banner-home.jpg) no-repeat;background-size:cover;background-position:bottom right;height:auto;padding-bottom:2rem}
+.c-heading{font-family: 'Arvo', serif;}
+.corona-block{background:#343a40;height:153px}
+.text-red{color:#e84400}
+.text-custom{text-align:center; text-transform:uppercase;color:#e84400}
+.text-line-left{width: 50px;
+    height: 3px;
+    background: #000;
+    display: inline-block;
+    position: relative;
+    top: -13px;
+    margin-right: 10px;}
+.text-line-right{width: 50px;
+    height: 3px;
+    background: #000;
+    display: inline-block;
+    position: relative;
+    top: -13px;
+    margin-left: 10px;}
+.ourPartnerslogo img{border:1px solid #eaeaea; margin:5px}
+.brd-red-3px{border-bottom:3px solid #f3a17f;padding-bottom:15px}
+.brd-black-3px{border-bottom:3px solid #7f7f7f;padding-bottom:15px}
+.text-mutedc{color:#babcbd}
+.mt--slider{margin-top:-10px}
+.bg-black{background-color:#000}
+.footer-links ul li{line-height:30px;color:rgba(255,255,255,0.7)}
+#clientTestimonial .col-md-3 .card{ transition: background-color 0.5s ease;background-color: #f8f9fa;}
+#clientTestimonial .col-md-3 .card:hover{background-color: #ccc;}
+.ins-panel{ transition: all .4s ease-in-out;}
+.ins-panel:hover{background-color:#e84400!important}
+.ins-panel img{ transition: all .4s ease-in-out}
+.ins-panel:hover img{transform: scale(1.15)}
+.corona-block img{  -webkit-transition: -webkit-transform .8s ease-in-out;transition:transform .8s ease-in-out;}
+.corona-block:hover img{ transform: rotate(360deg);}
+.bg-lights{background:#f1f1f1}
+
+/*Carousel***************/
+#clientTestimonial .carousel-indicators li {background:#ccc;height:5px;width:15px;border-bottom:0px;border-radius:30px}
+@media (max-width: 576px) { 
+.text-line-right, .text-line-left{display:none}
+ }
+
+
+
+
+

@@ -9,9 +9,7 @@ import { first } from 'rxjs/operators'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-
   templateUrl: './agentkyc.component.html'
-
 })
 export class AgentkycComponent implements OnInit, OnDestroy {
   _session: string;
@@ -117,6 +115,8 @@ export class AgentkycComponent implements OnInit, OnDestroy {
   }
   onReset() {
     this.submitted = false;
+    sessionStorage.removeItem("agentinfo");
+    sessionStorage.removeItem('agentConfim_flg');
     this.posKycForm.reset();
   }
   onSubmit() {

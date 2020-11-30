@@ -19,8 +19,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     LayoutComponent,
     AgentposComponent,
     AgentkycComponent,
-    AgentconfirmComponent
-    
+    AgentconfirmComponent,
+   
   ]
 
 })

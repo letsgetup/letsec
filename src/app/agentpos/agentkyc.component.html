@@ -243,7 +243,7 @@
                     <input type="text" matInput formControlName="ifsccode" placeholder="Ifsc Code" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.ifsccode.errors }" />
                     <div *ngIf="submitted && f.ifsccode.errors" class="invalid-feedback">
-                        <div *ngIf="f.ifsccode.errors.required">Ifsc Code is required</div>
+                        <div *ngIf="f.ifsccode.errors.required">IfSC Code is required</div>
                     </div>
                 </div>
 
@@ -268,7 +268,6 @@
             </div>
             <div class="text-center">
                 <button class="btn btn-primary mr-1" (click)="open(mymodal)">Register KYC</button>
-                <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancel</button>
             </div>
         </form>
     </div>

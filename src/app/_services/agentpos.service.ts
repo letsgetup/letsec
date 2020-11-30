@@ -11,9 +11,7 @@ import { PincodeM } from '@app/_models'
   providedIn: 'root'
 })
 export class AgentposService {
-  pincodes: string[];
-  pincodeary: Array<Object>[];
-  constructor(
+   constructor(
     private router: Router,
     private http: HttpClient
   ) { }
@@ -29,11 +27,8 @@ export class AgentposService {
     return this.http.get(`${environment.apiUrl}/common/getpincodedetails`, { params });
   }
   getAllPincode(pincode: string) {
-    console.log("pincode" + pincode);
     let params = new HttpParams()
       .set('pincode', pincode);
-
-
     return this.http.get<PincodeM>(`${environment.apiUrl}/common/getpincodes`, { params })
       .pipe(
         map(response => response)
