@@ -33,6 +33,15 @@ export class AgentService {
       }));
   }
 
+  getAllAgentLeades(agentId: string) {
+    let params = new HttpParams().set('agentid', agentId);
+    return this.http.get<any>(`${environment.apiUrl}/agent/agentLeadDetails`, { params }).pipe(
+      map((res) => {
+        return res;
+      }));
+  }
+
+
   login(agentLogin: FormData) {
 
     const formData: FormData = new FormData();
