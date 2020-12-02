@@ -28,10 +28,7 @@ export class AgentposComponent implements OnInit, OnDestroy {
     private agentposService: AgentposService,
     private alertService: AlertService,
     private customValidator: CustomValidation
-  ) {
-
-
-  }
+  ) {  }
   // convenience getter for easy access to form fields
   get f() { return this.agentRegiform.controls; }
 
@@ -46,11 +43,8 @@ export class AgentposComponent implements OnInit, OnDestroy {
     if (sessionStorage.getItem("agentinfo")) {
       this.agentRegiform.setValue(JSON.parse(sessionStorage.getItem("agentinfo")));
     }
-
-
-  }
-
-  search = (text$: Observable<string>) =>
+ }
+ search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       map(term =>  this.pincodeDetails)
@@ -58,12 +52,12 @@ export class AgentposComponent implements OnInit, OnDestroy {
     formatter = (x: {Pincode: string}) => x.Pincode  
     onkeyPressval(term:string) {
         this.agentposService.getAllPincode(term).subscribe(pincodeData => {
+          console.log(pincodeData)
         this.pincodeDetails = pincodeData;
         this.pincodeDetails = JSON.parse(this.pincodeDetails);
        
         })
     }
-
   onSubmit() {
     this.submitted = true;
 
