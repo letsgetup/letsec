@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 ;
 import { AgentModule } from './agent/agent.module'
 ;
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -24,7 +25,8 @@ import { AgentModule } from './agent/agent.module'
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule
+        NgbModule,
+        SharedModule
       
     ],
     declarations: [
