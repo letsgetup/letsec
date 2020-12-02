@@ -1,38 +1,38 @@
 <div class="card m-3">
    
-        <table class="table table-striped">
-            <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Mobile</th>
-              <th scope="col">Email</th>
-              <th scope="col">Status</th>
-              <th scope="col">Policy</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let leadDetail of leadDetails; index as i">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>
-                 {{ leadDetail.name }}
-              </td>
-              <td>{{ leadDetail.mobile }}</td>
-              <td>{{ leadDetail.email }}</td>
-              <td>{{ leadDetail.status }}</td>
-              <td>{{ leadDetail.policy | uppercase}}</td>
-            </tr>
-            </tbody>
-          </table> 
-   
+  <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Mobile</th>
+        <th scope="col">Email</th>
+        <th scope="col" class="text-center">Status</th>
+        <th scope="col">Policy</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let leadDetail of leadDetails; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+           {{ leadDetail.name }}
+        </td>
+        <td>{{ leadDetail.mobile }}</td>
+        <td>{{ leadDetail.email }}</td> 
+        <td class="text-center"><span><i class="fas fa-user {{leadDetail.status ==1 ? 'text-success' : 'text-muted'}}"></i></span></td>
+        <td>{{ leadDetail.policy | uppercase}}</td>
+      </tr>
+      </tbody>
+    </table> 
+
 <ng-template #mymodal let-modal>
-  <div class="modal-body">
-      <h4>Please confirm/validate your entred data before process.</h4>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="onSubmit();modal.close('Save click')">Submit</button>
-    <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Cancle</button>
-  </div>
+<div class="modal-body">
+<h4>Please confirm/validate your entred data before process.</h4>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" (click)="onSubmit();modal.close('Save click')">Submit</button>
+<button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">Cancle</button>
+</div>
 </ng-template>
 </div>
 
