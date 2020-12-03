@@ -14,7 +14,7 @@
         <div class="form-group col-md-4">
 
             <input type="text" formControlName="firstName" class="form-control" placeholder="First Name"
-                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"  required minlength="3" />
+                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"  required minlength="3" maxlength="15" />
             <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
                 <div *ngIf="f.firstName.errors.required">First Name is required</div>
                 <div *ngIf="f.firstName.errors.minlength">Minimum length should be 3.</div>
