@@ -36,7 +36,7 @@ export class AgentposComponent implements OnInit, OnDestroy {
 
     this.agentRegiform = this.formBuilder.group({
       agentemail: ['', [Validators.required, Validators.email], [this.customValidator.validateEmailNotTaken.bind(this.customValidator)]],
-      agentphone: ['', Validators.required, [this.customValidator.validateMobileNotTaken.bind(this.customValidator)]],
+      agentphone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")], [this.customValidator.validateMobileNotTaken.bind(this.customValidator)]],
       pincode: ['', [Validators.required, Validators.minLength(6)]]
     });
     //cache part

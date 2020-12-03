@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AgenterrorComponent } from './agentpos/agent-error.component';
 
 import { AgentconfirmComponent } from './agentpos/agentconfirm.component';
 import { AgentkycComponent } from './agentpos/agentkyc.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'agentpos',loadChildren : agentposModule }, 
     { path: 'agentkyc',component : AgentkycComponent },
     { path: 'agentconfirm',component : AgentconfirmComponent },
+    {path: 'agent-process-error' , component : AgenterrorComponent},
     { path: 'agent', loadChildren : agentModule },
     { path: 'motor-insurance', loadChildren : motorModule },
     // otherwise redirect to home

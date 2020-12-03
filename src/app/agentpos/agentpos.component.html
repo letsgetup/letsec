@@ -18,8 +18,9 @@
                     [ngClass]="{ 'is-invalid': submitted && f.agentphone.errors }" />
                 <div *ngIf="submitted && f.agentphone.errors" class="invalid-feedback">
                     <div *ngIf="f.agentphone.errors.required">Phone Number is required</div>
-                    <div *ngIf="f.agentphone.hasError('mobileTaken')"> This Phone is already used </div>
-                </div>
+                    <div *ngIf="f.agentphone.errors.pattern"> Enter 10 digit Mobile Number </div>
+                    
+                 </div>
             </div>
             <div class="form-group">
                 <label for="pincode" class="font-weight-bold">Pincode</label>

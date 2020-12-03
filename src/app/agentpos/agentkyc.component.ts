@@ -40,9 +40,9 @@ export class AgentkycComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.posKycForm = this.formBuilder.group({
       gender: ['', Validators.required],
-      firstName: ['', Validators.required],
-      middleName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(3) , Validators.maxLength(15), Validators.pattern('^[a-zA-Z ]*$')]],
+      middleName: ['', [Validators.required, Validators.minLength(3) , Validators.maxLength(15), Validators.pattern('^[a-zA-Z ]*$')]],
+      lastName: ['', [Validators.required, Validators.minLength(3) , Validators.maxLength(15) ,Validators.pattern('^[a-zA-Z ]*$')]],
       // validates date format yyyy-mm-dd
       dob: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
       mobile: ['', Validators.required],
@@ -52,9 +52,9 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       confirmPassword: ['', Validators.required],
       qualification: ['', Validators.required],
       pancard: ['',[ Validators.required, Validators.pattern(/^[A-Za-z]{5}[0-9]{4}[A-Za-z]$/)]],
-      address1: ['', Validators.required],
-      address2: ['', Validators.required],
-      address3: ['', Validators.required],
+      address1: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
+      address2: ['', [Validators.required, Validators.minLength(5) , Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
+      address3: ['', [Validators.required, Validators.minLength(5)],  Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')],
       state: ['', Validators.required],
       city: ['', Validators.required],
       pincode: ['', Validators.required],
@@ -158,15 +158,16 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log("Next")
+          sessionStorage.setItem('agentConfim_flg', "DONE");
+          this.router.navigate(["../agentconfirm"]);
         },
         error: error => {
-          this.alertService.error(error);
+          this.alertService.error("We found bad request.Please contact sysadmin.");
           this.loading = false;
+          this.router.navigate(["../agent-process-error"])
         }
       });
-    sessionStorage.setItem('agentConfim_flg', "DONE");
-    this.router.navigate(["../agentconfirm"]);
+  
    
   }
 
