@@ -31,8 +31,7 @@ import { BookingComponent } from './dashboard/booking/booking.component';
     ReactiveFormsModule,
     AgentRoutingModule,
     NgbModule,
-    SharedModule    
-    
+    SharedModule
   ]
 })
 export class AgentModule { }

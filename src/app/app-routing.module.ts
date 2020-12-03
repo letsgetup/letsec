@@ -11,6 +11,7 @@ import { AuthGuard } from './_helpers';
 //const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
 const agentposModule = () => import('./agentpos/agentpos.module').then(x => x.AgentposModule);
 const agentModule = () => import('./agent/agent.module').then(x => x.AgentModule);
+const motorModule = () => import('./motor/motor.module').then(x => x.MotorModule);
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'agentkyc',component : AgentkycComponent },
     { path: 'agentconfirm',component : AgentconfirmComponent },
     { path: 'agent', loadChildren : agentModule },
+    { path: 'motor-insurance', loadChildren : motorModule },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
     

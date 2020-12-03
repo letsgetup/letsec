@@ -1,0 +1,284 @@
+<div class="container px-0">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-2 bg-white pb-0 small">
+            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Motor Insurance</li>
+            <li class="breadcrumb-item active" aria-current="page">Car Insurance</li>
+        </ol>
+    </nav>
+</div>
+<div class="my-3">
+
+    <div class="container bg-light border rounded shadow">
+
+        <div class="row">
+            <div class="col-md-4 py-5 text-center">
+                <h2 class="c-heading">Car Insurance<span class="text-line-right"></span></h2>
+                <img src="../assets/images/car.png" width="298" height="186">
+            </div>
+            <div class="col-md-8 py-5">
+                <div id="form-viewPlans">
+                    <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2>
+                    <div class="d-flex justify-content-center car-form">
+                        <input type="text" class="form-control form-control-lg w-50 rounded-left carNo"
+                            placeholder="Enter your Car Number" />
+                        <button class="btn btn-danger btn-lg rounded-right viewplans" id="btn-viewplans">View
+                            Plans</button>
+                    </div>
+                    <small class="form-text text-red text-center d-none">Please enter correct car number</small>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="btn btn-secondary mr-3">Proceed without Car Number</button>
+                        <button class="btn btn-secondary">Click here for Brand New Car?</button>
+                    </div>
+                </div>
+                <div id="rto-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select the State & City </h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search your City" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select City</option>
+                            <option>Adilabad</option>
+                            <option>Agra</option>
+                            <option>Ahmedabad</option>
+                            <option>Ahmednagar</option>
+                            <option>Aizawl</option>
+                            <option>Ajitgarh (Mohali)</option>
+                            <option>Ajmer</option>
+                            <option>Akola</option>
+                            <option>Alappuzha</option>
+                            <option>Aligarh</option>
+                            <option>Alirajpur</option>
+                            <option>Allahabad</option>
+                            <option>Almora</option>
+                            <option>Alwar</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select RTO No</option>
+                            <option>DL 01</option>
+                            <option>DL 02</option>
+                            <option>DL 03</option>
+                            <option>DL 04</option>
+                            <option>DL 05</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="state-section">Continue</button>
+                    </div>
+                </div>
+                <div id="cars-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select Car</h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search Car" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select Car Make</option>
+                            <option class="vehicle-search" value="1">BMW</option>
+                            <option class="vehicle-search" value="2">Daewoo</option>
+                            <option class="vehicle-search" value="3">Ford</option>
+                            <option class="vehicle-search" value="4">Holden</option>
+                            <option class="vehicle-search" value="5">Honda</option>
+                            <option class="vehicle-search" value="6">Hyundai</option>
+                            <option class="vehicle-search" value="7">Isuzu</option>
+                            <option class="vehicle-search" value="8">Kia</option>
+                            <option class="vehicle-search" value="9">Lexus</option>
+                            <option class="vehicle-search" value="10">Mazda</option>
+                            <option class="vehicle-search" value="11">Mitsubishi</option>
+                            <option class="vehicle-search" value="12">Nissan</option>
+                            <option class="vehicle-search" value="13">Peugeot</option>
+                            <option class="vehicle-search" value="14">Subaru</option>
+                            <option class="vehicle-search" value="15">Suzuki</option>
+                            <option class="vehicle-search" value="16">Toyota</option>
+                            <option class="vehicle-search" value="17">Volkswagen</option>
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select Car Model</option>
+                            <option>ALTO</option>
+                            <option>ALTO 800</option>
+                            <option>ALTO K10</option>
+                            <option>BALENO</option>
+                            <option>CELERIO</option>
+                            <option>CIAZ</option>
+                            <option>DZIRE</option>
+                            <option>EECO</option>
+                            <option>ERTIGA</option>
+                            <option>IGNIS</option>
+                            <option>RITZ</option>
+                            <option>S CROSS</option>
+                            <option>S-Presso</option>
+                            <option>SWIFT</option>
+                            <option>SWIFT (2018)</option>
+                            <option>SWIFT DZIRE</option>
+                            <option>Vitara Brezza</option>
+                            <option>WAGON R</option>
+                            <option>XL6</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select Fuel version</option>
+                            <option>Desiel</option>
+                            <option>DPetrol</option>
+                            <option>CNG</option>
+                            <option>Electric</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="cars-btn-section">Continue</button>
+                    </div>
+                </div>
+                <div id="user-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
+                    <div class="col-md-9  mx-auto">
+
+                        <input type="text" class="form-control" placeholder="Enter your Full Name" />
+                        <input type="email" class="form-control my-3" placeholder="Email Id" />
+                        <input type="text" class="form-control" placeholder="Mobile Number" />
+
+
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h2 class="c-heading">Car Insurance</h2>
+        <p>
+            Car Insurance is a type of vehicle insurance policy that protects your car & car owner from any risks &
+            damages that may lead to financial losses. Car Insurance Policy is a contract between the motor vehicle
+            company & a car owner that provides on-road protection against any loss or damages arising due to an
+            accident. A car insurance policy provides financial coverage to the beneficiary of the car policy against
+            any loss or damages arising out of road accidents, third party liabilities, theft, man made calamities, fire
+            or natural disaster.
+        </p>
+        <h2 class="c-heading">Why Should You Buy Car Insurance Policy?</h2>
+        <p>Buying a four wheeler insurance policy is mandatory in India for all cars as per the Motor Vehicle Act 1988.
+            Vehicle insurance companies compensate for the loss or damage caused to the insured vehicle and a
+            third-party from the insured four-wheeler. Here are some of the reasons to buy a new car insurance policy in
+            India:</p>
+        <ul>
+            <li>It pays for the car damages as a result of a collision, accident, death or natural calamities, which
+                otherwise would need to be paid by the insured</li>
+            <li>It pays for hospitalization expenses in case of an accident</li>
+            <li>It reduces the financial and legal damages that can arise from a third-party liability or damage</li>
+            <li>With rider benefits like roadside assistance, zero depreciation the expenses are further reduced</li>
+        </ul>
+        <h2 class="c-heading">Types of Car Insurance Policy in India</h2>
+        <p>There are three types of car insurance policies that are available in India –</p>
+        <ul>
+            <li>
+                <h5 class="text-seconday">Comprehensive Car Insurance</h5>
+                <p>A comprehensive insurance policy provides coverage for third party liability as well as damages
+                    caused to your own car. In comparison with third party liability insurance, a comprehensive four
+                    wheeler insurance policy offers extensive coverage, more benefits and covers the damages caused to
+                    the insured car in case of an accident, collision, theft, etc.</p>
+                <p>A comprehensive policy can be further extended by opting for add-ons like accessories cover, engine
+                    protector, zero depreciation cover, medical expenses, etc. This type of coverage is the most popular
+                    as it offers end-to-end coverage and thus less stress for the policyholder.</p>
+            </li>
+            <li>
+                <h5 class="text-seconday">Third Party Car Insurance</h5>
+                <p>Third party insurance safeguards you from any legal liability due to your own car’s involvement in an
+                    accident. Your insurance provider will compensate you for death, disability, injury, or property
+                    damage to any third-party. Therefore, you are protected from the financial liability towards the
+                    third-party.</p>
+                <p>Third-party liability car insurance prices are a mandate in India under the Motor Vehicles Act, 1988.
+                </p>
+            </li>
+            <li>
+                <h5 class="text-seconday">Pay as You Drive Insurance</h5>
+                <p>Also known as usage-based motor insurance, this insurance policy allows the insured to pay the
+                    insurance premiums as per the kilometres driven. This newly introduced product likely to be helpful
+                    for those with multiple cars not all of which are used so frequently. As per the IRDA guidelines
+                    under the Sandbox project, a few insurers such as Bharti AXA, Bajaj Allianz have started offering
+                    Pay As You Drive insurance policy. The policy offers comprehensive coverage for own damage and
+                    third-party liability on a pilot basis for a term of one year. The policy seeker will have to
+                    declare the distance he/she expects to travel during a policy year and based on that premiums for
+                    Pay As You Drive policy will be decided. However, the insurers have come up with 3 slabs for
+                    distance covered -Rs 2,500 km, 5,000 km and 7,500 km.</p>
+            </li>
+        </ul>
+        <img src="../assets/images/car-inside-banner.png" width="750" height="150" alt="Car" class="border my-3">
+        <h2 class="c-heading">Benefits of Car Insurance Policy</h2>
+        <p>
+            It is not only because of the law but for the benefit of your vehicle, it is good to get it insured. Whether
+            you purchase a new car or old second-hand vehicle, its insurance is needed always. A third-party insurance
+            policy provides protection against liabilities (legal and financial) towards a third-party.
+        </p>
+        <p>
+            However, you can buy a comprehensive cover as well that not only provides third-party coverage but protects
+            your vehicle against damage or loss. Here are a few benefits of having a four wheeler insurance policy:
+        </p>
+        <ul class="line-list">
+            <li><strong>Personal Accident Cover</strong>: A comprehensive car policy not only provides third-party cover
+                but as well as offers cover against personal accident. In personal accident cover, you get a pre-defined
+                amount against death because of the accident and permanent total disability. In addition to this, one
+                can purchase this cover for co-passengers as well even on an unnamed basis, which will be maximum as per
+                the seating capacity of the vehicle. However, the amount of coverage is pre-determined even in this
+                case.</li>
+            <li><strong>Loss or Damage of the Insured Vehicle</strong>: A comprehensive car policy provides coverage
+                against damage or loss to your car. Reasons for damage like fire, accident, or self-ignition are covered
+                in this plan. In addition to this, if the car faces losses because of theft, burglary, terrorism, riots,
+                then also an insurance policy covers it. Moreover, it also covers loss or damage occurred due to transit
+                via train, air, road, inland waterways, or lift.</li>
+            <li><strong>Vast Network of Garages</strong>: Most of the motor insurance providers have a wide range of
+                network garages that are spread across the country. This feature ensures that you can get the service of
+                your car anywhere in India.</li>
+            <li><strong>No Claim Bonus</strong>: One of the best benefits of having a car insurance policy is its No
+                Claim Bonus (NCB) feature. You are eligible to avail of this offer for each claim-free year. The NCB is
+                available as a discount on the next premium and this makes 4 wheeler insurance policy comparatively more
+                affordable.</li>
+            <li><strong>Liabilities of Third-Party</strong>: If your car meets with an accident and causes loss or
+                damage to the property of a third-party, then do not worry as it is covered under four wheeler insurance
+                policy. Moreover, if you come across any legal liabilities because of an accident by your car like death
+                or injury to any person or property, then do not worry, your car policy provides you coverage for the
+                same.</li>
+        </ul>
+    </div>
+</div>

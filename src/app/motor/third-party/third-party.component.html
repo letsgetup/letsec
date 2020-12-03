@@ -1,0 +1,247 @@
+<div class="container px-0">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-2 bg-white pb-0 small">
+            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Motor Insurance</li>
+            <li class="breadcrumb-item active" aria-current="page">Third Party Insurance</li>
+        </ol>
+    </nav>
+</div>
+<div class="my-3">
+
+    <div class="container bg-light border rounded shadow">
+
+        <div class="row">
+            <div class="col-md-4 py-5 text-center">
+                <h2 class="c-heading">Third Party Insurance<span class="text-line-right"></span></h2>
+                <img src="../assets/images/car.png" width="298" height="186">
+            </div>
+            <div class="col-md-8 py-5">
+                <div id="form-viewPlans">
+                    <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2>
+                    <div class="d-flex justify-content-center car-form">
+                        <input type="text" class="form-control form-control-lg w-50 rounded-left carNo"
+                            placeholder="Enter your Car Number" />
+                        <button class="btn btn-danger btn-lg rounded-right viewplans" id="btn-viewplans">View
+                            Plans</button>
+                    </div>
+                    <small class="form-text text-red text-center d-none">Please enter correct car number</small>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="btn btn-secondary mr-3">Proceed without Car Number</button>
+                        <button class="btn btn-secondary">Click here for Brand New Car?</button>
+                    </div>
+                </div>
+                <div id="rto-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select the State & City </h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search your City" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../assets/images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select City</option>
+                            <option>Adilabad</option>
+                            <option>Agra</option>
+                            <option>Ahmedabad</option>
+                            <option>Ahmednagar</option>
+                            <option>Aizawl</option>
+                            <option>Ajitgarh (Mohali)</option>
+                            <option>Ajmer</option>
+                            <option>Akola</option>
+                            <option>Alappuzha</option>
+                            <option>Aligarh</option>
+                            <option>Alirajpur</option>
+                            <option>Allahabad</option>
+                            <option>Almora</option>
+                            <option>Alwar</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select RTO No</option>
+                            <option>DL 01</option>
+                            <option>DL 02</option>
+                            <option>DL 03</option>
+                            <option>DL 04</option>
+                            <option>DL 05</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="state-section">Continue</button>
+                    </div>
+                </div>
+                <div id="cars-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select Car</h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search Car" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select Car Make</option>
+                            <option class="vehicle-search" value="1">BMW</option>
+                            <option class="vehicle-search" value="2">Daewoo</option>
+                            <option class="vehicle-search" value="3">Ford</option>
+                            <option class="vehicle-search" value="4">Holden</option>
+                            <option class="vehicle-search" value="5">Honda</option>
+                            <option class="vehicle-search" value="6">Hyundai</option>
+                            <option class="vehicle-search" value="7">Isuzu</option>
+                            <option class="vehicle-search" value="8">Kia</option>
+                            <option class="vehicle-search" value="9">Lexus</option>
+                            <option class="vehicle-search" value="10">Mazda</option>
+                            <option class="vehicle-search" value="11">Mitsubishi</option>
+                            <option class="vehicle-search" value="12">Nissan</option>
+                            <option class="vehicle-search" value="13">Peugeot</option>
+                            <option class="vehicle-search" value="14">Subaru</option>
+                            <option class="vehicle-search" value="15">Suzuki</option>
+                            <option class="vehicle-search" value="16">Toyota</option>
+                            <option class="vehicle-search" value="17">Volkswagen</option>
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select Car Model</option>
+                            <option>ALTO</option>
+                            <option>ALTO 800</option>
+                            <option>ALTO K10</option>
+                            <option>BALENO</option>
+                            <option>CELERIO</option>
+                            <option>CIAZ</option>
+                            <option>DZIRE</option>
+                            <option>EECO</option>
+                            <option>ERTIGA</option>
+                            <option>IGNIS</option>
+                            <option>RITZ</option>
+                            <option>S CROSS</option>
+                            <option>S-Presso</option>
+                            <option>SWIFT</option>
+                            <option>SWIFT (2018)</option>
+                            <option>SWIFT DZIRE</option>
+                            <option>Vitara Brezza</option>
+                            <option>WAGON R</option>
+                            <option>XL6</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select Fuel version</option>
+                            <option>Desiel</option>
+                            <option>DPetrol</option>
+                            <option>CNG</option>
+                            <option>Electric</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="cars-btn-section">Continue</button>
+                    </div>
+                </div>
+                <div id="user-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
+                    <div class="col-md-9  mx-auto">
+
+                        <input type="text" class="form-control" placeholder="Enter your Full Name" />
+                        <input type="email" class="form-control my-3" placeholder="Email Id" />
+                        <input type="text" class="form-control" placeholder="Mobile Number" />
+
+
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h2 class="c-heading">Third Party Insurance</h2>
+        <p>
+            Third-party insurance also referred to as liability insurance essentially provides financial coverage to an
+            insured person against any liability incurred in case of any loss/damage caused to third-party property or
+            the person.</p>
+        <p>
+            Under motor laws of India, third party insurance is compulsory. The policy is termed as a 'third-party'
+            cover as the beneficiary of the car policy is a third party, who is not a part of the insurance contract.
+            Hence, the policy doesn’t extend policy coverage to the insured. As per the contract between the two
+            parties, the insurance company pays for the liability arises. It covers any legal liability of policyholder
+            for causing accidental death/ bodily injury or property damage to a third party, As mentioned above, third
+            party car insurance online does not cover any loss or damages to the insured car due to theft, accident,
+            etc.
+        </p>
+        <h2 class="c-heading">What is Third Party Insurance?</h2>
+        <p>Third party insurance is a type of insurance policy that covers only third party liabilities of the insured.
+            It provides financial protection against damages caused to a third party property, vehicle and physical
+            injuries to third parties. Also known as the act-only insurance’, the beneficiary under this insurance is a
+            third party and not the policyholder (first party) or the insurance company (second party).</p>
+
+        <h2 class="c-heading">Why Do You Need Third Party Insurance?</h2>
+        <p>TBesides the legal clause, Third Party Insurance comes in handy when your vehicle hits another vehicle. You
+            can’t measure the level of damage caused by an accident - it might lead to death as well. In such instances,
+            the victim is allowed to register a case claiming for compensation. Here third party insurance comes into
+            the picture. It covers the insured vehicle in case any liability claim arises out of bodily injury, property
+            damage, or death of the third party. As per the guidelines of IRDA, while there is no limit in case of
+            death, the property damage cover is limited up to Rs. 7.5 lakh in case of </p>
+
+        <img src="../images/3rd-inside-banner.png" width="750" height="150" alt="Car" class="border my-3">
+        <h2 class="c-heading">How does Third Party Insurance Works?</h2>
+        <p>
+            As stated earlier, Third Party Insurance is liability insurance that works towards easing out the legal
+            liabilities of the first party for causing damages to the third party. The first party refers to the insured
+            who is responsible for the losses/ damages caused to the third party, who is the person filing liability
+            claims against the insured. The second party or the insurance company aids the financial burden of the
+            insured by paying the legal liabilities towards the third party.
+        </p>
+        <p>Insurance companies cover two kinds of motor Third Party Insurance claims – bodily injury liability and
+            property damage liability.</p>
+        <p>Third party bodily injury liability claim arises out of the insured causing physical injuries to another
+            person with his vehicle. Such claims provide coverage for hospitalization expenses, pain & suffering, loss
+            of income as well as death or permanent disability as a result of the accident.</p>
+        <p>Third party property damage liability claim covers the property damage or complete loss of property caused by
+            the insured vehicle. It includes claims related to damaged landscapes, such as a ruined fence, front lawn,
+            etc. damaged property such as mailboxes, the fence gates, etc. as well as replacement of loss of structures,
+            such as shops.</p>
+        <h2 class="c-heading">Features of Third-Party Car Insurance:</h2>
+        <p>The following is taken care of by the standard third party car insurance in case of the accident caused by
+            your vehicle results in:</p>
+        <ul class="line-list">
+            <li>Death or bodily injury to a third party</li>
+            <li>Damage to third party property</li>
+            <li>Compulsory personal accidental cover for owner/driver up to Rs. 15 lakh (only in case the personal
+                accident component is included in the policy)</li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,243 @@
+<div class="container px-0">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-2 bg-white pb-0 small">
+            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+            <li class="breadcrumb-item active">Motor Insurance</li>
+            <li class="breadcrumb-item active" aria-current="page">Two Wheeler Insurance</li>
+        </ol>
+    </nav>
+</div>
+<div class="my-3">
+    <div class="container bg-light border rounded shadow">
+        <div class="row">
+            <div class="col-md-4 py-5 text-center">
+                <h2 class="c-heading">2 Wheeler Insurance<span class="text-line-right"></span></h2>
+                <img src="../assets/images/bike.png" width="298" height="186">
+            </div>
+            <div class="col-md-8 py-5">
+                <div id="form-viewPlans">
+                    <h2 class="font-weight-light text-center mb-5">Save upto 70%* on your Two Wheeler Insurance</h2>
+                    <div class="d-flex justify-content-center car-form">
+                        <input type="text" class="form-control form-control-lg w-50 rounded-left carNo"
+                            placeholder="Enter your Bike Number" />
+                        <button class="btn btn-danger btn-lg rounded-right viewplans" id="btn-viewplans">View
+                            Plans</button>
+                    </div>
+                    <small class="form-text text-red text-center d-none">Please enter correct Bike number</small>
+                    <div class="d-flex justify-content-center my-4">
+                        <button class="btn btn-secondary mr-3">Proceed without Bike Number</button>
+                        <button class="btn btn-secondary">Click here for Brand New Bike</button>
+                    </div>
+                </div>
+                <div id="rto-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select the State & City </h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search your City" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                            <option value="Assam">Assam</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chandigarh">Chandigarh</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                            <option value="Daman and Diu">Daman and Diu</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Lakshadweep">Lakshadweep</option>
+                            <option value="Puducherry">Puducherry</option>
+                            <option value="Goa">Goa</option>
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Himachal Pradesh">Himachal Pradesh</option>
+                            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="Madhya Pradesh">Madhya Pradesh</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Manipur">Manipur</option>
+                            <option value="Meghalaya">Meghalaya</option>
+                            <option value="Mizoram">Mizoram</option>
+                            <option value="Nagaland">Nagaland</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Rajasthan">Rajasthan</option>
+                            <option value="Sikkim">Sikkim</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tripura">Tripura</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                            <option value="Uttarakhand">Uttarakhand</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select City</option>
+                            <option>Adilabad</option>
+                            <option>Agra</option>
+                            <option>Ahmedabad</option>
+                            <option>Ahmednagar</option>
+                            <option>Aizawl</option>
+                            <option>Ajitgarh (Mohali)</option>
+                            <option>Ajmer</option>
+                            <option>Akola</option>
+                            <option>Alappuzha</option>
+                            <option>Aligarh</option>
+                            <option>Alirajpur</option>
+                            <option>Allahabad</option>
+                            <option>Almora</option>
+                            <option>Alwar</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select RTO No</option>
+                            <option>DL 01</option>
+                            <option>DL 02</option>
+                            <option>DL 03</option>
+                            <option>DL 04</option>
+                            <option>DL 05</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="state-section">Continue</button>
+                    </div>
+                </div>
+                <div id="cars-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please select Bike</h2>
+                    <div class="col-md-9  mx-auto">
+                        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                            <input tye="text" class="form-control form-control-lg " Placeholder="Search Bike" />
+                            <div class="input-group-append"> <span class="input-group-text">
+                                    <button class="btn btn-link py-0"><img src="../images/search.png"
+                                            width="28" /></button>
+                                </span> </div>
+                        </div>
+                        <select name="state" id="state" class="form-control mx-auto">
+                            <option selected>Select Bike Make</option>
+                            <option class="vehicle-search" value="1">Bajaj</option>
+                            <option class="vehicle-search" value="2">Honda</option>
+                            <option class="vehicle-search" value="3">Hero Honda</option>
+                            <option class="vehicle-search" value="4">TVS</option>
+                            <option class="vehicle-search" value="5">Yamaha</option>
+                            <option class="vehicle-search" value="6">Royal Enfield</option>
+
+                        </select>
+                        <select class="form-control mx-auto my-4">
+                            <option selected>Select Bike Model</option>
+                            <option>Activa</option>
+                            <option>CB Shine</option>
+                            <option>CB Unicon K10</option>
+
+                        </select>
+                        <select class="rto-number form-control mx-auto my-4">
+                            <option selected>Select Activa Variant version</option>
+                            <option>3G (110 CC)</option>
+                            <option>4G (110 CC)</option>
+                            <option>5G (110 CC)</option>
+                            <option>6G (110 CC)</option>
+                        </select>
+                        <select class="rto-number form-control mx-auto">
+                            <option selected>Select Registration Year</option>
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                            <option>2017</option>
+                        </select>
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto"
+                            id="cars-btn-section">Continue</button>
+                    </div>
+                </div>
+                <div id="user-section" style="display:none">
+                    <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
+                    <div class="col-md-9  mx-auto">
+
+                        <input type="text" class="form-control" placeholder="Enter your Full Name" />
+                        <input type="email" class="form-control my-3" placeholder="Email Id" />
+                        <input type="text" class="form-control" placeholder="Mobile Number" />
+
+
+                        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="c-heading">Two Wheeler Insurance</h2>
+    <p>Two wheeler insurance/Bike Insurance refers to an insurance policy, taken to cover against any damages that may
+        occur to your motorcycle / two wheeler due to an accident, theft, or natural disaster. 2 wheeler insurance
+        provides protection against third party liabilities arising from injuries to one or more individuals. Bike
+        insurance is an ideal solution to meet financial costs & losses that may arise due to the damages caused to the
+        motorcycle. The bike insurance cover provides protection to all types of two wheelers like motorcycle, moped,
+        scooty, scooter.</p>
+    <h2 class="c-heading">What is Bike Insurance?</h2>
+    <p>Bike insurance policy is a contract between the insurer & the bike owner in which the insurance company provides
+        financial coverage to your bike against any loss or damages due to an accident. As per the Motor Vehicle Act
+        1988, third party bike insurance is mandatory in India. Bike insurance covers you from any accidental injuries
+        caused while driving a two wheeler / motorbike on Indian roads. Buy or renew two wheeler insurance online upto 3
+        years within 30 seconds to avoid paying a fine of Rs. 2,000.</p>
+    <h2 class="c-heading">Types of Bike Insurance Plans in India</h2>
+    <p>Broadly, there are generally two types of two wheeler insurance policies offered by insurance companies in India.
+        You can buy Third Party bike insurance and Comprehensive bike insurance. See below for more information:</p>
+    <ul>
+        <li>
+            <h5 class="text-seconday">Third Party Bike Insurance</h5>
+            <p>As the name suggests, a third party bike insurance that safeguards the rider against all the legal
+                obligations that arise out of causing damage to the third party. The third party, here, can be property
+                or person. Third-party bike insurance covers you against any liabilities that you’ve landed upon
+                yourself for causing accidental damages to someone else’s property or vehicle. It also covers your
+                liabilities towards causing accidental injuries to a third party person, including his death.</p>
+            <p>Indian Motor Vehicle Act, 1988 mandates anyone who owns a two wheeler, be it motorcycle or scooter, to
+                have valid third party bike insurance if plying on public roads in the country. Those who do not comply
+                with the rule will be liable to pay huge penalties.</p>
+        </li>
+        <li>
+            <h5 class="text-seconday">Comprehensive Bike Insurance</h5>
+            <p>Comprehensive bike insurance that protects the rider against any own damage to his vehicle in addition to
+                the third party legal liabilities. It shields your bike from incidents of fire, natural calamities,
+                theft, accidents, man-made disasters and related adversities. It also provides you with personal
+                accident cover in case you sustain any accidental injuries while riding your bike.</p>
+        </li>
+    </ul>
+    <img src="../assets/images/bike-inside-banner.png" width="750" height="150" alt="Bike" class="border my-3">
+    <h2 class="c-heading">Benefits of Two Wheeler Insurance</h2>
+    <p>Anything can happen while riding a two wheeler / motorcycle, scooter, or moped. The lack of good roads, the
+        morning and evening rush hours and unregulated traffic problems are a part of life today. Moreover, instances of
+        rainfall or heat waves may cause many problems on the road, such as slippery surfaces, mushy or muddy areas, or
+        sticky tar. These situations may cause damages to the two wheeler vehicle and even injure the riders. To stay
+        protected from all such incidents, it is important to have a valid two wheeler insurance. The motor protection
+        laws in India protect millions of bike owners from expenses that may arise due to third-party damages by making
+        third party bike insurance cover mandatory.</p>
+    <p>Let’s take a detailed look at the various benefits of buying two wheeler insurance:</p>
+    <ul class="line-list">
+        <li><strong>Financial Protection:</strong> Two wheeler insurance provides financial cover that helps save a lot
+            of money in case of an accident, theft or third-party liabilities. Even small damage can cost thousands of
+            rupees. This bike insurance policy helps you get the damages repaired without creating a hole in your
+            pocket.</li>
+        <li><strong>Accidental Injuries:</strong> Not only does the policy cover damages sustained by of your vehicle in
+            an accident but also covers any accidental injuries that you may have suffered.</li>
+        <li><strong>All Types of Two Wheelers:</strong> It protects against the damages caused to the scooter,
+            motorcycle, or moped. Even the vehicles have been improvised and are available with features like better
+            mileage, power, and style.</li>
+        <li><strong>Cost of Spare Parts:</strong> The rising demand for motorcycles in India has led to the rise in its
+            cost along with the increased cost of their spare parts. This two wheeler policy covers the cost of spare
+            parts, including simple nuts and bolts or parts such as the gears or the brake pads, which have become
+            costlier than before.</li>
+        <li><strong>Roadside Assistance:</strong> At the time of policy purchase, you can opt for roadside assistance
+            that will come to your aid in case you need assistance on the road. This includes services such as towing,
+            minor repairs, flat tyre, etc.</li>
+        <li><strong>Peace of Mind:</strong> Any damage to your vehicle can lead to huge repair charges. If you have two
+            wheeler insurance, your insurer will take care of the unwanted expenses, giving you peace of mind so that
+            you can ride without any cause for worry.</li>
+    </ul>
+
+
+
+</div>

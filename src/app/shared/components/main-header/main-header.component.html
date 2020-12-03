@@ -4,11 +4,11 @@
             <ul class="list-inline top-list-items mb-0">
                 <li class="text-muted">Sales : 1800-123-4567</li>
                 <li><a href="#" class="text-muted">Contact Us</a> </li>
-                
+
                 <li><a routerLink="/agentpos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                         class="text-muted">POS Agent</a></li>
-                        <li><a routerLink="/agent/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                            class="text-muted">Agent Login</a></li>
+                <li><a routerLink="/agent/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        class="text-muted">Agent Login</a></li>
             </ul>
         </div>
         <div class="bg-light">
@@ -22,27 +22,24 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle text-body"
                                     data-toggle="dropdown">Health Insurance</a>
-                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> <a href="#"
-                                        class="dropdown-item">Individual</a> <a href="#" class="dropdown-item">Family
-                                        Floater Insurance</a> <a href="#" class="dropdown-item">Corona viruse
-                                        Special</a> </div>
+                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> 
+                                    <a routerLinkActive="active" 
+                                        *ngFor="let healthMenuItem of healthMenuItems"
+                                        [routerLink]="[healthMenuItem.path]" class="dropdown-item {{healthMenuItem.class}}">
+                                        {{healthMenuItem.title}}</a>
+                                </div>
                             </li>
-                            <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle text-body"
+                            <li class="nav-item dropdown"> 
+                                    <a href="#" class="nav-link dropdown-toggle text-body"
                                     data-toggle="dropdown">Motor Insurance</a>
-                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> <a href="#"
-                                        class="dropdown-item">Car Insurance</a> <a href="#" class="dropdown-item">Two
-                                        wheeler Insurance</a> <a href="#" class="dropdown-item">Commercial Vehical
-                                        Insurance</a> <a href="#" class="dropdown-item">Taxi Insurance</a> <a href="#"
-                                        class="dropdown-item">Third Party Insurance</a> <a href="#"
-                                        class="dropdown-item">Used Car Insurance</a> <a href="#"
-                                        class="dropdown-item">Pay as you Drive Insurance</a> <a href="#"
-                                        class="dropdown-item">Third Party Bike Insurance</a> <a href="#"
-                                        class="dropdown-item">Car Insurance Calculator</a> <a href="#"
-                                        class="dropdown-item">Two wheeler Insurance Calculator</a> <a href="#"
-                                        class="dropdown-item">Car Insurance Claim</a> <a href="#"
-                                        class="dropdown-item">Motor Floater Insurance</a> </div>
+                                <div class="dropdown-menu dropdown-menu-right shadow-lg">
+                                    <a routerLinkActive="active" 
+                                        *ngFor="let motorMenuItem of motorMenuItems"
+                                        [routerLink]="[motorMenuItem.path]" class="dropdown-item {{motorMenuItem.class}}">
+                                        {{motorMenuItem.title}}</a>
+                                </div>
                             </li>
-                            
+
 
                             <li><a href="#" class="nav-link text-body pr-0">myAccount</a></li>
                         </ul>

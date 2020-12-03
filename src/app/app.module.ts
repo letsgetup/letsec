@@ -13,11 +13,9 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 ;
-import { AgentModule } from './agent/agent.module'
-;
+
 import { SharedModule } from './shared/shared.module';
-
-
+import { MotorModule } from './motor/motor.module';
 
 @NgModule({
     imports: [
@@ -27,12 +25,15 @@ import { SharedModule } from './shared/shared.module';
         AppRoutingModule,
         NgbModule,
         SharedModule
+,
+        MotorModule
       
     ],
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent 
+        HomeComponent
+     
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
