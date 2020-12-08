@@ -41,6 +41,13 @@ export class AgentService {
       }));
   }
 
+  addAgentLeade(agentLead: FormData) {
+    return this.http.post<any>(`${environment.apiUrl}/agent/addagentLead`, agentLead ).pipe(
+      map((res) => {
+        return res;
+      }));
+     
+  }
 
   login(agentLogin: FormData) {
 
