@@ -21,7 +21,7 @@ const routes: Routes = [
     { path: 'agentpos',loadChildren : agentposModule }, 
     { path: 'agentkyc',component : AgentkycComponent },
     { path: 'agentconfirm',component : AgentconfirmComponent },
-    {path: 'agent-process-error' , component : AgenterrorComponent},
+    { path: 'agent-process-error' , component : AgenterrorComponent},
     { path: 'agent', loadChildren : agentModule },
     { path: 'motor-insurance', loadChildren : motorModule },
     // otherwise redirect to home

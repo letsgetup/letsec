@@ -52,7 +52,7 @@ export class AgentposComponent implements OnInit, OnDestroy {
     formatter = (x: {Pincode: string}) => x.Pincode  
     onkeyPressval(term:string) {
         this.agentposService.getAllPincode(term).subscribe(pincodeData => {
-          console.log(pincodeData)
+          console.log(pincodeData);
         this.pincodeDetails = pincodeData;
         this.pincodeDetails = JSON.parse(this.pincodeDetails);
        

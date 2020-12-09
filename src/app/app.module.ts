@@ -11,8 +11,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-;
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { SharedModule } from './shared/shared.module';
 import { MotorModule } from './motor/motor.module';
@@ -25,22 +24,22 @@ import { MotorModule } from './motor/motor.module';
         AppRoutingModule,
         NgbModule,
         SharedModule
-,
+        ,
         MotorModule
-      
+
     ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent
-     
+
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
         // provider used to create fake backend
-       // fakeBackendProvider
+        // fakeBackendProvider
     ],
     bootstrap: [AppComponent]
 })
