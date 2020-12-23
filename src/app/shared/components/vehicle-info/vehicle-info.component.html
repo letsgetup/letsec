@@ -1,121 +1,125 @@
-<div id="form-viewPlans">
-    <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2>
-    <div class="d-flex justify-content-center car-form">
-        <input type="text" class="form-control form-control-lg w-50 rounded-left carNo" placeholder="Enter your Car Number" />
-        <button class="btn btn-danger btn-lg rounded-right viewplans" id="btn-viewplans">View
-            Plans</button>
-    </div>
-    <small class="form-text text-red text-center d-none">Please enter correct car number</small>
-    <div class="d-flex justify-content-center my-4">
-        <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3">Proceed without Car Number</button>
-        <button id="btn-proceednewcar" class="btn btn-secondary">Click here for Brand New Car?</button>
-    </div>
-</div>
-<div id="rto-section" style="display:none">
-    <h2 class="font-weight-light text-center mb-3">Please Enter your RTO code </h2>
-    <div class="col-md-9  mx-auto">
-        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
-            <input tye="text" id="searchCity" class="form-control form-control-lg " [resultTemplate]="rt" Placeholder="ex.MH14" [inputFormatter]="formatter" (selectItem)="selectedItem($event)" (keyup)="getCityonKeyPress($event.target.value)" [(ngModel)]="model" [ngbTypeahead]="search"
-            />
-            <div class="input-group-append"> <span class="input-group-text">
-                    <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28"  ></button>
-            </span> </div>
-            <ng-template #rt let-r="result" let-t="term">
-                <ngb-highlight [result]="r.city" [term]="t"></ngb-highlight>
-            </ng-template>
+<form [formGroup]="venqForm">
+
+    <div id="form-viewPlans">
+        <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2>
+        <div class="d-flex justify-content-center car-form">
+
+            <input formControlName="carnum" autofocus [ngClass]="{ 'is-invalid': submitted && f.carnum.errors }" onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control form-control-lg w-50 rounded-left carNo" placeholder="enter Car Number ex. MH14AH5001"
+                maxlength="10" />
+            <button class="btn btn-danger btn-lg rounded-right viewplans" (click)="onRtoSubmit();" id="btn-viewplans">View
+                Plans</button>
+            <div *ngIf="submitted && f.carnum.errors " class="invalid-feedback ">
+                <div *ngIf="f.carnum.errors.pattern ">Invalid car number.</div>
+            </div>
         </div>
-        <select name="state" id="state" (change)="stateChange($event.target.value)" class="form-control mx-auto">
-            <option value="0">Select State</option>
-            <option *ngFor="let state of stateList" value={{state.id}}>
-                {{state.name}}
-            </option>
-        </select>
-        <select id="city" class="form-control mx-auto my-4" (change)="cityChange($event)">
-            <option value="0">Select City</option>
-            <option *ngFor="let cityitem of cityList" value={{cityitem.id}}>
-                {{cityitem.city}}
-            </option>
-        </select>
-        <select id="rto" class="rto-number form-control mx-auto">
-            <option value="0" selected>Select RTO</option>
-            <option *ngFor="let rtoitem of rtoList" value={{rtoitem.region_code}}>
-                {{rtoitem.region_code}}
-            </option>
-        </select>
-        <span id="errSpan" style="display: none;"><b><i>Please ensure you have selected state, city and rto.</i></b></span>
-        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="state-section" (click)="BindAllfields();">Continue</button>
-    </div>
-</div>
-<div id="cars-section" style="display:none">
-    <h2 class="font-weight-light text-center mb-3">Please select Car</h2>
-    <div class="col-md-9  mx-auto">
-        <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
-            <input tye="text" class="form-control form-control-lg " Placeholder="Search Car" />
-            <div class="input-group-append"> <span class="input-group-text">
-                    <button class="btn btn-link py-0"><img src="../images/search.png" width="28" /></button>
-                </span> </div>
+
+        <small class="form-text text-red text-center d-none">Please enter correct car number</small>
+        <div class="d-flex justify-content-center my-4">
+            <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3">Proceed without Car Number</button>
+            <button id="btn-proceednewcar" class="btn btn-secondary">Click here for Brand New Car?</button>
         </div>
-        <select name="state" id="state" class="form-control mx-auto">
-            <option selected>Select Car Make</option>
-            <option class="vehicle-search" value="1">BMW</option>
-            <option class="vehicle-search" value="2">Daewoo</option>
-            <option class="vehicle-search" value="3">Ford</option>
-            <option class="vehicle-search" value="4">Holden</option>
-            <option class="vehicle-search" value="5">Honda</option>
-            <option class="vehicle-search" value="6">Hyundai</option>
-            <option class="vehicle-search" value="7">Isuzu</option>
-            <option class="vehicle-search" value="8">Kia</option>
-            <option class="vehicle-search" value="9">Lexus</option>
-            <option class="vehicle-search" value="10">Mazda</option>
-            <option class="vehicle-search" value="11">Mitsubishi</option>
-            <option class="vehicle-search" value="12">Nissan</option>
-            <option class="vehicle-search" value="13">Peugeot</option>
-            <option class="vehicle-search" value="14">Subaru</option>
-            <option class="vehicle-search" value="15">Suzuki</option>
-            <option class="vehicle-search" value="16">Toyota</option>
-            <option class="vehicle-search" value="17">Volkswagen</option>
-        </select>
-        <select class="form-control mx-auto my-4">
-            <option selected>Select Car Model</option>
-            <option>ALTO</option>
-            <option>ALTO 800</option>
-            <option>ALTO K10</option>
-            <option>BALENO</option>
-            <option>CELERIO</option>
-            <option>CIAZ</option>
-            <option>DZIRE</option>
-            <option>EECO</option>
-            <option>ERTIGA</option>
-            <option>IGNIS</option>
-            <option>RITZ</option>
-            <option>S CROSS</option>
-            <option>S-Presso</option>
-            <option>SWIFT</option>
-            <option>SWIFT (2018)</option>
-            <option>SWIFT DZIRE</option>
-            <option>Vitara Brezza</option>
-            <option>WAGON R</option>
-            <option>XL6</option>
-        </select>
-        <select class="rto-number form-control mx-auto">
-            <option selected>Select Fuel version</option>
-            <option>Desiel</option>
-            <option>DPetrol</option>
-            <option>CNG</option>
-            <option>Electric</option>
-        </select>
-        <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="cars-btn-section">Continue</button>
     </div>
-</div>
-<div id="user-section" style="display:none">
-    <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
-    <div class="col-md-9  mx-auto">
+    <div id="rto-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please Enter your RTO code </h2>
+        <div class="col-md-9  mx-auto">
+            <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                <input tye="text" id="searchRTO" class="form-control form-control-lg " [resultTemplate]="rt" Placeholder="ex.MH14" [inputFormatter]="formatter" (selectItem)="selectedItem($event)" (keyup)="getSearchedrtos($event.target.value)" [ngbTypeahead]="search"
+                />
+                <div class="input-group-append"> <span class="input-group-text">
+                        <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28"></button>
+                    </span> </div>
+                <ng-template #rt let-r="result" let-t="term">
+                    <ngb-highlight [result]="r.region_code" [term]="t"></ngb-highlight>
+                </ng-template>
+            </div>
+            <select name="state" [(ngModel)]='stateSelect' formControlName="state" id="state" (change)="stateChange($event.target.value)" class="form-control mx-auto">
+                <option value="0">Select State</option>
+                <option *ngFor="let state of stateList" value={{state.registered_state_name}}>
+                    {{state.registered_state_name}}
+                </option>
+            </select>
+            <select id="city" [(ngModel)]='citySelect' formControlName="city" class="form-control mx-auto my-4" (change)="cityChange($event.target.value)">
+                <option value="0">Select City</option>
+                <option *ngFor="let cityitem of cityList" value={{cityitem.registered_city_name}}>
+                    {{cityitem.registered_city_name}}
+                </option>
+            </select>
+            <select id="rto" [(ngModel)]='rtoSelect' formControlName="rto" class="rto-number form-control mx-auto">
+                <option value="0" selected>Select RTO</option>
+                <option *ngFor="let rtoitem of rtoList" value={{rtoitem.region_code}}>
+                    {{rtoitem.region_code}}
+                </option>
+            </select>
 
-        <input type="text" class="form-control" placeholder="Enter your Full Name" />
-        <input type="email" class="form-control my-3" placeholder="Email Id" />
-        <input type="text" class="form-control" placeholder="Mobile Number" />
-
-
-        <button (click)="gotolisting()" class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+            <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="state-section" (click)="validateRTOfields();">Continue</button>
+            <span id="errSpan" style="display: none;"><b><i>Please ensure you have selected state, city and
+                        rto.</i></b></span>
+        </div>
     </div>
-</div>
+    <div id="cars-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please select Car</h2>
+        <div class="col-md-9  mx-auto">
+            <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                <input tye="text" class="form-control form-control-lg " Placeholder="Search Car" [resultTemplate]="rtcarmaker" [inputFormatter]="formattermaker" (selectItem)="selectedMakerItem($event)" (keyup)="getSearchedMakers($event.target.value)" [ngbTypeahead]="makersearch"
+                />
+                <div class="input-group-append"> <span class="input-group-text">
+                        <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28" /></button>
+                    </span> </div>
+                <ng-template #rtcarmaker let-r="result" let-t="maketerm">
+                    <ngb-highlight [result]="r.Make" [maketerm]="t"></ngb-highlight>
+                </ng-template>
+            </div>
+
+            <select name="maker" [(ngModel)]='makerSelect' id="maker" formControlName="maker" (change)="makerChange($event.target.value)" class="form-control mx-auto">
+                <option value="0" selected>Select Car Make</option>
+                <option *ngFor="let maker of makersList" value={{maker.Make}}>
+                    {{maker.Make}}
+                </option>
+            </select>
+            <select name="model" [(ngModel)]='modelSelect' id="model" formControlName="model" (change)="modelChange($event.target.value)" class="form-control mx-auto my-4">
+                <option value="0" selected>Select Car Model</option>
+                <option *ngFor="let model of modelList" value={{model.Model}}>
+                    {{model.Model}}
+                </option>
+            </select>
+            <select name="fueltype" [(ngModel)]='fueltypeSelect' id="fueltype" formControlName="fueltype" class="rto-number form-control mx-auto">
+                <option value="0" selected>Select Fuel version</option>
+                <option *ngFor="let ftype of fversionList" value={{ftype.Fuel_Type}}>
+                    {{ftype.Fuel_Type}}
+                </option>
+            </select>
+            <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="cars-btn-section" (click)="validateVehiclefields();">Continue</button>
+            <span id="errVehicleSpan" style="display: none;"><b><i>Please ensure you have selected Car maker, model and
+                        fuel type.</i></b></span>
+        </div>
+    </div>
+    <div id="user-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
+        <div class="col-md-9  mx-auto">
+
+            <input type="text" class="form-control" formControlName="userfullname" [ngClass]="{ 'is-invalid': submitted && f.userfullname.errors }" placeholder="Enter your Full Name" />
+            <div *ngIf="submitted && f.userfullname.errors" class="invalid-feedback">
+                <div *ngIf="f.userfullname.errors.required">Full Name is required</div>
+                <div *ngIf="f.userfullname.errors.minlength">Minimum length should be 3.</div>
+                <div *ngIf="f.userfullname.errors.pattern">Should be alphabet</div>
+            </div>
+            <input type="email" class="form-control my-3" formControlName="useremail" placeholder="Email Id" [ngClass]="{ 'is-invalid': submitted && f.useremail.errors }" />
+            <div *ngIf="submitted && f.useremail.errors" class="invalid-feedback">
+                <div *ngIf="f.useremail.errors.required">Email is required</div>
+                <div *ngIf="f.useremail.errors.email">Email must be a valid email address</div>
+            </div>
+
+            <input type="text" class="form-control" formControlName="usermobile" [ngClass]="{ 'is-invalid': submitted && f.usermobile.errors }" placeholder="Mobile Number" />
+            <div *ngIf="submitted && f.usermobile.errors" class="invalid-feedback">
+                <div *ngIf="f.usermobile.errors.required">Phone Number is required</div>
+                <div *ngIf="f.usermobile.errors.pattern"> Enter 10 digit Mobile Number </div>
+
+            </div>
+
+            <button (click)="gotolisting()" class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+        </div>
+    </div>
+
+
+
+</form>

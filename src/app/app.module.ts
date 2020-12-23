@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { MotorModule } from './motor/motor.module';
 
+import { FormsModule } from '@angular/forms';
 @NgModule({
     imports: [
         BrowserModule,
@@ -25,8 +26,9 @@ import { MotorModule } from './motor/motor.module';
         NgbModule,
         SharedModule
         ,
+        BrowserModule,
+        FormsModule,
         MotorModule
-
     ],
     declarations: [
         AppComponent,
