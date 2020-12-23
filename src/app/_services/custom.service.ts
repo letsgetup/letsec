@@ -64,6 +64,27 @@ export class CustomService {
       );
   }
 
-  
-  
+  getAllBikeMake() {
+    return this.http.get(`${environment.apiUrl}/common/getAllBikeMake`)
+    .pipe(
+    map(response => response)
+    );
+  }
+  getAllBikeModel(bikemaker : string) {
+    const params = new HttpParams()
+      .set('bikemaker', bikemaker);
+    return this.http.get(`${environment.apiUrl}/common/getAllBikeModel`, {params})
+    .pipe(
+    map(response => response)
+    );
+  }
+
+  getAllBikeVariant(bikemodel : string) {
+    const params = new HttpParams()
+      .set('bikemodel', bikemodel);
+    return this.http.get(`${environment.apiUrl}/common/getAllBikeVariant`, {params})
+    .pipe(
+    map(response => response)
+    );
+  }
 }

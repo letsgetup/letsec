@@ -10,6 +10,7 @@ import { MainHeaderComponent } from './components/main-header/main-header.compon
 import { VehicleInfoComponent } from './components/vehicle-info/vehicle-info.component';
 import { FormsModule } from '@angular/forms';
 import { ListingComponent } from './components/listing/listing.component';
+import { TwoWheelerFilterComponent } from './components/two-wheeler-filter/two-wheeler-filter.component';
 
 
 
@@ -19,7 +20,8 @@ import { ListingComponent } from './components/listing/listing.component';
     DashSidebarComponent,
     MainFooterComponent,
     MainHeaderComponent,
-    VehicleInfoComponent
+    VehicleInfoComponent,
+    TwoWheelerFilterComponent
   ],
   imports: [
     FormsModule,
@@ -33,7 +35,8 @@ import { ListingComponent } from './components/listing/listing.component';
     DashSidebarComponent,
     MainFooterComponent,
     MainHeaderComponent,
-    VehicleInfoComponent
+    VehicleInfoComponent,
+    TwoWheelerFilterComponent
    ]
 })
 export class SharedModule { }
