@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MDBSpinningPreloader } from 'ng-uikit-pro-standard';
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
@@ -17,6 +18,12 @@ import { SharedModule } from './shared/shared.module';
 import { MotorModule } from './motor/motor.module';
 
 import { FormsModule } from '@angular/forms';
+import { ProgressBarComponent } from './_helpers/progress-bar/progress-bar.component';
+import { LtsSharedService } from './_services/sharedService';
+import { APIService } from './_services/api.service';
+
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -24,8 +31,7 @@ import { FormsModule } from '@angular/forms';
         HttpClientModule,
         AppRoutingModule,
         NgbModule,
-        SharedModule
-        ,
+        SharedModule,
         BrowserModule,
         FormsModule,
         MotorModule
@@ -33,13 +39,15 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        HomeComponent,
+        ProgressBarComponent
 
     ],
     providers: [
+      
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
+        LtsSharedService
         // provider used to create fake backend
         // fakeBackendProvider
     ],

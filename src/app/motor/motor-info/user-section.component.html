@@ -1,0 +1,24 @@
+<form [formGroup]="userForm">
+    <div class="col-md-9  mx-auto">
+        <input type="text" class="form-control" formControlName="userfullname" [ngClass]="{ 'is-invalid': submitted && formControl.userfullname.errors }" placeholder="Enter your Full Name" />
+        <div *ngIf="submitted && formControl.userfullname.errors" class="invalid-feedback">
+            <div *ngIf="formControl.userfullname.errors.required">Full Name is required</div>
+            <div *ngIf="formControl.userfullname.errors.minlength">Minimum length should be 3.</div>
+            <div *ngIf="formControl.userfullname.errors.pattern">Should be alphabet</div>
+        </div>
+        <input type="email" class="form-control my-3" formControlName="useremail" placeholder="Email Id" [ngClass]="{ 'is-invalid': submitted && formControl.useremail.errors }" />
+        <div *ngIf="submitted && formControl.useremail.errors" class="invalid-feedback">
+            <div *ngIf="formControl.useremail.errors.required">Email is required</div>
+            <div *ngIf="formControl.useremail.errors.email">Email must be a valid email address</div>
+        </div>
+
+        <input type="text" class="form-control" formControlName="usermobile" [ngClass]="{ 'is-invalid': submitted && formControl.usermobile.errors }" placeholder="Mobile Number" />
+        <div *ngIf="submitted && formControl.usermobile.errors" class="invalid-feedback">
+            <div *ngIf="formControl.usermobile.errors.required">Phone Number is required</div>
+            <div *ngIf="formControl.usermobile.errors.pattern"> Enter 10 digit Mobile Number </div>
+
+        </div>
+
+        <button (click)="gotolisting()" class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
+    </div>
+</form>

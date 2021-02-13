@@ -1,9 +1,17 @@
-﻿<!-- main application Header -->
-<app-main-header></app-main-header>
-<!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
-    <alert></alert>
-    <router-outlet></router-outlet>
+﻿<div>
+    <!-- main application Header -->
+    <app-main-header></app-main-header>
+    <!-- main app container -->
+    <div class="app-container" [ngClass]="{ 'bg-light': user }">
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </div>
+    <!-- Main application footer -->
+    <app-main-footer></app-main-footer>
 </div>
-<!-- Main application footer -->
-<app-main-footer></app-main-footer>
+
+<div [class.hidden]="httpStatus">
+    <div class="loader-overlay">
+        <div *ngIf="!httpStatus" class="loader"></div>
+    </div>
+</div>

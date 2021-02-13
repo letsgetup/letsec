@@ -2,8 +2,13 @@
     <div class="container px-0">
         <div class="row">
             <div class="col-md-4">
-                <p class="font-weight-bold mb-0">TOYOTA ETIOS LIVA 1.4 D-4D GD SP* (1364 cc)</p>
-                <span class="small">Private Cat | Diesel | MH14</span>
+                <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content)">
+                        <!-- <span class="glyphicon glyphicon-pencil"></span> -->
+                        <i class="bi bi-pencil"></i>Edit
+                    </button>
+                </p>
+                <span class="small">{{ userVehicle.vehicleType }} | {{userVehicle.fuelType}} | {{userVehicle.rtoCode}}</span>
             </div>
             <div class="col-md-4 small">Existing Policy Expiry Date: 4-Sep-2020</div>
             <div class="col-md-4 small"><label>Select Insurer</label>
@@ -14,50 +19,56 @@
                     <option value="hdfcargo">HDFC ERGO</option>
                     <option value="CSS">Ifco Tokio</option>
                     <option value="kotakgi">Kotak General Insurance JS</option>
-                </select></div>
+                </select>
+            </div>
         </div>
     </div>
     <div class="bg-light py-3 mt-3 border-top">
         <div class="container px-0">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="card shadow-sm mb-3">
+                    <div class="card shadow-sm mb-3" *ngIf="digitTwoWheeler != undefined">
                         <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/22.png" /></div>
-                            <div class="col-md-3">
+                            <div class="col-md-3"><img src="https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2" />
+                            </div>
+                            <div class="col-md-3" *ngIf="digitTwoWheeler.vehicle != undefined">
                                 <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;3,333</h5>
+                                <h5>&#x20B9; {{ digitTwoWheeler.vehicle.vehicleIDV.idv }}</h5>
                             </div>
                             <div class="col-md-3">
                                 <p class="text-black-50 mb-0">Add ons</p>
                                 <span class="small">Zero Dep: Unavailable</span>
                             </div>
                             <div class="col-md-3">
-                                <p class="mb-0 text-d"><del>&#x20B9;4,333</del><span class="ml-2 small"><a
+                                <p class="mb-0 text-d" *ngIf="false"><del>&#x20B9;4,333</del><span class="ml-2 small"><a
                                             href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger">&#x20B9;12,333</button>
+                                <button class="btn btn-danger"
+                                    (click)="selectDigitPlan(digitTwoWheeler.vehicle.vehicleIDV.idv, digitTwoWheeler.netPremium)">&#x20B9;
+                                    {{ digitTwoWheeler.netPremium }}</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow-sm mb-3">
+                    <div class="card shadow-sm mb-3" *ngIf="tataAig2W != undefined">
                         <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/13.png" /></div>
-                            <div class="col-md-3">
+                            <div class="col-md-3"><img src="../assets/images/logo-AIG.png" /></div>
+                            <div class="col-md-3" *ngIf="tataAig2W.quotationdata != undefined">
                                 <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;123,333</h5>
+                                <h5>&#x20B9;{{ tataAig2W.quotationdata.idv }}</h5>
                             </div>
                             <div class="col-md-3">
                                 <p class="text-black-50 mb-0">Add ons</p>
                                 <span class="small">Zero Dep: Unavailable</span>
                             </div>
                             <div class="col-md-3">
-                                <p class="mb-0 text-d"><del>&#x20B9;123,333</del><span class="ml-2 small"><a
-                                            href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger">&#x20B9;12,333</button>
+                                <p class="mb-0 text-d" *ngIf="false"><del>&#x20B9;123,333</del><span
+                                        class="ml-2 small"><a href="#">Policy Coverag</a></span></p>
+                                <button class="btn btn-danger"
+                                    (click)="selectAigPlan(tataAig2W.quotationdata.idv, tataAig2W.TOTALPAYABLE)">&#x20B9;
+                                    INR {{ tataAig2W.TOTALPAYABLE }}</button>
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow-sm mb-3">
+                    <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body row">
                             <div class="col-md-3"><img src="../assets/images/28.png" /></div>
                             <div class="col-md-3">
@@ -74,8 +85,8 @@
                                 <button class="btn btn-danger">&#x20B9;12,333</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="card shadow-sm mb-3">
+                    </div> -->
+                    <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body row">
                             <div class="col-md-3"><img src="../assets/images/16.png" /></div>
                             <div class="col-md-3">
@@ -92,8 +103,8 @@
                                 <button class="btn btn-danger">&#x20B9;12,333</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="card shadow-sm mb-3">
+                    </div> -->
+                    <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body row">
                             <div class="col-md-3"><img src="../assets/images/39.png" /></div>
                             <div class="col-md-3">
@@ -110,7 +121,7 @@
                                 <button class="btn btn-danger">&#x20B9;12,333</button>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-md-3">
                     <div class="card shadow-sm mb-3">
@@ -131,4 +142,66 @@
 
         </div>
     </div>
+
+
 </div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Vehicle Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="modal-body">
+            <form [formGroup]="vehicleListForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Maker</label>
+                        <input type="text" formControlName="maker" class="form-control" />
+                        <!-- <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                               <div *ngIf="f.firstname.errors.required">FirstName is required</div>
+                         </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Model</label>
+                        <input type="text" formControlName="model" class="form-control" />
+                        <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                         <div *ngIf="f.email.errors.required">Email is required</div>
+                         <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                      </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Variant</label>
+                        <input type="text" formControlName="variant" class="form-control" />
+                        <!-- <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobile.errors">Mobile must be Valid and at least 10 digits</div>
+                         </div> -->
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>Fuel Type</label>
+                        <input type="text" formControlName="fuel" class="form-control" />
+                        <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                         <div *ngIf="f.password.errors.required">Password is required</div>
+                         <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="onSubmitVehicleDetails(modal)">Submit</button>
+        <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
+    </div>
+</ng-template>

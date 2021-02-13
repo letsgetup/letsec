@@ -6,7 +6,9 @@ import { catchError, map, subscribeOn } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { AgentPos } from '@app/_models';
-import { PincodeM } from '@app/_models'
+import { PincodeM } from '@app/_models';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,19 +16,22 @@ export class AgentposService {
    constructor(
     private router: Router,
     private http: HttpClient
-  ) { }
+  ) { 
 
-  agentposconfirmregister(agentpos: FormData) {
+    
+  }
+
+  agentposconfirmregister(agentpos: FormData): Observable<any> {
     //console.log(agentpos)
     return this.http.post(`${environment.apiUrl}/agentpos/confirmregistration`, agentpos);
   }
 
-  getAllPincodeDetails(pincode: string) {
+  getAllPincodeDetails(pincode: string): Observable<any> {
     let params = new HttpParams()
       .set('pincode', pincode);
     return this.http.get(`${environment.apiUrl}/common/getpincodedetails`, { params });
   }
-  getAllPincode(pincode: string) {
+  getAllPincode(pincode: string): Observable<any> {
     let params = new HttpParams()
       .set('pincode', pincode);
     return this.http.get<PincodeM>(`${environment.apiUrl}/common/getpincodes`, { params })

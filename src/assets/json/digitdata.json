@@ -1,0 +1,200 @@
+[
+{
+    "enquiryId": "GODIGIT_QQ_TWO_WHEELER_PACKAGE_01",
+    "contract": {
+        "insuranceProductCode": "20201",
+        "subInsuranceProductCode": "PB",
+        "startDate": "2019-11-13",
+        "endDate": "2020-11-12",
+        "policyHolderType": "INDIVIDUAL",
+        "quotationDate": "2019-11-11",
+        "coverages": {
+            "thirdPartyLiability": {
+                "netPremium": "INR 752.00",
+                "isTPPD": false
+            },
+            "ownDamage": {
+                "discount": {
+                    "isUWViolated": false,
+                    "agentType": "D03",
+                    "userSpecialDiscountPercent": 0,
+                    "defaultSpecialDiscountPercent": 40.0,
+                    "impliedDiscountPercent": 0,
+                    "effectiveSpecialDiscountPercent": 0,
+                    "minSpecialDiscountPercent": 0.0,
+                    "maxSpecialDiscountPercent": 80.0,
+                    "discounts": []
+                },
+                "surcharge": {
+                    "userSurchargePercent": 0,
+                    "effectiveSurchargePercent": 0,
+                    "loadings": []
+                },
+                "netPremium": "INR 344.00",
+                "traiffPremium": "INR 0.00"
+            },
+            "personalAccident": {
+                "selection": true,
+                "coverTerm": 0,
+                "coverAvailability": "AVAILABLE",
+                "netPremium": "INR 330.00"
+            },
+            "accessories": {
+                "cng": {
+                    "selection": false,
+                    "insuredAmount": 0,
+                    "minAllowed": 0,
+                    "maxAllowed": 0
+                },
+                "electrical": {
+                    "selection": false,
+                    "insuredAmount": 168,
+                    "minAllowed": 168,
+                    "maxAllowed": 3360
+                },
+                "nonElectrical": {
+                    "selection": false,
+                    "insuredAmount": 168,
+                    "minAllowed": 168,
+                    "maxAllowed": 8400
+                }
+            },
+            "addons": {
+                "partsDepreciation": {
+                    "claimsCovered": "ONE",
+                    "selection": false,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 252.00"
+                },
+                "roadSideAssistance": {
+                    "selection": false,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 40.00"
+                },
+                "engineProtection": {
+                    "selection": false,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 25.00"
+                },
+                "tyreProtection": {},
+                "rimProtection": {},
+                "returnToInvoice": {
+                    "selection": false,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 67.00"
+                },
+                "consumables": {
+                    "selection": false,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 25.00"
+                }
+            },
+            "legalLiability": {
+                "paidDriverLL": {
+                    "selection": false,
+                    "netPremium": "INR 50.00",
+                    "insuredCount": 1
+                },
+                "employeesLL": {
+                    "selection": false,
+                    "netPremium": "INR 50.00",
+                    "insuredCount": 1
+                },
+                "unnamedPaxLL": {
+                    "selection": false,
+                    "netPremium": "INR 50.00",
+                    "insuredCount": 1
+                },
+                "cleanersLL": {},
+                "nonFarePaxLL": {},
+                "workersCompensationLL": {}
+            },
+            "unnamedPA": {
+                "unnamedPax": {
+                    "selection": false,
+                    "insuredAmount": 100000.0,
+                    "netPremium": "INR 140.00"
+                },
+                "unnamedPaidDriver": {
+                    "selection": false,
+                    "insuredAmount": 200000.0,
+                    "netPremium": "INR 70.00"
+                },
+                "unnamedHirer": {},
+                "unnamedPillionRider": {},
+                "unnamedCleaner": {},
+                "unnamedConductor": {}
+            },
+            "isGeoExt": false,
+            "isTheftAndConversionRiskIMT43": false,
+            "isIMT23": false,
+            "isOverturningExclusionIMT47": false
+        }
+    },
+    "vehicle": {
+        "isVehicleNew": false,
+        "vehicleMaincode": "1210210303",
+        "licensePlateNumber": "MH12AB1",
+        "registrationDate": "2018-11-01",
+        "vehicleIDV": {
+            "idv": 33600,
+            "defaultIdv": 33600,
+            "minimumIdv": 26880,
+            "maximumIdv": 40320
+        },
+        "trailers": [],
+        "make": "BAJAJ",
+        "model": "BOXER"
+    },
+    "previousInsurer": {
+        "previousPolicyExpiryDate": "2019-08-12",
+        "previousNoClaimBonus": "ZERO"
+    },
+    "pospInfo": {
+        "isPOSP": false
+    },
+    "motorTransits": [],
+    "pincode": "411001",
+    "motorBreakIn": {
+        "isBreakin": true,
+        "isPreInspectionWaived": true
+    },
+    "netPremium": "INR 1426.00",
+    "grossPremium": "INR 1684.00",
+    "discounts": {
+        "specialDiscountAmount": "INR 0.00",
+        "otherDiscounts": [
+            {
+                "discountType": "NCB_DISCOUNT",
+                "discountPercent": 0.00,
+                "discountAmount": "INR 0.00"
+            },
+            {
+                "discountType": "SPECIAL_DISCOUNT",
+                "discountPercent": 0,
+                "discountAmount": "INR 0.00"
+            }
+        ]
+    },
+    "loadings": {
+        "totalLoadingAmount": "INR 0.00",
+        "otherLoadings": [
+            {
+                "loadingType": "OTHER_LOADING",
+                "loadingPercent": 0,
+                "loadingAmount": "INR 0.00"
+            }
+        ]
+    },
+    "serviceTax": {
+        "cgst": "INR 129.00",
+        "sgst": "INR 129.00",
+        "igst": "INR 0.00",
+        "utgst": "INR 0.00",
+        "totalTax": "INR 258.00",
+        "taxType": "SGST_CGST"
+    },
+    "cesses": [],
+    "informationMessages": []
+}
+]

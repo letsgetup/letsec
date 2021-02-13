@@ -25,8 +25,8 @@ export const ROUTES2: MotorInfo[] = [
   { path: 'motor-insurance/car-insurance', title: 'Car Insurance', icon: 'far fa-handshake', class: '' },
   { path: 'motor-insurance/two-wheeler-insurance', title: 'Two wheeler Insurance', icon: 'library_books', class: '' },
   { path: 'motor-insurance/third-party-insurance', title: 'Third Party Insurance', icon: 'content_paste', class: '' },
-  { path: '#', title: 'Taxi Insurance', icon: 'bubble_chart', class: '' },
-  { path: '#', title: 'Commercial Vehical Insurance', icon: 'person', class: '' }
+  { path: 'motor-insurance/taxi-insurance', title: 'Taxi Insurance', icon: 'bubble_chart', class: '' },
+  { path: 'motor-insurance/commercial-vehicle-insurance', title: 'Commercial Vehical Insurance', icon: 'person', class: '' }
 ];
 
 @Component({

@@ -11,11 +11,12 @@
     <div class="container bg-light border rounded shadow">
         <div class="row">
             <div class="col-md-4 py-5 text-center">
-                <h2 class="c-heading">2 Wheeler Insurance<span class="text-line-right"></span></h2>
+                <h2 class="c-heading">Two Wheeler Insurance<span class="text-line-right"></span></h2>
                 <img src="../assets/images/bike.png" width="298" height="186">
             </div>
             <div class="col-md-8 py-5">
-                <div id="form-viewPlans">
+                <app-motor-info [motorType]="motorType" [motorDetails]="twoWheller"></app-motor-info>
+                <!-- <div id="form-viewPlans">
                     <h2 class="font-weight-light text-center mb-5">Save upto 70%* on your Two Wheeler Insurance</h2>
                     <div class="d-flex justify-content-center car-form">
                         <input type="text" class="form-control form-control-lg w-50 rounded-left carNo"
@@ -163,7 +164,7 @@
 
                         <button class="btn btn-danger btn-block btn-lg my-3 mx-auto">View Plans</button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

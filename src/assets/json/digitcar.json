@@ -1,0 +1,203 @@
+[
+    {
+        "enquiryId": "GODIGIT_QQ_PVT_CAR_PACKAGE_01",
+        "contract": {
+            "insuranceProductCode": "20101",
+            "subInsuranceProductCode": "PB",
+            "startDate": "2019-11-12",
+            "endDate": "2020-11-11",
+            "policyHolderType": "INDIVIDUAL",
+            "quotationDate": "2019-11-11",
+            "coverages": {
+                "thirdPartyLiability": {
+                    "netPremium": "INR 3221.00",
+                    "isTPPD": false
+                },
+                "ownDamage": {
+                    "discount": {
+                        "isUWViolated": false,
+                        "agentType": "D03",
+                        "rankBooster": 0.0,
+                        "userSpecialDiscountPercent": 0,
+                        "defaultSpecialDiscountPercent": 65.00,
+                        "impliedDiscountPercent": 65.00,
+                        "effectiveSpecialDiscountPercent": 0,
+                        "minSpecialDiscountPercent": 0.0,
+                        "maxSpecialDiscountPercent": 80.0,
+                        "discounts": []
+                    },
+                    "surcharge": {
+                        "userSurchargePercent": 0,
+                        "effectiveSurchargePercent": 0,
+                        "loadings": []
+                    },
+                    "netPremium": "INR 8262.00",
+                    "traiffPremium": "INR 23606.00"
+                },
+                "personalAccident": {
+                    "selection": true,
+                    "coverTerm": 0,
+                    "coverAvailability": "AVAILABLE",
+                    "netPremium": "INR 330.00"
+                },
+                "accessories": {
+                    "cng": {
+                        "selection": false,
+                        "insuredAmount": 10000,
+                        "minAllowed": 10000,
+                        "maxAllowed": 80000
+                    },
+                    "electrical": {
+                        "selection": false,
+                        "insuredAmount": 72,
+                        "minAllowed": 72,
+                        "maxAllowed": 107856
+                    },
+                    "nonElectrical": {
+                        "selection": false,
+                        "insuredAmount": 72,
+                        "minAllowed": 72,
+                        "maxAllowed": 71904
+                    }
+                },
+                "addons": {
+                    "partsDepreciation": {
+                        "claimsCovered": "ONE",
+                        "selection": false,
+                        "coverAvailability": "NOT_AVAILABLE",
+                        "netPremium": "INR 0.00"
+                    },
+                    "roadSideAssistance": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 109.00"
+                    },
+                    "engineProtection": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 698.00"
+                    },
+                    "tyreProtection": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 187.00"
+                    },
+                    "rimProtection": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 607.00"
+                    },
+                    "returnToInvoice": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 1925.00"
+                    },
+                    "consumables": {
+                        "selection": false,
+                        "coverAvailability": "AVAILABLE",
+                        "netPremium": "INR 423.00"
+                    }
+                },
+                "legalLiability": {
+                    "paidDriverLL": {
+                        "selection": false,
+                        "netPremium": "INR 50.00",
+                        "insuredCount": 1
+                    },
+                    "employeesLL": {
+                        "selection": false,
+                        "netPremium": "INR 50.00",
+                        "insuredCount": 1
+                    },
+                    "unnamedPaxLL": {
+                        "selection": false,
+                        "netPremium": "INR 50.00",
+                        "insuredCount": 1
+                    },
+                    "cleanersLL": {},
+                    "nonFarePaxLL": {},
+                    "workersCompensationLL": {}
+                },
+                "unnamedPA": {
+                    "unnamedPax": {
+                        "selection": false,
+                        "insuredAmount": 100000.0,
+                        "netPremium": "INR 250.00"
+                    },
+                    "unnamedPaidDriver": {
+                        "selection": false,
+                        "insuredAmount": 200000.0,
+                        "netPremium": "INR 100.00"
+                    },
+                    "unnamedHirer": {},
+                    "unnamedPillionRider": {},
+                    "unnamedCleaner": {},
+                    "unnamedConductor": {}
+                },
+                "isGeoExt": false,
+                "isTheftAndConversionRiskIMT43": false,
+                "isIMT23": false,
+                "isOverturningExclusionIMT47": false
+            }
+        },
+        "vehicle": {
+            "isVehicleNew": false,
+            "vehicleMaincode": "1111810803",
+            "licensePlateNumber": "MH12AB1",
+            "registrationDate": "2018-11-01",
+            "vehicleIDV": {
+                "idv": 719040,
+                "defaultIdv": 719040,
+                "minimumIdv": 575232,
+                "maximumIdv": 862848
+            },
+            "trailers": [],
+            "make": "HYUNDAI",
+            "model": "FLUIDIC VERNA"
+        },
+        "previousInsurer": {
+            "previousPolicyExpiryDate": "2019-08-12",
+            "previousNoClaimBonus": "ZERO"
+        },
+        "pospInfo": {
+            "isPOSP": false
+        },
+        "motorTransits": [],
+        "pincode": "411001",
+        "motorBreakIn": {
+            "isBreakin": true,
+            "isPreInspectionWaived": false
+        },
+        "netPremium": "INR 11813.00",
+        "grossPremium": "INR 13941.00",
+        "discounts": {
+            "specialDiscountAmount": "INR 0.00",
+            "otherDiscounts": [
+                {
+                    "discountType": "NCB_DISCOUNT",
+                    "discountPercent": 0.00,
+                    "discountAmount": "INR 0.00"
+                },
+                {
+                    "discountType": "SPECIAL_DISCOUNT",
+                    "discountPercent": 0,
+                    "discountAmount": "INR 0.00"
+                }
+            ]
+        },
+        "loadings": {
+            "totalLoadingAmount": "INR 0.00",
+            "otherLoadings": []
+        },
+        "serviceTax": {
+            "cgst": "INR 1064.00",
+            "sgst": "INR 1064.00",
+            "igst": "INR 0.00",
+            "utgst": "INR 0.00",
+            "totalTax": "INR 2128.00",
+            "taxType": "SGST_CGST"
+        },
+        "cesses": [],
+        "informationMessages": []
+    }
+]

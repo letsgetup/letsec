@@ -25,7 +25,7 @@ export class AgentService {
   public get agentuserValue(): AgentUser {
     return this.agentuserSubject.value;
   }
-  getAgentById(agentId: string) {
+  getAgentById(agentId: string): Observable<any> {
     let params = new HttpParams().set('agentid', agentId);
     return this.http.get<any>(`${environment.apiUrl}/agent/agentDetails`, { params }).pipe(
       map((res) => {
@@ -33,7 +33,7 @@ export class AgentService {
       }));
   }
 
-  getAllAgentLeades(agentId: string) {
+  getAllAgentLeades(agentId: string): Observable<any> {
     let params = new HttpParams().set('agentid', agentId);
     return this.http.get<any>(`${environment.apiUrl}/agent/agentLeadDetails`, { params }).pipe(
       map((res) => {

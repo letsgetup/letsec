@@ -106,7 +106,7 @@ export class VehicleInfoComponent implements OnInit {
   formattermaker = (x: { Make: string }) => x.Make.trim();
   // tslint:disable-next-line: typedef
   getSearchedMakers(termMaker: string) {
-    this.customService.getSearchedmaker(termMaker).subscribe(dataMaker => {
+    this.customService.getSearchedmaker(termMaker, '').subscribe(dataMaker => {
       this.listMaker = dataMaker;
       this.listMaker = JSON.parse(this.listMaker);
 
@@ -119,9 +119,9 @@ export class VehicleInfoComponent implements OnInit {
     if (this.venqForm.get('carnum').value === "") {
       return false;
     }
-    if (this.venqForm.invalid) {
-      return false;
-    }
+    // if (this.venqForm.invalid) {
+    //   return false;
+    // }
     else {
       $('#form-viewPlans').hide();
       $('#rto-section').show();

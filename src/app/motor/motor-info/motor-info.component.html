@@ -1,0 +1,135 @@
+<form [formGroup]="motorInfoForm">
+
+    <div id="form-viewPlans">
+        <!-- <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2> -->
+        <h2 class="font-weight-light text-center mb-5">{{ motorDetails }}</h2>
+        <div class="d-flex justify-content-center car-form">
+
+            <input formControlName="vehicleNo" autofocus
+                [ngClass]="{ 'is-invalid': submitted && formControl.vehicleNo.errors }"
+                onkeyup="this.value = this.value.toUpperCase();" type="text"
+                class="form-control form-control-lg w-50 rounded-left carNo"
+                placeholder="enter {{ motorType }} Number ex. MH14AH5001" maxlength="10" />
+            <button class="btn btn-danger btn-lg rounded-right viewplans" (click)="onViewPlanClick()"
+                id="btn-viewplans">View Plans</button>
+            <!-- <small *ngIf="formControl.vehicleNo.errors.required">
+                 valid registration no is required
+            </small> -->
+            <!-- <div class="err" *ngIf="submitted && formControl.vehicleNo.errors.required" >
+                <div>valid registration no is required</div>
+            </div> -->
+        </div>
+
+        <small class="form-text text-red text-center d-none" >Please enter correct {{ motorType }} number</small>
+        <div class="d-flex justify-content-center my-4">
+            <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3">Proceed without {{ motorType }} Number</button>
+            <button id="btn-proceednewcar" class="btn btn-secondary">Click here for Brand New {{ motorType }}?</button>
+        </div>
+    </div>
+    <div id="rto-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please Enter your RTO code </h2>
+        <div class="col-md-9  mx-auto">
+            <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                <input tye="text" id="searchRTO" class="form-control form-control-lg " [resultTemplate]="rt"
+                    Placeholder="ex.MH14" [inputFormatter]="formatter" (selectItem)="selectedItem($event)"
+                    (keyup)="getSearchedrtos($event.target.value)" [ngbTypeahead]="search" />
+                <div class="input-group-append"> <span class="input-group-text">
+                        <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28"></button>
+                    </span> </div>
+                <ng-template #rt let-r="result" let-t="term">
+                    <ngb-highlight [result]="r.region_code" [term]="t"></ngb-highlight>
+                </ng-template>
+            </div>
+            <!--  class="rto-number form-control mx-auto"  -->
+            <select id="rto" formControlName="rto" class="form-control mx-auto" (change)="selectRto($event.target.value)">
+                <option value="0" selected>Select RTO</option>
+                <option *ngFor="let rtoitem of listRTO" value={{rtoitem.region_code}}>
+                    {{rtoitem.region_code}}
+                </option>
+            </select>
+            <select formControlName="state" class="form-control mx-auto my-4">
+                <option value="0" selected>Select State</option>
+                <option *ngIf="formControl.state.value!=0" selected>{{ formControl.state.value }}</option>
+                <option *ngFor="let state of stateList" [value]="state.Name">
+                    {{state.Name}}
+                </option>
+            </select>
+            <select id="city" formControlName="city" class="rto-number form-control mx-auto">
+                <option value="0" selected>Select City</option>
+                <option *ngIf="formControl.city.value!=0" selected>{{ formControl.city.value }}</option>
+                <option *ngFor="let cityitem of cityList" [value]="cityitem.CityName">
+                    {{cityitem.CityName}}
+                </option>
+            </select>
+            
+
+            <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="state-section"
+                (click)="validateRTOfields();">Continue</button>
+            <span id="errSpan" style="display: none;"><b><i>Please ensure you have selected state, city and
+                        rto.</i></b></span>
+        </div>
+    </div>
+    <div id="cars-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please select Car</h2>
+        <div class="col-md-9  mx-auto">
+            <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
+                <input tye="text" class="form-control form-control-lg " Placeholder="Search Car"
+                    [resultTemplate]="rtcarmaker" [inputFormatter]="formattermaker"
+                    (selectItem)="selectedMakerItem($event)" (keyup)="getSearchedMakers($event.target.value)"
+                    [ngbTypeahead]="makersearch" />
+                <div class="input-group-append"> <span class="input-group-text">
+                        <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28" /></button>
+                    </span> </div>
+                <ng-template #rtcarmaker let-r="result" let-t="maketerm">
+                    <ngb-highlight [result]="r.Make" [maketerm]="t"></ngb-highlight>
+                </ng-template>
+            </div>
+
+            <select id="maker" formControlName="maker" (change)="makerChange($event.target.value)"
+                class="form-control mx-auto">
+                <option value="0" selected>Select Car Make</option>
+                <option *ngFor="let maker of listMaker" value={{maker.Make}}>
+                    {{maker.Make}}
+                </option>
+            </select>
+            <select id="model" formControlName="model" (change)="modelChange($event.target.value)"
+                class="form-control mx-auto my-4">
+                <option value="0" selected>Select Car Model</option>
+                <option *ngFor="let model of modelList" value={{model.VehicleModel}}>
+                    {{model.VehicleModel}}
+                </option>
+            </select>
+            <select id="variant" formControlName="variant" (change)="variantChange($event.target.value)"
+                class="rto-number form-control mx-auto">
+                <option value="0" selected>Select variant</option>
+                <option *ngFor="let ftype of fversionList" value={{ftype.Variant}}>
+                    {{ftype.Variant}}
+                </option>
+            </select>
+            <select id="fueltype" formControlName="fueltype" class="rto-number form-control my-4">
+                <option value="0" selected>Select Fuel Type</option>
+                <option *ngFor="let ftype of fuelList" value={{ftype.FuelType}}>
+                    {{ftype.FuelType}}
+                </option>
+            </select>
+            <select id="fueltype" formControlName="year" class="rto-number form-control my-4">
+                <option value="0" selected>Select Registration Year</option>
+                <option *ngFor="let year of calenderYear" value={{year.id}}>
+                    {{ year.id }}
+                </option>
+            </select>
+            <!-- <ngb-datepicker #dp formControlName="year" (navigate)="date = $event.next"></ngb-datepicker> -->
+            <button class="btn btn-danger btn-block btn-lg my-3 mx-auto" id="cars-btn-section"
+                (click)="validateVehiclefields();">Continue</button>
+            <span id="errVehicleSpan" style="display: none;"><b><i>Please ensure you have selected Car maker, model and
+                        fuel type.</i></b></span>
+        </div>
+    </div>
+    <div id="user-section" style="display:none">
+        <h2 class="font-weight-light text-center mb-3">Please add your details</h2>
+        <div>
+            <app-user-section [vehicleDetails]="userVehicleDetails"></app-user-section>
+        </div>
+    </div>
+
+</form>

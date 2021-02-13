@@ -1,0 +1,119 @@
+<div class="border-bottom border-top py-3">
+    <div class="container px-0">
+        <div class="row">
+            <div class="col-md-4">
+                <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}</p>
+                <span class="small">Private Car | {{userVehicle.fuelType}} | {{userVehicle.rtoCode}}</span>
+            </div>
+            <div class="col-md-4 small">Existing Policy Expiry Date: 4-Sep-2020</div>
+            <div class="col-md-4 small">
+                <p class="mb-0">Mobile: {{insurancePlan.userMobile}}</p>
+                <p class="mb-0">Email: {{insurancePlan.userEmail}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light py-3 mt-3 border-top">
+        <div class="container px-0">
+            <h5 class="font-weight-bold my-3">Please select below option to confirm </h5>
+            <div class="row d-flex align-items-stretch">
+                <div class="col-md-7 d-flex">
+                    <div class="shadow-sm border payment-bg-foot">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="font-weight-bold">Please selet your car registration Date</label>
+                                <input type="date" class="form-control w-auto" />
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Please selet your car is owned for</label>
+                                <select class="form-control w-auto">
+                                    <option>For Company</option>
+                                    <option>For an Invidual</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold">Do you want to include Owner-Driver Personal
+                                    Accident Cover?</label>
+                                <select class="form-control w-auto">
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                            <span class="small text-muted">
+                                As mandated by IRDAI, it is compulsory for Owner-Driver to possess a Personal
+                                Accident cover of minimum Rs 15 lakhs, except in certain conditions. By selecting
+                                No, you confirm that you hold an existing PA cover or you do not possess a valid
+                                driving license.
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-5 card shadow-sm">
+                    <div class="">
+                        <div class="card-body">
+                            <h5 class="font-weight-bold my-3">Policy Details</h5>
+                            <div class="card card-body p-2 shadow-sm bg-light">
+                                <img  [src]="imagePath" width="122" />
+                                <hr>
+                                <div class="row font-weight-bold">
+                                    <div class="col-md-6">IDV</div>
+                                    <div class="col-md-6 text-right text-success font-weight-bold">{{insurancePlan.idv}}</div>
+                                    <div class="col-md-6">NCN</div>
+                                    <div class="col-md-6 text-right font-weight-bold">0%</div>
+                                    <div class="col-md-6">Plan Type</div>
+                                    <div class="col-md-6 text-right font-weight-bold">Comprehensive</div>
+                                </div>
+                            </div>
+
+                            <div class="card card-body p-2 my-3 shadow-sm bg-light">
+                                <div class="row font-weight-bold my-3 mx-0">
+                                    <div class="col-md-6">Premium Amount</div>
+                                    <div class="col-md-6 text-right text-success font-weight-bold">{{insurancePlan.premium}}</div>
+                                    <div class="col-md-6">GST@12%</div>
+                                    <div class="col-md-6 text-right font-weight-bold">800</div>
+                                    <hr class="w-100" />
+                                    <div class="col-md-6">
+                                        <h2>Total</h2>
+                                    </div>
+                                    <div class="col-md-6 text-right font-weight-bold">
+                                        <h2 class="text-success font-weight-bold">
+                                            {{totalPayableAmount(insurancePlan.premium, '800')}}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger btn-lg font-weight-bold my-3 btn-block">Pay
+                                Secure</button>
+                            <div>
+                                <h6 class="font-weight-bold">Plan Details</h6>
+                                <hr />
+                                <p>Self Inspection</p>
+                                <ul>
+                                    <li>Cashless Claims or Reimbursement Within 24hrs</li>
+                                    <li>Across IndiaSpot Claims Upto Rs. 20,000</li>
+                                    <li>Zero Paper Claims</li>
+                                </ul>
+                            </div>
+                            <hr />
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                        value="option1">
+                                    <label class=" text-muted form-check-label small" for="inlineCheckbox1">
+                                        I agree to the Terms & Conditions and confirm: my car is not a commercial
+                                        vehicle, my previous policy is a comprehensive (package) policy with 0 % NCB
+                                        and my car has a valid PUC certificate.
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
