@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost/letssecure/index.php/api',
   azureApi: 'http://letssecure.centralindia.cloudapp.azure.com/',
-  azureApiUrl: 'http://lsapi.centralindia.cloudapp.azure.com'
+  azureApiUrl: 'http://apils.centralindia.cloudapp.azure.com'
 };
 
 /*
