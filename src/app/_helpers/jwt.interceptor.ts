@@ -43,7 +43,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }), finalize(()=>{ 
           this.totalRequest--;
           if(this.totalRequest === 0){
-            //this.sharedService.setHttpStatus(true);
+            this.sharedService.setHttpStatus(true);
           }
          }));
     }

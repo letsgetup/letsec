@@ -8,6 +8,7 @@ import { CommercialVehicleComponent } from './commercial-vehicle/commercial-vehi
 import { TaxiComponent } from './taxi/taxi.component';
 import { ThirdPartyComponent } from './third-party/third-party.component';
 import { TwoWheelerComponent } from './two-wheeler/two-wheeler.component';
+
 const routes: Routes = [
   {
     path: '', component: LayoutComponent,
