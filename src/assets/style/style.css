@@ -308,3 +308,8 @@ fade.in{
 .modal-backdrop.in{
     opacity: 0.5;
 }
+.btn-select-insurer{width:100%;font-size:100%;text-align: left;}
+.btn-select-insurer::after{float: right;margin-top:8px}
+ul.list-insured li label{margin-top:2px}
+.link-inherit{color:inherit}
+.scroll-y{max-height:175px;height:auto;overflow-y: auto;position: relative;}

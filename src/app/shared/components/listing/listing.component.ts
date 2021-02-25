@@ -7,7 +7,7 @@ import { TataAigInsurance } from '@app/_models/tata-aig-insurance';
 import { Router } from '@angular/router';
 import { LtsSharedService } from '@app/_services';
 import { UserVehicleDetails } from '@app/_models';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -25,11 +25,12 @@ export class ListingComponent implements OnInit {
   objectPolicy: ObjectPolicy;
   vehicleData: VehicleDetails;
 
-  constructor(private customService: CustomService, 
+  constructor(private customService: CustomService,
     private router: Router,
     private sharedService: LtsSharedService,
     private modalService: NgbModal, private formBuilder: FormBuilder) {
     this.getFourWheelerData();
+    
    }
 
   ngOnInit(): void {
@@ -77,6 +78,16 @@ export class ListingComponent implements OnInit {
   }
 
   open(content) {
+    //this.modalService.open(id);
+    //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openConfirm(content) {
     //this.modalService.open(id);
     //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -196,6 +207,14 @@ export class ListingComponent implements OnInit {
 
 }
 
+export class NgbdDatepickerMultiple {
+
+  displayMonths = 2;
+  navigation = 'select';
+  showWeekNumbers = false;
+  outsideDays = 'visible';
+}
+
 export class InsurancePlan {
   insuranceType: string;
   premium: string;
@@ -230,3 +249,7 @@ export class VehicleDetails {
   ManufacturingYear: string;
   ManufacturingMonth: string;
 }
+
+export class NgbdDropdownForm {
+}
+
