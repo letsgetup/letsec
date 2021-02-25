@@ -7,7 +7,7 @@ import { AlertService, CacheService, CustomService } from '@app/_services';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { UserVehicleDetails } from '@app/_models';
-import { NgbCalendar, NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateStruct,NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 declare var $: any;
 
@@ -49,6 +49,7 @@ export class MotorInfoComponent implements OnInit {
   userVehicleDetails: UserVehicleDetails;
   fuelTypes = Object.values(FuelTypesEnum);
   calenderYear: any[] = [];
+  closeResult:any;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -57,9 +58,11 @@ export class MotorInfoComponent implements OnInit {
     private alertService: AlertService,
     private customService: CustomService,
     private customValidator: CustomValidation,
-    private calendar: NgbCalendar) {
+    private calendar: NgbCalendar, 
+    private modalService: NgbModal) {
       this.userVehicleDetails = new UserVehicleDetails();
     }
+    
 
   ngOnInit(): void {
     console.log("motor:", this.motorType);
@@ -86,6 +89,25 @@ export class MotorInfoComponent implements OnInit {
     //  this.motorInfoForm.setValue(JSON.parse(sessionStorage.getItem("userinfo")));
    // }
    this.calenderYears();
+  }
+  openModal(content) {
+    //this.modalService.open(id);
+    //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   selectToday() {
@@ -140,7 +162,7 @@ export class MotorInfoComponent implements OnInit {
 
   selectRto(value: any){
     console.log(">>>>rto selection::", value);
-    this.listRTO.forEach(element => {
+    this.listRTO.forEach((element: { region_code: any; registered_state_name: any; registered_city_name: any; }) => {
       console.log(element);
       if(value != "" && element.region_code === value){
         console.log('matched::',element);
@@ -219,12 +241,12 @@ export class MotorInfoComponent implements OnInit {
   }
 
   // tslint:disable-next-line: typedef
-  selectedMakerItem(item) {
+  selectedMakerItem(item: { item: { Make: string; }; }) {
     this.strMaker = item.item.Make;
     this.setselectedmakerdata();
   }
 
-  selectedItem(item) {
+  selectedItem(item: { item: { region_code: string; }; }) {
     console.log("selectedItem:", item);
     this.strRTO = item.item.region_code;
     this.setselectedrtodata();
@@ -422,4 +444,13 @@ export enum FuelTypesEnum {
   PETROL = "Petrol",
   DIESEL = "Diesel",
   ELECTRIC = "Electric",
+}
+export class NgbdModalBasic {
+  closeResult = '';
+
+ 
+
+  
+
+ 
 }

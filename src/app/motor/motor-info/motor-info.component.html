@@ -2,7 +2,7 @@
 
     <div id="form-viewPlans">
         <!-- <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2> -->
-        <h2 class="font-weight-light text-center mb-5">{{ motorDetails }}</h2>
+        <h2 class="font-weight-light text-center mb-5 c-heading">{{ motorDetails }}</h2>
         <div class="d-flex justify-content-center car-form">
 
             <input formControlName="vehicleNo" autofocus
@@ -12,22 +12,25 @@
                 placeholder="enter {{ motorType }} Number ex. MH14AH5001" maxlength="10" />
             <button class="btn btn-danger btn-lg rounded-right viewplans" (click)="onViewPlanClick()"
                 id="btn-viewplans">View Plans</button>
-            <!-- <small *ngIf="formControl.vehicleNo.errors.required">
-                 valid registration no is required
-            </small> -->
+            
             <!-- <div class="err" *ngIf="submitted && formControl.vehicleNo.errors.required" >
                 <div>valid registration no is required</div>
             </div> -->
-        </div>
 
-        <small class="form-text text-red text-center d-none" >Please enter correct {{ motorType }} number</small>
+            <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Launch demo modal</button>
+        </div>
+        <p *ngIf="true" class="small form-text text-red text-center">
+            Valid registration number is required
+    </p>
+
+        <p class="form-text text-red text-center d-none" >Please enter correct {{ motorType }} number</p>
         <div class="d-flex justify-content-center my-4">
             <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3">Proceed without {{ motorType }} Number</button>
             <button id="btn-proceednewcar" class="btn btn-secondary">Click here for Brand New {{ motorType }}?</button>
         </div>
     </div>
     <div id="rto-section" style="display:none">
-        <h2 class="font-weight-light text-center mb-3">Please Enter your RTO code </h2>
+        <h2 class="font-weight-light text-center mb-3 c-heading">Please Enter your RTO code </h2>
         <div class="col-md-9  mx-auto">
             <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
                 <input tye="text" id="searchRTO" class="form-control form-control-lg " [resultTemplate]="rt"
@@ -133,3 +136,19 @@
     </div>
 
 </form>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h6 class="modal-title c-heading" id="modal-basic-title">Your Vehical Number <span class="text-danger font-weight-bold">-MH12CT1234-</span> is two wheeler</h6>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body text-center px-5 py-4">
+      <p>Please select below options to continue</p>
+      <button class="btn btn-danger btn-block my-3">Continue with car insurance</button>
+      <button class="btn btn-light border btn-block">Continue with two wheeler insurance</button>
+    </div>
+    <div class="modal-footer bg-light justify-content-center px-5 py-4">
+      <button type="button" class="btn btn-outline-secondary btn-block">Please enter your vehical number again</button>
+    </div>
+  </ng-template>
