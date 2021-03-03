@@ -20,6 +20,7 @@ import { MotorModule } from './motor/motor.module';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarComponent } from './_helpers/progress-bar/progress-bar.component';
 import { LtsSharedService } from './_services/sharedService';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 import { APIService } from './_services/api.service';
 
 
@@ -30,11 +31,12 @@ import { APIService } from './_services/api.service';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule,
         SharedModule,
         BrowserModule,
         FormsModule,
-        MotorModule
+        MotorModule,
+        NgbModule,
+        NgHttpLoaderModule.forRoot(),
     ],
     declarations: [
         AppComponent,

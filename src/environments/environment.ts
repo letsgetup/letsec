@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/letssecure/index.php/api',
+  apiUrl: 'https://apiphpletsec.azurewebsites.net/index.php/api',
   azureApi: 'http://letssecure.centralindia.cloudapp.azure.com/',
   azureApiUrl: 'http://apils.centralindia.cloudapp.azure.com'
 };

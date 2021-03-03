@@ -5,7 +5,7 @@ import { MotorRoutingModule } from './motor-routing.module';
 import { CarComponent } from './car/car.component';
 import { TwoWheelerComponent } from './two-wheeler/two-wheeler.component';
 import { LayoutComponent } from './layout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThirdPartyComponent } from './third-party/third-party.component';
 import { ListingComponent } from '@app/shared/components/listing/listing.component';
 import { MotorInfoComponent } from './motor-info/motor-info.component';
@@ -13,8 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserSectionComponent } from './motor-info/user-section.component';
 import { TaxiComponent } from './taxi/taxi.component';
 import { CommercialVehicleComponent } from './commercial-vehicle/commercial-vehicle.component';
-
-
+import { DateComponent } from './car/date.component';
+import { NgxCalendarModule } from "ss-ngx-calendar";
 
 
 
@@ -24,7 +24,9 @@ import { CommercialVehicleComponent } from './commercial-vehicle/commercial-vehi
     CommonModule,
     ReactiveFormsModule,
     MotorRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    NgxCalendarModule
   ],
   
   declarations: [
@@ -36,7 +38,8 @@ import { CommercialVehicleComponent } from './commercial-vehicle/commercial-vehi
     MotorInfoComponent,
     UserSectionComponent,
     TaxiComponent,
-    CommercialVehicleComponent
+    CommercialVehicleComponent,
+    DateComponent
  
   ]
   

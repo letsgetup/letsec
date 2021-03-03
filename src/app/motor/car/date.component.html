@@ -1,0 +1,18 @@
+<div>
+    <ng-template #content let-modal>
+		<div class="modal-header">
+			<div class="ques">
+				<p>When does your policy expire?</p>
+			</div>
+		</div>
+        <p style="max-width: 500px">
+            <ngx-calendar #ngxCalendar1 [options]="calendarOptions" 
+				(onChooseDate)="onChooseDate($event)">
+            </ngx-calendar>
+        </p>
+		<div class="dont_know">
+			<a class="dont_know"><b>Don't know the policy expiry date?</b></a>
+		</div>
+    </ng-template>
+</div>
+

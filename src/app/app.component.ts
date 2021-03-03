@@ -1,16 +1,17 @@
-﻿import { Component, OnInit } from '@angular/core';
-
+﻿import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Spinkit } from 'ng-http-loader';
 import { AccountService, AgentService, LtsSharedService } from './_services';
 import { User } from './_models';
 import { AgentUser } from './_models';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     user: User;
-    agentuser : AgentUser;
+    agentuser: AgentUser;
     httpStatus: boolean;
+    spinnerStyle = Spinkit;
 
-    constructor(private accountService: AccountService, private agentService: AgentService, 
+    constructor(private accountService: AccountService, private agentService: AgentService,
         private shareService: LtsSharedService) {
         this.accountService.user.subscribe(x => this.user = x);
         this.agentService.agentuser.subscribe(x => this.agentuser = x);
@@ -18,8 +19,8 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        
-      }
+        //let interval = setInterval(() => {}, 1000);
+    }
 
     logout() {
         this.accountService.logout();
@@ -27,5 +28,9 @@ export class AppComponent implements OnInit {
 
     agentlogout() {
         this.agentService.logout();
+    }
+
+    ngOnDestroy() {
+        //clearInterval();
     }
 }

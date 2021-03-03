@@ -1,9 +1,10 @@
+<app-date (expiryDate)="policyExpiryDate($event)"></app-date>
 <div class="border-bottom border-top py-3">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}
-                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(content)">
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(vehicle)">
                         <!-- <span class="glyphicon glyphicon-pencil"></span> -->
                         <i class="bi bi-pencil"></i>Edit
                     </button>
@@ -11,52 +12,53 @@
                 <span class="small">{{ userVehicle.vehicleType }} | {{userVehicle.fuelType}} |
                     {{userVehicle.rtoCode}}</span>
             </div>
-            <div class="col-md-4"><span class="text-muted">Existing Policy Expiry Date:</span><br /> 4-Sep-2020</div>
+            <div class="col-md-4"><span class="text-muted">Existing Policy Expiry Date:</span><br/>{{policyExpireDate | date:'mediumDate'}}</div>
             <div class="col-md-4 small">
 
 
                 <div ngbDropdown class="d-inline-block w-100">
-                    <button class="btn btn-outline-secondary w-100 btn-sm" id="dropdownForm1" ngbDropdownToggle>NCB not verified</button>
+                    <button class="btn btn-outline-secondary w-100 btn-sm" id="dropdownForm1" ngbDropdownToggle>NCB not
+                        verified</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="p-4 shadow">
                         <p class="mb-0 font-weight-bold small">Did you make a claim in your existing policy?</p>
-                      
-                        <form [formGroup]="checkboxGroupForm1">
-                            <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
-                                <label ngbButtonLabel class="btn-primary">
-                                  <input ngbButton type="radio" value="yes"> Yes
-                                </label>
-                                <label ngbButtonLabel class="btn-primary">
-                                  <input ngbButton type="radio" value="no"> No
-                                </label>                           
-                              </div>
-                          </form>
-                          
-                          <p class="mb-0 font-weight-bold small mt-3">Select your existingNo Claim Bonus (NCB)</p>
-                          <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" formControlName="model">
+
+
+                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
                             <label ngbButtonLabel class="btn-primary">
-                              <input ngbButton type="radio" [value]="0"> 0
+                                <input ngbButton type="radio" value="yes"> Yes
                             </label>
                             <label ngbButtonLabel class="btn-primary">
-                              <input ngbButton type="radio" value="twenty"> 20
+                                <input ngbButton type="radio" value="no"> No
+                            </label>
+                        </div>`
+
+
+                        <p class="mb-0 font-weight-bold small mt-3">Select your existingNo Claim Bonus (NCB)</p>
+                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
+                            <label ngbButtonLabel class="btn-primary">
+                                <input ngbButton type="radio" [value]="0"> 0
                             </label>
                             <label ngbButtonLabel class="btn-primary">
-                              <input ngbButton type="radio" value="twentyfive"> 25
+                                <input ngbButton type="radio" value="twenty"> 20
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
+                                <input ngbButton type="radio" value="twentyfive"> 25
                             </label>
                             <label ngbButtonLabel class="btn-primary">
                                 <input ngbButton type="radio" value="thiryfive"> 35
-                              </label>
-                              <label ngbButtonLabel class="btn-primary">
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
                                 <input ngbButton type="radio" value="fourtyfive"> 45
-                              </label>
-                              <label ngbButtonLabel class="btn-primary">
+                            </label>
+                            <label ngbButtonLabel class="btn-primary">
                                 <input ngbButton type="radio" value="fifty"> 50
-                              </label>
-                          </div>                        
-                          <p class="bg-light border small p-2 mt-3">You are eligible for 50% NCB in your new policy</p>
-                      
-                      <button ngbDropdownItem class="btn btn-sm btn-danger text-white text-center">Update</button>
+                            </label>
+                        </div>
+                        <p class="bg-light border small p-2 mt-3">You are eligible for 50% NCB in your new policy</p>
+
+                        <button ngbDropdownItem class="btn btn-sm btn-danger text-white text-center">Update</button>
                     </div>
-                  </div>
+                </div>
 
 
             </div>
@@ -64,16 +66,8 @@
     </div>
     <div class="bg-light py-3 mt-3 border-top">
 
-
-
-
-
         <div class="container">
-
-
             <div class="row">
-
-
                 <div class="col-md-9">
                     <div class="card shadow-sm mb-3" *ngIf="digitTwoWheeler != undefined">
                         <div class="card-body row">
@@ -362,15 +356,44 @@
         </div>
     </div>
 </div>
-<ng-template #content let-modal>
+
+<ng-template #vehicle let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Vehicle Details</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
+        <h6 class="modal-title font-weight-bold">TOYOTA ETIOS LIVA 1.4 D-4D GD
+            <div class="small"><span>MH14DF4711</span><span class="ml-3">MH14</span></div>
+        </h6>
+        <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">Change</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body pt-0">
         <div class="modal-body">
+            <p><strong>Please select Vehical Type</strong></p>
+            <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary btn-sm">Private</button>
+                <button type="button" class="btn btn-primary btn-sm">Commercial</button>
+            </div>
+            <p><strong>Please select your fuel Type</strong></p>
+            <select class="form-control form-control-sm">
+                <option>Diesel</option>
+                <option>Petrol</option>
+                <option>Electric</option>
+                <option>CNG Kit</option>
+            </select>
+
+            <p class="mt-3"><strong>Please select Varient</strong></p>
+            <select class="form-control form-control-sm">
+                <option>1.4 GD Special</option>
+                <option>1,2 DX petrol</option>
+            </select>
+
+            <p class="mt-3"><strong>Please select Registration Date</strong></p>
+
+            <p>Place date picker from ng-bootstrap</p>
+            <p><strong>Manufacturing month of your vehica</strong></p>
+
+            <p>Place date picker from ng-bootstrap with months</p>
             <form [formGroup]="vehicleListForm">
                 <div class="row">
                     <div class="col-sm-6">
@@ -415,8 +438,6 @@
             </form>
         </div>
     </div>
-
-
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="onSubmitVehicleDetails(modal)">Submit</button>
         <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
@@ -431,9 +452,9 @@
         </button>
     </div>
     <div class="modal-body">
-        <ngb-datepicker [displayMonths]="displayMonths" [navigation]="navigation"
-        [showWeekNumbers]="showWeekNumbers" [outsideDays]="outsideDays">
-</ngb-datepicker>
+        <ngb-datepicker [displayMonths]="displayMonths" [navigation]="navigation" [showWeekNumbers]="showWeekNumbers"
+            [outsideDays]="outsideDays">
+        </ngb-datepicker>
 
 
 
@@ -456,17 +477,18 @@
         <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
             <input type="radio" id="yesc" name="yesc" class="custom-control-input">
             <label class="custom-control-label" for="yesc">Yes</label>
-          </div>
-          <div class="custom-control custom-radio bg-light border my-3 rounded px-5 py-2">
+        </div>
+        <div class="custom-control custom-radio bg-light border my-3 rounded px-5 py-2">
             <input type="radio" id="noc" name="noc" class="custom-control-input">
             <label class="custom-control-label" for="noc">No</label>
-          </div>
-          <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
+        </div>
+        <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
             <input type="radio" id="notsure" name="notsure" class="custom-control-input">
             <label class="custom-control-label" for="notsure">Not Sure</label>
-          </div>
+        </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="modal.close('Close click');"><i class="fas fa-long-arrow-alt-left mr-2"></i>Back</button>
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="modal.close('Close click');"><i
+                class="fas fa-long-arrow-alt-left mr-2"></i>Back</button>
     </div>
 </ng-template>
