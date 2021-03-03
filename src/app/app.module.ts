@@ -31,11 +31,11 @@ import { APIService } from './_services/api.service';
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule,
         SharedModule,
         BrowserModule,
         FormsModule,
         MotorModule,
+        NgbModule,
         NgHttpLoaderModule.forRoot(),
     ],
     declarations: [

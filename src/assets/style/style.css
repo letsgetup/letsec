@@ -313,3 +313,21 @@ fade.in{
 ul.list-insured li label{margin-top:2px}
 .link-inherit{color:inherit}
 .scroll-y{max-height:175px;height:auto;overflow-y: auto;position: relative;}
+
+  .dont_know {
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: #4C9AFF;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.ques {
+    letter-spacing: 0px;
+    color: #252733;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}

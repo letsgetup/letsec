@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DigitInsuranceDetails, Vehicle } from '../../../_models/digit-insurance-details';
 import { CustomService } from '@app/_services';
 import digitdata from "../../assets/json/digitdata.json";
@@ -15,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './listing.component.html'
 })
 export class ListingComponent implements OnInit {
+  @ViewChild('content', { static: true }) content: TemplateRef<any>;
   vehicleListForm: FormGroup;
   tataAig2W: TataAigInsurance;
   digitTwoWheeler: DigitInsuranceDetails;
@@ -24,13 +25,14 @@ export class ListingComponent implements OnInit {
   closeResult = '';
   objectPolicy: ObjectPolicy;
   vehicleData: VehicleDetails;
+  policyExpireDate: any;
+  
 
   constructor(private customService: CustomService,
     private router: Router,
     private sharedService: LtsSharedService,
     private modalService: NgbModal, private formBuilder: FormBuilder) {
     this.getFourWheelerData();
-    
    }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class ListingComponent implements OnInit {
 
     this.initializeThirdPartyObj();
     this.initializeuserVehicleData();
+
   }
 
   initializeuserVehicleData(){
@@ -105,6 +108,11 @@ export class ListingComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  policyExpiryDate(date:any){
+    console.log('listng expry::::', date);
+    this.policyExpireDate = date;
   }
 
   fetchInsuranceData(){
@@ -195,20 +203,18 @@ export class ListingComponent implements OnInit {
   validateFuelType(){
     let fuelList: any[];
     let variant = this.vehicleListForm.controls['variant'].value;
-    console.log('fl', (variant.split('-')[0]).trim());
+    
     this.customService.getTmpSearchedFueltypes(this.vehicleListForm.controls['maker'].value, 
       this.vehicleListForm.controls['model'].value, (variant.split('-')[0]).trim()).subscribe(fuel=>{
       fuelList = [];
       console.log('fuel::', fuel);
       fuelList = fuel;
     });
-    console.log('fl val::::', fuelList.some(r => { r.FuelType === this.vehicleListForm.controls['fuel'].value }));
   }
 
 }
 
 export class NgbdDatepickerMultiple {
-
   displayMonths = 2;
   navigation = 'select';
   showWeekNumbers = false;
@@ -250,6 +256,4 @@ export class VehicleDetails {
   ManufacturingMonth: string;
 }
 
-export class NgbdDropdownForm {
-}
 
