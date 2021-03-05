@@ -1,4 +1,9 @@
-<div class="container p-3 bg-secondary d-flex rounded shadow my-3 text-white"><h4><i class="fas fa-user mr-2"></i>Welcome<strong>&nbsp;[ {{agentuser.agentid}} ]</strong> </h4>
+<div class="container p-3 bg-secondary d-flex rounded shadow my-3 text-white">
+  <span><i class="fas fa-user fa-3x mr-3"></i></span>
+  <span><h4 class="mb-0">Welcome<strong>&nbsp;
+    agentuser.name [ {{agentuser.agentid}} ]</strong>
+  </h4>
+  <label class="mt-0 mb-0">agentuser.Role</label></span>
   <span class="ml-auto">
     <button type="button" class="btn btn-danger" (click)="agentlogout()">
       Logout <i class="fas fa-sign-out-alt ml-2"></i>

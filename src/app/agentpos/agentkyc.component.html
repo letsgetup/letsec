@@ -106,8 +106,8 @@
             <div class="form-group col-md-4">
     
                 <input type="password" formControlName="confirmPassword" placeholder="Confirm Password"
-                    class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
-                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                    class="form-control" [ngClass]="{ 'is-invalid': (submitted && f.confirmPassword.errors ) || (f.confirmPassword.touched && f.confirmPassword.errors)  }" />
+                <div *ngIf="f.confirmPassword.errors" class="invalid-feedback">
                     <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
                     <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
                 </div>
@@ -128,7 +128,16 @@
                 </div>
             </div>
     
+            <div class="form-group col-md-4">
     
+                <input type="text" formControlName="aadharcard" placeholder="Aadhar card" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.aadharcard.errors }" pattern=""/>
+                <div *ngIf="submitted && f.aadharcard.errors" class="invalid-feedback">
+                    <div *ngIf="f.aadharcard.errors.required">Aadhar card must be a valid</div>
+                    <div *ngIf="f.aadharcard.errors.minlength">Aadhar card must be a valid</div>
+                </div>
+               
+            </div>
             <div class="form-group col-md-4">
     
                 <input type="text" formControlName="pancard" placeholder="Pancard" class="form-control"
@@ -158,8 +167,7 @@
 
             <input type="text" formControlName="address2" placeholder="address2" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.address2.errors }" />
-            <div *ngIf="submitted && f.address2.errors" class="invalid-feedback">
-                <div *ngIf="f.address2.errors.required">Address2 is required</div>
+            <div *ngIf="submitted && f.address2.errors" class="invalid-feedback">                
                 <div *ngIf="f.address2.errors.minlength">Minimum length should be 5.</div>
                 <div *ngIf="f.address2.errors.pattern">Avoid special chars.</div>
             </div>
@@ -169,8 +177,7 @@
 
             <input type="text" formControlName="address3" placeholder="address3" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && f.address3.errors }" />
-            <div *ngIf="submitted && f.address3.errors" class="invalid-feedback">
-                <div *ngIf="f.address3.errors.required">Address3 is required</div>
+            <div *ngIf="submitted && f.address3.errors" class="invalid-feedback">                
                 <div *ngIf="f.address3.errors.minlength">Minimum length should be 5.</div>
                 <div *ngIf="f.address3.errors.pattern">Avoid special chars.</div>
             </div>
@@ -244,19 +251,39 @@
                 <div *ngIf="f.ifsccode.errors.required">IfSC Code is required</div>
             </div>
         </div>
+        <div class="form-group col-md-4">
+            <input type="text" matInput formControlName="GSTNumber" class="form-control" placeholder="GST number"
+                [ngClass]="{ 'is-invalid': submitted && f.GSTNumber.errors }" />           
+        </div>
         
         
 
-            <div class="form-group col-md-12">
-                <input formControlName="document" id="document" type="file" class="form-control"
-                    (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && f.document.errors }">
-                <div *ngIf="f.document.touched && f.document.invalid" class="alert alert-danger">
-                    <div *ngIf="f.document.errors.required">File is required.</div>
+            <div class="form-group col-md-6">
+                <label>Upload Aadhar card</label>
+                <input formControlName="document1" id="document1" type="file" class="form-control" placeholder="Aadhar card"
+                    (change)="onFileChange1($event)" [ngClass]="{ 'is-invalid': submitted && f.document1.errors }">
+                <div *ngIf="f.document1.touched && f.document1.invalid" class="alert alert-danger">
+                    <div *ngIf="f.document1.errors.required">File is required.</div>
                 </div>
-                <div class="alert alert-light" role="alert">{{ message }}
-                   File: {{ fileInfos }}                        
+                <div class="alert alert-light" role="alert">{{ message }}</div>                
+            </div>
+            <div class="form-group col-md-6">
+                <label>Upload Pan card</label>
+                <input formControlName="document2" id="document2" type="file" class="form-control" placeholder="Pan card"
+                    (change)="onFileChange2($event)" [ngClass]="{ 'is-invalid': submitted && f.document2.errors }">
+                <div *ngIf="f.document2.touched && f.document2.invalid" class="alert alert-danger">
+                    <div *ngIf="f.document2.errors.required">File is required.</div>
                 </div>
-                <input  formControlName="document_hid" [hidden]="true">
+                <div class="alert alert-light" role="alert">{{ message }}</div>                
+            </div>
+            <div class="form-group col-md-6">
+                <label>Upload bank details document</label>
+                <input formControlName="document3" id="document3" type="file" class="form-control" placeholder="Bank document"
+                    (change)="onFileChange3($event)" [ngClass]="{ 'is-invalid': submitted && f.document3.errors }">
+                <div *ngIf="f.document3.touched && f.document3.invalid" class="alert alert-danger">
+                    <div *ngIf="f.document3.errors.required">File is required.</div>
+                </div>
+                <div class="alert alert-light" role="alert">{{ message }}</div>                
             </div>
             
         

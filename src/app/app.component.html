@@ -6,4 +6,6 @@
     <router-outlet></router-outlet>
 </div>
 <!-- Main application footer -->
-<app-main-footer></app-main-footer>
+<div *ngIf="!router.url.includes('agentpos')">
+    <app-main-footer></app-main-footer>
+</div>

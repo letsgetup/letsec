@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { AgentUser } from '@app/_models';
 import { AgentService } from '@app/_services';
 import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,14 +8,41 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 interface Leades {
   name: string;
   mobile: string;
-  email: number;
+  email: string;
   status: number;
   policy: string;
 
 }
+export interface SortEvent {
+  column: SortColumn;
+  direction: SortDirection;
+}
+export type SortColumn = keyof Leades | '';
+export type SortDirection = 'asc' | 'desc' | '';
+const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
+const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
+@Directive({
+  selector: 'th[sortable]',
+  host: {
+    '[class.asc]': 'direction === "asc"',
+    '[class.desc]': 'direction === "desc"',
+    '(click)': 'rotate()'
+  }
+})
 
+export class NgbdSortableHeader {
+
+  @Input() sortable: SortColumn = '';
+  @Input() direction: SortDirection = '';
+  @Output() sort = new EventEmitter<SortEvent>();
+
+  rotate() {
+    this.direction = rotate[this.direction];
+    this.sort.emit({column: this.sortable, direction: this.direction});
+  }
+}
 
 @Component({
   selector: 'app-agent-leads',
@@ -30,6 +57,7 @@ export class AgentLeadsComponent implements OnInit {
   message:string;
   page = 2;
   pageSize =10;
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(private agentService: AgentService,  
     private modalService: NgbModal,
@@ -109,5 +137,26 @@ export class AgentLeadsComponent implements OnInit {
     }
   }
 
+
+
+  onSort({column, direction}: SortEvent) {
+
+    // resetting other headers
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+
+    // sorting countries
+    if (direction === '' || column === '') {
+      this.leadDetails = this.leadDetails;
+    } else {
+      this.leadDetails = [...this.leadDetails].sort((a, b) => {
+        const res = compare(a[column], b[column]);
+        return direction === 'asc' ? res : -res;
+      });
+    }
+  }
 
 }
