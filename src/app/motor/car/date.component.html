@@ -1,18 +1,60 @@
 <div>
     <ng-template #content let-modal>
-		<div class="modal-header">
-			<div class="ques">
-				<p>When does your policy expire?</p>
-			</div>
-		</div>
+        <div class="modal-header">
+            <div class="ques">
+                <p>When does your policy expire?</p>
+            </div>
+        </div>
         <p style="max-width: 500px">
-            <ngx-calendar #ngxCalendar1 [options]="calendarOptions" 
-				(onChooseDate)="onChooseDate($event)">
+            <ngx-calendar #ngxCalendar1 [options]="calendarOptions" (onChooseDate)="onChooseDate($event, confirm)">
             </ngx-calendar>
         </p>
-		<div class="dont_know">
-			<a class="dont_know"><b>Don't know the policy expiry date?</b></a>
-		</div>
+        <div class="dont_know">
+            <a class="dont_know" (click)="openCalender(expiry)"><b><u>Don't know the policy expiry date?</u></b></a>
+        </div>
     </ng-template>
 </div>
 
+<ng-template #confirm let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title">Did you make a claim in your existing policy?</h6>
+    </div>
+    <div class="modal-body">
+        <div *ngFor="let claim of eClaim | keyvalue; let i = index">
+            <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
+                <input type="radio" [id]="i+'-claim'" [checked]="selectedClaimValue == claim.value"
+                    class="custom-control-input" (change)="onClaimChange(claim)">
+                <label class="custom-control-label" [for]="i+'-claim'">{{ claim.value }}</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="modal.close('Close click')">
+            <i class="fas fa-long-arrow-alt-left mr-2"></i>Back</button>
+    </div>
+</ng-template>
+
+<ng-template #expiry let-modal>
+    <div class="modal-header">
+        <!-- <p>Your quotes are loading just 2 steps to go ahead</p> -->
+        <p><b>Is your policy expired</b></p>
+    </div>
+    <div class="modal-body">
+        <div class="modal-body">
+            <div *ngFor="let expiry of ePolicyExpire | keyvalue; let i = index">
+                <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
+                    <input type="radio" [id]="i+'-exp'" [checked]="policyExpiryState == expiry.value"
+                        class="custom-control-input" (change)="onExpiryChange(expiry, confirm)">
+                    <label class="custom-control-label" [for]="i+'-exp'">{{ expiry.value }}</label>
+                </div>
+            </div>
+            <div class="dont_know">
+                <a class="dont_know"><b><u>I know the policy expiry date</u></b></a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark btn-sm" (click)="modal.close('Close click')">
+            <i class="fas fa-long-arrow-alt-left mr-2"></i>Back</button>
+    </div>
+</ng-template>

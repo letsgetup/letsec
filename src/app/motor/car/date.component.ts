@@ -13,12 +13,17 @@ export class DateComponent implements OnInit {
   @ViewChild("ngxCalendar1") ngxCalendar1: NgxCalendarComponent;
   @ViewChild('content', { static: true }) content: TemplateRef<any>;
   @Output() expiryDate: EventEmitter<any> = new EventEmitter();
+  @Output() policyClaim: EventEmitter<any> = new EventEmitter();
   calendarOptions = {};
   calendarValue = null;
   showModal = false;
   closeResult = '';
+  eClaim = ClaimEnum;
+  ePolicyExpire = PolicyExpireEnum;
+  selectedClaimValue: any;
+  policyExpiryState: any;
 
-  constructor(private router: Router, private modalService: NgbModal) { 
+  constructor(private router: Router, private modalService: NgbModal) {
 
   }
 
@@ -26,14 +31,15 @@ export class DateComponent implements OnInit {
     this.showModal = true;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.openCalender(this.content);
   }
 
-  onChooseDate(date: any) {
+  onChooseDate(date: any, claim) {
     console.log('selected date', date);
     this.calendarValue = date;
     this.expiryDate.emit(date);
+    this.openCalender(claim);
   }
 
   onClose() {
@@ -46,7 +52,7 @@ export class DateComponent implements OnInit {
   }
 
   openCalender(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -63,6 +69,36 @@ export class DateComponent implements OnInit {
     }
   }
 
-  
+  onClaimChange(claim: any) {
+    this.selectedClaimValue = claim.value;
+    this.policyClaim.emit(claim.value);
+    console.log('selected:::', claim.value);
+    this.modalService.dismissAll('Esc');
+  }
 
+  onExpiryChange(expiry: any, claim) {
+    console.log('onExpiryChange:::', expiry);
+    this.policyExpiryState = expiry.value;
+    if(expiry.key != 'E5'){
+      this.openCalender(claim);
+    } else {
+      this.modalService.dismissAll('Esc');
+    }
+  }
+
+}
+
+
+export enum ClaimEnum {
+  C1 = 'Yes',
+  C2 = 'No',
+  C3 = 'Not Sure'
+}
+
+export enum PolicyExpireEnum {
+  E1 = 'Policy not expired yet',
+  E2 = 'Policy expired within 2 months',
+  E3 = 'Policy expired within 2 - 3 months ago',
+  E4 = 'Policy expired more than 3 months ago',
+  E5 = 'I have bought new car'
 }
