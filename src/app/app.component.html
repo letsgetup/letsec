@@ -24,3 +24,6 @@
 [opacity]=".6"
 [spinner]="spinnerStyle.skWanderingCubes">
 </ng-http-loader> -->
+<div *ngIf="!router.url.includes('agentpos')">
+    <app-main-footer></app-main-footer>
+</div>

@@ -5,11 +5,11 @@
       <thead>
       <tr>
      
-        <th scope="col">Name</th>
-        <th scope="col">Mobile</th>
-        <th scope="col">Email</th>
-        <th scope="col" class="text-center">Status</th>
-        <th scope="col">Policy</th>
+        <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+        <th scope="col" sortable="mobile" (sort)="onSort($event)">Mobile</th>
+        <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
+        <th scope="col" class="text-center" sortable="status" (sort)="onSort($event)">Status</th>
+        <th scope="col" sortable="policy" (sort)="onSort($event)">Policy</th>
       </tr>
       </thead>
       <tbody>
