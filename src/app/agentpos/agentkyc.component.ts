@@ -53,8 +53,8 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       qualification: ['', Validators.required],
       pancard: ['',[ Validators.required, Validators.pattern(/^[A-Za-z]{5}[0-9]{4}[A-Za-z]$/)]],
       address1: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
-      address2: ['', [Validators.required, Validators.minLength(5) , Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
-      address3: ['', [Validators.required, Validators.minLength(5)],  Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')],
+      address2: ['', [Validators.minLength(5) , Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
+      address3: ['', [Validators.minLength(5),  Validators.pattern('^[#.0-9a-zA-Z\s,-]+$')]],
       state: ['', Validators.required],
       city: ['', Validators.required],
       pincode: ['', Validators.required],
@@ -63,10 +63,15 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       accounttype: ['', Validators.required],
       accountnumber: ['', Validators.required],
       ifsccode: ['', Validators.required],
-      document: ['', Validators.required],
-      fileSource: ['', Validators.required],
+      GSTNumber: [''],
+      document1: ['', Validators.required],
+      fileSource1: ['', Validators.required],
       acceptTerms: [false, Validators.requiredTrue],
-      document_hid: ['']
+      document2: ['', Validators.required],
+      fileSource2 : ['',Validators.required],
+      document3: ['', Validators.required],
+      fileSource3 : ['',Validators.required],
+      aadharcard : ['', [Validators.required, Validators.minLength(12)]],
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
@@ -95,16 +100,32 @@ export class AgentkycComponent implements OnInit, OnDestroy {
 
   }
 
-  onFileChange(event) {
-
+  onFileChange1(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.posKycForm.patchValue({
-        fileSource: file
+        fileSource1: file
       });
-      this.posKycForm.get('fileSource').updateValueAndValidity()
+      this.posKycForm.get('fileSource1').updateValueAndValidity()
     }
-
+  }
+  onFileChange2(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.posKycForm.patchValue({
+        fileSource2: file
+      });
+      this.posKycForm.get('fileSource2').updateValueAndValidity()
+    }
+  }
+  onFileChange3(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.posKycForm.patchValue({
+        fileSource3: file
+      });
+      this.posKycForm.get('fileSource3').updateValueAndValidity()
+    }
   }
   openWithConfirmation(event) {
     console.log(event.isTrusted)
@@ -125,34 +146,35 @@ export class AgentkycComponent implements OnInit, OnDestroy {
     if (this.posKycForm.invalid) {
       return;
     }
-    const formData: FormData = new FormData();
-    formData.append("document", this.posKycForm.get('fileSource').value);
 
-    formData.append("gender", this.posKycForm.get('gender').value)
-    formData.append("firstName", this.posKycForm.get('firstName').value)
-    formData.append("middleName", this.posKycForm.get('middleName').value)
-    formData.append("lastName", this.posKycForm.get('lastName').value)
-    formData.append("dob", this.posKycForm.get('dob').value)
-    formData.append("mobile", this.posKycForm.get('mobile').value)
-    formData.append("email", this.posKycForm.get('email').value)
-    formData.append("extramobile", this.posKycForm.get('extramobile').value)
-    formData.append("password", this.posKycForm.get('password').value)
-    //formData.append("confirmPassword",this.posKycForm.get('confirmPassword').value)
-    formData.append("qualification", this.posKycForm.get('qualification').value)
-    formData.append("pancard", this.posKycForm.get('pancard').value)
-    formData.append("address1", this.posKycForm.get('address1').value)
-    formData.append("address2", this.posKycForm.get('address2').value)
-    formData.append("address3", this.posKycForm.get('address3').value)
-    formData.append("state", this.posKycForm.get('state').value)
-    formData.append("city", this.posKycForm.get('city').value)
-    formData.append("pincode", this.posKycForm.get('pincode').value)
-    formData.append("bankname", this.posKycForm.get('bankname').value)
-    formData.append("branchname", this.posKycForm.get('branchname').value)
-    formData.append("accounttype", this.posKycForm.get('accounttype').value)
-    formData.append("accountnumber", this.posKycForm.get('accountnumber').value)
-    formData.append("ifsccode", this.posKycForm.get('ifsccode').value)
-    //formData.append("document",this.posKycForm.get('document').value)
-
+    const formData = new FormData    
+    formData.append("document1", this.posKycForm.get('fileSource1').value);
+    formData.append("document2", this.posKycForm.get('fileSource2').value);
+    formData.append("document3", this.posKycForm.get('fileSource3').value);
+    formData.append("gender", this.posKycForm.get('gender').value);
+    formData.append("firstname", this.posKycForm.get('firstName').value);
+    formData.append("middlename", this.posKycForm.get('middleName').value);
+    formData.append("lastname", this.posKycForm.get('lastName').value);
+    formData.append("dob", this.posKycForm.get('dob').value);
+    formData.append("mobile", this.posKycForm.get('mobile').value);
+    formData.append("email", this.posKycForm.get('email').value);
+    formData.append("extramobile", this.posKycForm.get('extramobile').value);
+    formData.append("password", this.posKycForm.get('password').value);    
+    formData.append("qualification", this.posKycForm.get('qualification').value);
+    formData.append("pancard", this.posKycForm.get('pancard').value);
+    formData.append("address1", this.posKycForm.get('address1').value);
+    formData.append("address2", this.posKycForm.get('address2').value);
+    formData.append("address3", this.posKycForm.get('address3').value);
+    formData.append("state", this.posKycForm.get('state').value);
+    formData.append("city", this.posKycForm.get('city').value);
+    formData.append("pincode", this.posKycForm.get('pincode').value);
+    formData.append("bankname", this.posKycForm.get('bankname').value);
+    formData.append("branchname", this.posKycForm.get('branchname').value);
+    formData.append("accounttype", this.posKycForm.get('accounttype').value);
+    formData.append("accountnumber", this.posKycForm.get('accountnumber').value);
+    formData.append("ifsccode", this.posKycForm.get('ifsccode').value);
+    formData.append("gsTnumber", this.posKycForm.get('GSTNumber').value);
+    formData.append("aadharcard", this.posKycForm.get('aadharcard').value);
 
     this.agentposService.agentposconfirmregister(formData)
       .pipe(first())

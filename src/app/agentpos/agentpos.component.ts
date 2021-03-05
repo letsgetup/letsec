@@ -35,8 +35,8 @@ export class AgentposComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.agentRegiform = this.formBuilder.group({
-      agentemail: ['', [Validators.required, Validators.email], [this.customValidator.validateEmailNotTaken.bind(this.customValidator)]],
-      agentphone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")], [this.customValidator.validateMobileNotTaken.bind(this.customValidator)]],
+      agentemail: ['', [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      agentphone: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10)]],
       pincode: ['', [Validators.required, Validators.minLength(6)]]
     });
     //cache part
@@ -46,15 +46,16 @@ export class AgentposComponent implements OnInit, OnDestroy {
  }
  search = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(200),
+      debounceTime(1300),
       map(term =>  this.pincodeDetails)
     )
     formatter = (x: {Pincode: string}) => x.Pincode  
-    onkeyPressval(term:string) {
-        this.agentposService.getAllPincode(term).subscribe(pincodeData => {
-          console.log(pincodeData);
-        this.pincodeDetails = pincodeData;
-        this.pincodeDetails = JSON.parse(this.pincodeDetails);
+    onkeyPressval(term:string) { 
+        if(term.length < 4) return;
+        this.agentposService.getAllPincode(term).subscribe(pincodeData=> {        
+          //  console.log(pincodeData)
+          this.pincodeDetails = pincodeData;
+          this.pincodeDetails = JSON.parse(this.pincodeDetails);
        
         })
     }

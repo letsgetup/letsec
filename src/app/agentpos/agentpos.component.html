@@ -3,8 +3,8 @@
         <h4 class="font-weight-bold text-uppercase mb-3">Register</h4>
         <form [formGroup]="agentRegiform" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label for="agentemail" class="font-weight-bold">Email</label>
-                <input type="text" formControlName="agentemail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.agentemail.errors }" />
+                <label for="agentemail" class="font-weight-bold required-field">Email</label>
+                <input type="text" formControlName="agentemail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.agentemail.errors }" required/>
                 <div *ngIf="submitted && f.agentemail.errors" class="invalid-feedback">
                     <div *ngIf="f.agentemail.errors.required">Email is required</div>
                     <div *ngIf="f.agentemail.errors.email">Email must be a valid email address</div>
@@ -12,8 +12,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="agentphone" class="font-weight-bold">Enter Phone</label>
-                <input maxlength="10" type="text" formControlName="agentphone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.agentphone.errors }" />
+                <label for="agentphone" class="font-weight-bold required-field" >Enter Phone</label>
+                <input maxlength="10" type="text" formControlName="agentphone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.agentphone.errors }" required/>
                 <div *ngIf="submitted && f.agentphone.errors" class="invalid-feedback">
                     <div *ngIf="f.agentphone.errors.required">Phone Number is required</div>
                     <div *ngIf="f.agentphone.errors.pattern"> Enter 10 digit Mobile Number </div>
@@ -21,11 +21,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="pincode" class="font-weight-bold">Pincode</label>
-                <input maxlength="6" type="text" formControlName="pincode" [inputFormatter]="formatter" [resultTemplate]="rt" (keyup)="onkeyPressval($event.target.value)" [ngbTypeahead]="search" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }"
-                />
+                <label for="pincode" class="font-weight-bold required-field">Pincode</label>
+                <input maxlength="6" type="text" formControlName="pincode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" required [inputFormatter]="formatter" [resultTemplate]="rt" (keyup)="onkeyPressval($event.target.value)" [ngbTypeahead]="search"/> 
                 <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
                     <div *ngIf="f.pincode.errors.required">Pincode is required</div>
+                    <div *ngIf="f.pincode.errors.pattern"> Enter 6 digit pin code</div>                  
                 </div>
                 <ng-template #rt let-r="result" let-t="term">
                     <ngb-highlight [result]="r.Pincode" [term]="t"></ngb-highlight>
