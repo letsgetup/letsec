@@ -5,3 +5,5 @@ export * from  './pincode';
 export * from  './agentuser';
 export * from './rtoinfo';
 export * from './user-vehicle-details';
+export * from './vehicle-quotes-data';
+export * from './insurer-quotes-details';

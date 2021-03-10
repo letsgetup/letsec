@@ -9,6 +9,8 @@ export class UserVehicleDetails {
     vehicleVariant?: string;
     fuelType?: string;
     year?: string;
+    isNewVehicle: boolean = false;
+    isClaim: boolean;
     user: UserDetails;
 }
 

@@ -29,7 +29,7 @@ export class UserSectionComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       userfullname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15), Validators.pattern('^[a-zA-Z\\s]*$')]],
       useremail: ['', [Validators.required, Validators.email], [this.customValidator.validateEmailNotTaken.bind(this.customValidator)]],
-      usermobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")], [this.customValidator.validateMobileNotTaken.bind(this.customValidator)]],
+      usermobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.minLength(10)], [this.customValidator.validateMobileNotTaken.bind(this.customValidator)]],
 
     });
     //throw new Error('Method not implemented.');

@@ -12,7 +12,7 @@
             <div *ngIf="formControl.useremail.errors.email">Email must be a valid email address</div>
         </div>
 
-        <input type="text" class="form-control" formControlName="usermobile" [ngClass]="{ 'is-invalid': submitted && formControl.usermobile.errors }" placeholder="Mobile Number" />
+        <input type="text" class="form-control" formControlName="usermobile" [ngClass]="{ 'is-invalid': submitted && formControl.usermobile.errors }" placeholder="Mobile Number" minlength="10"/>
         <div *ngIf="submitted && formControl.usermobile.errors" class="invalid-feedback">
             <div *ngIf="formControl.usermobile.errors.required">Phone Number is required</div>
             <div *ngIf="formControl.usermobile.errors.pattern"> Enter 10 digit Mobile Number </div>

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidation } from '@app/_helpers';
-import { VehicleDetails } from '@app/_models/vehicle-details';
 import { AlertService, CacheService, CustomService } from '@app/_services';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
@@ -43,7 +42,6 @@ export class MotorInfoComponent implements OnInit {
   makerDetails: any = [];
   fuelList: any = [];
   strMaker: string;
-  vehicleDetails: VehicleDetails;
   selectedRTOState: string;
   selectedRTOCity: string;
   userVehicleDetails: UserVehicleDetails;
@@ -89,6 +87,15 @@ export class MotorInfoComponent implements OnInit {
     //  this.motorInfoForm.setValue(JSON.parse(sessionStorage.getItem("userinfo")));
    // }
    this.calenderYears();
+  }
+
+  selectWithOutRegNo() {
+    console.log("without vehicle no");
+  }
+
+  selectNewVehicle() {
+    console.log("new vehicle no");
+    this.userVehicleDetails.isNewVehicle = true;
   }
   openModal(content) {
     //this.modalService.open(id);

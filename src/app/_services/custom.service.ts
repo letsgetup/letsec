@@ -182,6 +182,12 @@ export class CustomService {
       );
   }
 
+  getQuickQuotesDetails(vehicleDetails: any): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    return this.http.post(`${environment.swagApiUrl}/api/QuickQuote/getquickquote`, JSON.stringify(vehicleDetails), {headers});
+  }
+
   getThirdPartyInsurance(policyDetails: any, vehicleDetails: any): Observable<any> {
     let auth = JSON.stringify({username:'1215012021', password:'3AF54AAD-91E2-4285-AEE7-889363A576F2'});
     const url = "http://52.172.5.3:8423/api/MotorAPI/GetVehicleIDV";
@@ -209,6 +215,8 @@ export class CustomService {
     return this.http.post(`${url}`, { header: headers, params: params })
     .pipe( map(response => response), catchError(this.handleError));
   }
+
+
 
   handleError(error) {
     let errorMessage = '';

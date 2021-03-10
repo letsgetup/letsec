@@ -1,11 +1,11 @@
-<app-date (expiryDate)="policyExpiryDate($event)"></app-date>
+<app-date (expiryDate)="policyExpiryDate($event)" (policyClaim)="policyClaimInModal($event)" 
+            (claimSelected)="onClaimSelection($event)"></app-date>
 <div class="border-bottom border-top py-3">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}
+                <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}cc
                     <button type="button" class="btn btn-sm btn-outline-primary" (click)="open(vehicle)">
-                        <!-- <span class="glyphicon glyphicon-pencil"></span> -->
                         <i class="bi bi-pencil"></i>Edit
                     </button>
                 </p>
@@ -14,53 +14,29 @@
             </div>
             <div class="col-md-4"><span class="text-muted">Existing Policy Expiry Date:</span><br/>{{policyExpireDate | date:'mediumDate'}}</div>
             <div class="col-md-4 small">
-
-
                 <div ngbDropdown class="d-inline-block w-100">
                     <button class="btn btn-outline-secondary w-100 btn-sm" id="dropdownForm1" ngbDropdownToggle>NCB not
                         verified</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="p-4 shadow">
                         <p class="mb-0 font-weight-bold small">Did you make a claim in your existing policy?</p>
-
-
-                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
+                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedModalClaim">
                             <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="yes"> Yes
+                                <input ngbButton type="radio" name="Y" [value]="1"> Yes
                             </label>
                             <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="no"> No
+                                <input ngbButton type="radio" name="N" value="No"> No
                             </label>
-                        </div>`
-
-
+                        </div>
                         <p class="mb-0 font-weight-bold small mt-3">Select your existingNo Claim Bonus (NCB)</p>
-                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic">
+                        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" *ngFor="let bonus of claimBonus; let i = index">
                             <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" [value]="0"> 0
-                            </label>
-                            <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="twenty"> 20
-                            </label>
-                            <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="twentyfive"> 25
-                            </label>
-                            <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="thiryfive"> 35
-                            </label>
-                            <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="fourtyfive"> 45
-                            </label>
-                            <label ngbButtonLabel class="btn-primary">
-                                <input ngbButton type="radio" value="fifty"> 50
+                                <input ngbButton type="radio" name="i" [value]="0" (click)="selectBonus(bonus)">{{ bonus }}
                             </label>
                         </div>
                         <p class="bg-light border small p-2 mt-3">You are eligible for 50% NCB in your new policy</p>
-
                         <button ngbDropdownItem class="btn btn-sm btn-danger text-white text-center">Update</button>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -69,7 +45,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <div class="card shadow-sm mb-3" *ngIf="digitTwoWheeler != undefined">
+                    <!-- <div class="card shadow-sm mb-3" *ngIf="digitTwoWheeler != undefined">
                         <div class="card-body row">
                             <div class="col-md-3"><img src="https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2" />
                             </div>
@@ -109,25 +85,26 @@
                                     INR {{ tataAig2W.TOTALPAYABLE }}</button>
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="card shadow-sm mb-3">
+                    </div> -->
+                    <div class="card shadow-sm mb-3" *ngFor="let quote of quickQuotes; let i=index">
                         <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/28.png" /></div>
+                            <div class="col-md-3"><img [src]="getIconPath(quote.nameOfInsurer)" /></div>
                             <div class="col-md-3">
                                 <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;123,333</h5>
+                                <h5>&#x20B9;{{ quote.idv }}</h5>
                             </div>
                             <div class="col-md-3">
                                 <p class="text-black-50 mb-0">Add ons</p>
                                 <span class="small">Zero Dep: Unavailable</span>
                             </div>
                             <div class="col-md-3">
-                                <p class="mb-0 text-d"><del>&#x20B9;2,333</del><span class="ml-2 small"><a
-                                            href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger">&#x20B9;12,333</button>
+                                <!-- <p class="mb-0 text-d"><del>&#x20B9;2,333</del><span class="ml-2 small"><a
+                                            href="#">Policy Coverag</a></span></p> -->
+                                <button class="btn btn-danger" (click)="selectPremiumPlan(quote.nameOfInsurer, quote.premium, quote.idv)">
+                                    &#x20B9;{{ quote.premium }}</button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- <div class="card shadow-sm mb-3">
                         <div class="card-body row">
                             <div class="col-md-3"><img src="../assets/images/16.png" /></div>
@@ -173,39 +150,15 @@
                         <div class="card-body py-2 scroll-y">
                             <ul id="multi-select-demo mb-0" class="small list-insured pl-3">
                                 <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="selectall" id="selectall">
+                                    <input class="form-check-input" type="checkbox" value="selectall" id="selectall" (change)="selectAllInsurer($event)">
                                     <label class="form-check-label text-black-50 font-weight-bold" for="selectall">
                                         Select All
                                     </label>
                                 </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="bajaj" id="bajaj">
-                                    <label class="form-check-label" for="bajaj">
-                                        Bajaj
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="bhartiaxa" id="bhartiaxa">
-                                    <label class="form-check-label" for="bhartiaxa">
-                                        Bharti Axa
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="hdfcargo" id="hdfcargo">
-                                    <label class="form-check-label" for="hdfcargo">
-                                        HDFC ERGO
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="ifcoTokio" id="ifcoTokio">
-                                    <label class="form-check-label" for="ifcoTokio">
-                                        Ifco Tokio
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="kotakgi" id="kotakgi">
-                                    <label class="form-check-label" for="kotakgi">
-                                        Kotak General Insurance
+                                <li class="py-1 list-unstyled" *ngFor="let insurer of enumInsurer | keyvalue; let i = index">
+                                    <input class="form-check-input" type="checkbox" [checked]="isSelectAllInsurer" [id]="i" (change)="selectInsurer(insurer)">
+                                    <label class="form-check-label" [for]="i">
+                                        {{ insurer.value }}
                                     </label>
                                 </li>
                             </ul>
@@ -221,30 +174,15 @@
                         </div>
                         <div class="card-body py-2">
                             <ul id="multi-select-demo mb-0" class="pl-3">
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Lowest IDV
+                                <li class="py-1 list-unstyled" *ngFor="let idv of enumIDV | keyvalue; let i = index">
+                                    <input class="form-check-input" type="radio" [id]="i+'-idv'" [checked]="selectedIdv == idv.value"
+                                                [value]="idv.key" (change)="onIDVChange(idv.value)">
+                                    <label class="form-check-label" [for]="i+'-idv'">
+                                        {{ idv.value }}
                                     </label>
                                 </li>
                                 <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Recommended IDV(₹ 43,345)
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="radio" name="exampleRadios"
-                                        id="exampleRadios1" value="option1" checked>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Maximum IDV
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input type="text" class="form-control form-cntrol-sm"
-                                        placeholder="Enter your IDV" />
+                                    <input type="text" class="form-control form-cntrol-sm" placeholder="Enter your IDV" />
                                 </li>
                             </ul>
                         </div>
@@ -272,84 +210,24 @@
                         <div class="card-body scroll-y">
                             <p class="mb-0"><strong>Addons</strong></p>
                             <ul id="multi-select-demo" class="small list-insured pl-3">
-
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="zeroDepreciation" id="zeroDepreciation
-                                    ">
-                                    <label class="form-check-label" for="zeroDepreciation">
-                                        Zero Depreciation
-
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="roadsideAssistance"
-                                        id="roadsideAssistance">
-                                    <label class="form-check-label" for="roadsideAssistance">
-                                        24x7 Roadside Assistance
-
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="engineProtectionCover"
-                                        id="engineProtectionCover">
-                                    <label class="form-check-label" for="engineProtectionCover">
-                                        Engine Protection Cover
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="ncbProtector"
-                                        id="ncbProtector">
-                                    <label class="form-check-label" for="ncbProtector">
-                                        NCB Protector
-
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value=" keyLockReplacement"
-                                        id="keyLockReplacement">
-                                    <label class="form-check-label" for="keyLockReplacement">
-                                        Key & Lock Replacement
-
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="kotakgi" id="kotakgi">
-                                    <label class="form-check-label" for="kotakgi">
-                                        Kotak General Insurance
+                                <li class="py-1 list-unstyled" *ngFor="let addon of enumAddon | keyvalue; let i=index">
+                                    <input class="form-check-input" type="checkbox" id="i">
+                                    <label class="form-check-label" for="i">
+                                        {{ addon.value }}
                                     </label>
                                 </li>
                             </ul>
                             <hr />
                             <p class="mb-0"><strong>Accessories</strong></p>
                             <ul id="multi-select-demo" class="small list-insured pl-3">
-
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="zeroDepreciation" id="Electrical
-                                    ">
-                                    <label class="form-check-label" for="Electrical">
-                                        Electrical
-
+                                <li class="py-1 list-unstyled" *ngFor="let access of enumAccessory | keyvalue; let i=index">
+                                    <input class="form-check-input" type="checkbox" id="i">
+                                    <label class="form-check-label" for="i">
+                                        {{ access.value }}
                                     </label>
                                 </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="nonElectrical"
-                                        id="nonElectrical">
-                                    <label class="form-check-label" for="nonElectrical">
-                                        Non-Electrical
-
-                                    </label>
-                                </li>
-                                <li class="py-1 list-unstyled">
-                                    <input class="form-check-input" type="checkbox" value="externalbifulekit"
-                                        id="externalbifulekit">
-                                    <label class="form-check-label" for="externalbifulekit">
-                                        External Bi Fuel Kit
-                                    </label>
-                                </li>
-
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -358,7 +236,7 @@
 </div>
 
 <ng-template #vehicle let-modal>
-    <div class="modal-header">
+    <!-- <div class="modal-header">
         <h6 class="modal-title font-weight-bold">TOYOTA ETIOS LIVA 1.4 D-4D GD
             <div class="small"><span>MH14DF4711</span><span class="ml-3">MH14</span></div>
         </h6>
@@ -366,7 +244,7 @@
             (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">Change</span>
         </button>
-    </div>
+    </div> -->
     <div class="modal-body pt-0">
         <div class="modal-body">
             <p><strong>Please select Vehical Type</strong></p>
@@ -374,121 +252,23 @@
                 <button type="button" class="btn btn-primary btn-sm">Private</button>
                 <button type="button" class="btn btn-primary btn-sm">Commercial</button>
             </div>
-            <p><strong>Please select your fuel Type</strong></p>
-            <select class="form-control form-control-sm">
-                <option>Diesel</option>
-                <option>Petrol</option>
-                <option>Electric</option>
-                <option>CNG Kit</option>
-            </select>
+            <form  [formGroup]="vehicleListForm">
+                <p><strong>Maker</strong></p>
+                <input type="text" formControlName="maker" class="form-control form-control-sm" />
 
-            <p class="mt-3"><strong>Please select Varient</strong></p>
-            <select class="form-control form-control-sm">
-                <option>1.4 GD Special</option>
-                <option>1,2 DX petrol</option>
-            </select>
+                <p class="mt-3"><strong>Model</strong></p>
+                <input type="text" formControlName="model" class="form-control form-control-sm" />
 
-            <p class="mt-3"><strong>Please select Registration Date</strong></p>
+                <p class="mt-3"><strong>Variant</strong></p>
+                <input type="text" formControlName="variant" class="form-control form-control-sm" />
 
-            <p>Place date picker from ng-bootstrap</p>
-            <p><strong>Manufacturing month of your vehica</strong></p>
-
-            <p>Place date picker from ng-bootstrap with months</p>
-            <form [formGroup]="vehicleListForm">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Maker</label>
-                            <input type="text" formControlName="maker" class="form-control" />
-                            <!-- <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                               <div *ngIf="f.firstname.errors.required">FirstName is required</div>
-                         </div> -->
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Model</label>
-                            <input type="text" formControlName="model" class="form-control" />
-                            <!-- <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                         <div *ngIf="f.email.errors.required">Email is required</div>
-                         <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                      </div> -->
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Variant</label>
-                            <input type="text" formControlName="variant" class="form-control" />
-                            <!-- <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                            <div *ngIf="f.mobile.errors">Mobile must be Valid and at least 10 digits</div>
-                         </div> -->
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fuel Type</label>
-                            <input type="text" formControlName="fuel" class="form-control" />
-                            <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                         <div *ngIf="f.password.errors.required">Password is required</div>
-                         <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-                      </div> -->
-                        </div>
-                    </div>
-                </div>
+                <p class="mt-3"><strong>Fuel Type</strong></p>
+                <input type="text" formControlName="fuel" class="form-control form-control-sm" />
             </form>
+            
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="onSubmitVehicleDetails(modal)">Submit</button>
-        <!-- <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button> -->
-    </div>
-</ng-template>
-
-<ng-template #calender let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">Hi there!</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <ngb-datepicker [displayMonths]="displayMonths" [navigation]="navigation" [showWeekNumbers]="showWeekNumbers"
-            [outsideDays]="outsideDays">
-        </ngb-datepicker>
-
-
-
-        <p>Hello, World!</p>
-        <p><button class="btn btn-lg btn-outline-primary" (click)="openConfirm(confirm)">Launch demo modal</button></p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click');">Close</button>
-    </div>
-</ng-template>
-
-<ng-template #confirm let-modal>
-    <div class="modal-header">
-        <h6 class="modal-title">Did you make a claim in your existing policy?</h6>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
-            <input type="radio" id="yesc" name="yesc" class="custom-control-input">
-            <label class="custom-control-label" for="yesc">Yes</label>
-        </div>
-        <div class="custom-control custom-radio bg-light border my-3 rounded px-5 py-2">
-            <input type="radio" id="noc" name="noc" class="custom-control-input">
-            <label class="custom-control-label" for="noc">No</label>
-        </div>
-        <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
-            <input type="radio" id="notsure" name="notsure" class="custom-control-input">
-            <label class="custom-control-label" for="notsure">Not Sure</label>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark btn-sm" (click)="modal.close('Close click');"><i
-                class="fas fa-long-arrow-alt-left mr-2"></i>Back</button>
     </div>
 </ng-template>

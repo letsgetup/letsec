@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { SharedModule } from '@app/shared/shared.module';
 import { MotorRoutingModule } from './motor-routing.module';
 import { CarComponent } from './car/car.component';
@@ -41,7 +41,9 @@ import { NgxCalendarModule } from "ss-ngx-calendar";
     CommercialVehicleComponent,
     DateComponent
  
-  ]
+  ],
+
+  providers : [ DatePipe ]
   
 })
 export class MotorModule { }
