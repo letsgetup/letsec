@@ -28,8 +28,8 @@
                     <div *ngIf="f.pincode.errors.pattern"> Enter 6 digit pin code</div>                  
                 </div>
                 <ng-template #rt let-r="result" let-t="term">
-                    <ngb-highlight [result]="r.Pincode" [term]="t"></ngb-highlight>
-                    <ngb-highlight [result]="'-' + r.PostOfficeName + '-' + r.City" [term]="t"></ngb-highlight>
+                    <ngb-highlight [result]="r.pincode1" [term]="t"></ngb-highlight>
+                    <ngb-highlight [result]="'-' + r.postOfficeName + '-' + r.city" [term]="t"></ngb-highlight>
                 </ng-template>
 
 

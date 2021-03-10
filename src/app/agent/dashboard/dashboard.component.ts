@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AgentUser } from '@app/_models';
+import { AgentKYC } from '@app/_models';
 import { AgentService } from '@app/_services';
 
 @Component({
@@ -8,9 +8,10 @@ import { AgentService } from '@app/_services';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-  agentuser: AgentUser;
+  agentuser: AgentKYC;
   constructor(private agentService: AgentService) { 
     this.agentuser = this.agentService.agentuserValue; 
+    this.agentuser.Role = "Agent"; //Set by default from UI Need to addd field in backend and db
   }
 
    ngOnInit(): void {

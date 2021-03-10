@@ -49,13 +49,11 @@ export class AgentposComponent implements OnInit, OnDestroy {
       debounceTime(1300),
       map(term =>  this.pincodeDetails)
     )
-    formatter = (x: {Pincode: string}) => x.Pincode  
+    formatter = (x: {pincode1: string}) => x.pincode1 
     onkeyPressval(term:string) { 
         if(term.length < 4) return;
         this.agentposService.getAllPincode(term).subscribe(pincodeData=> {        
-          //  console.log(pincodeData)
-          this.pincodeDetails = pincodeData;
-          this.pincodeDetails = JSON.parse(this.pincodeDetails);
+          this.pincodeDetails = pincodeData.pinCodeDetails
        
         })
     }

@@ -2,7 +2,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { Component, OnInit } from '@angular/core';
-import { AgentUser } from '@app/_models';
+import { AgentKYC } from '@app/_models';
 import { AgentService } from '@app/_services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { MustMatch } from '@app/_helpers';
   templateUrl: './edit-profile.component.html',
 })
 export class EditProfileComponent implements OnInit {
-  agentuser: AgentUser;
+  agentuser: AgentKYC;
   
   _session: string;
   agentKycForm: FormGroup;
@@ -71,7 +71,7 @@ export class EditProfileComponent implements OnInit {
     this.agentService.getAgentById(this.agentid)
                 .pipe(first())
                 .subscribe(x =>{
-                    const formvalue= JSON.parse(x);
+                    const formvalue= x.agentdetails[0];
                     this.agentKycForm.patchValue(formvalue) 
                     this.agentKycForm.controls.confirmPassword.setValue(formvalue.password)
                     this.fileInfos= formvalue.document

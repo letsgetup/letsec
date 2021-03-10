@@ -1,14 +1,13 @@
 ﻿import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Spinkit } from 'ng-http-loader';
 import { AccountService, AgentService, LtsSharedService } from './_services';
-import { User } from './_models';
-import { AgentUser } from './_models';
+import { AgentKYC, User } from './_models';
 import { Router } from '@angular/router';
 
 @Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent implements OnInit, OnDestroy {
     user: User;
-    agentuser: AgentUser;
+    agentuser: AgentKYC;
     httpStatus: boolean;
     spinnerStyle = Spinkit;
 

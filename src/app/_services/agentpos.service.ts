@@ -21,20 +21,20 @@ export class AgentposService {
     
   }
 
-  agentposconfirmregister(agentpos: FormData): Observable<any> {
+  agentposconfirmregister(agentpos): Observable<any> {
     //console.log(agentpos)
-    return this.http.post(`${environment.apiUrl}/agentpos/confirmregistration`, agentpos);
+    return this.http.post(`${environment.apiUrl}/Agent/registerposagent`, agentpos);
   }
 
   getAllPincodeDetails(pincode: string): Observable<any> {
     let params = new HttpParams()
       .set('pincode', pincode);
-    return this.http.get(`${environment.apiUrl}/common/getpincodedetails`, { params });
+    return this.http.get(`${environment.apiUrl}/Agent/getpincodedetails/${pincode}`);
   }
   getAllPincode(pincode: string): Observable<any> {
     let params = new HttpParams()
       .set('pincode', pincode);
-    return this.http.get<PincodeM>(`${environment.apiUrl}/common/getpincodes`, { params })
+    return this.http.get<PincodeM>(`${environment.apiUrl}/Agent/getpincodedetails/${pincode}`)
       .pipe(
         map(response => response)
       );

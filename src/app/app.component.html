@@ -7,7 +7,9 @@
         <router-outlet></router-outlet>
     </div>
     <!-- Main application footer -->
-    <app-main-footer></app-main-footer>
+    <div *ngIf="!router.url.includes('agentpos')">
+        <app-main-footer></app-main-footer>
+    </div>
 </div>
 
 <!-- <div [class.hidden]="httpStatus">
@@ -24,6 +26,3 @@
 [opacity]=".6"
 [spinner]="spinnerStyle.skWanderingCubes">
 </ng-http-loader> -->
-<div *ngIf="!router.url.includes('agentpos')">
-    <app-main-footer></app-main-footer>
-</div>

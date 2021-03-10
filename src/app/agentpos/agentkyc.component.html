@@ -242,6 +242,7 @@
                 [ngClass]="{ 'is-invalid': submitted && f.accountnumber.errors }" />
             <div *ngIf="submitted && f.accountnumber.errors" class="invalid-feedback">
                 <div *ngIf="f.accountnumber.errors.required">Account Number is required</div>
+                <div *ngIf="f.accountnumber.errors.minlength">Account Number is invalid</div>
             </div>
         </div>
         <div class="form-group col-md-4">
@@ -249,6 +250,7 @@
                 [ngClass]="{ 'is-invalid': submitted && f.ifsccode.errors }" />
             <div *ngIf="submitted && f.ifsccode.errors" class="invalid-feedback">
                 <div *ngIf="f.ifsccode.errors.required">IfSC Code is required</div>
+                <div *ngIf="f.ifsccode.errors.minlength">IfSC Code is invalid</div>
             </div>
         </div>
         <div class="form-group col-md-4">
@@ -310,7 +312,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="onSubmit();modal.close('Save click')">Submit</button>
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cancle</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cancel</button>
   </div>
 </ng-template>
 

@@ -1,8 +1,8 @@
 ﻿export class PincodeM {
-    PostOfficeName: string;
-Pincode: string;
-City: string;
-District: string;
-State:string;
+    postOfficeName: string;
+pincode1: string;
+city: string;
+district: string;
+state:string;
 
 }

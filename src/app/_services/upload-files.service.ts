@@ -12,18 +12,24 @@ export class UploadFilesService {
 
   constructor(private http: HttpClient) { }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  uploadFile(fileToUpload: any): Observable<any> {
     const formData: FormData = new FormData();
-
-    formData.append('file', file);
-
-    const req = new HttpRequest('POST', `${this.baseUrl}/common/uploaddoc`, formData, {
-      reportProgress: true,
-      responseType: 'json'
-    });
-    console.log(this.http.request(req));
-    return this.http.request(req);
+    formData.append('request', fileToUpload, fileToUpload.name);
+    return this.http.post(`${environment.apiUrl}/Agent/uploadfile`, formData);
   }
+
+  // upload(file: File): Observable<HttpEvent<any>> {
+  //   const formData: FormData = new FormData();
+
+  //   formData.append('file', file);
+
+  //   const req = new HttpRequest('POST', `${this.baseUrl}/common/uploaddoc`, formData, {
+  //     reportProgress: true,
+  //     responseType: 'json'
+  //   });
+  //   console.log(this.http.request(req));
+  //   return this.http.request(req);
+  // }
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/common/uploaddoc`);
