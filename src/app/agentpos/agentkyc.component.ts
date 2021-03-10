@@ -7,6 +7,7 @@ import { AlertService, AgentposService, UploadFilesService } from '@app/_service
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AgentKYC } from '@app/_models';
 
 @Component({
   templateUrl: './agentkyc.component.html'
@@ -19,6 +20,7 @@ export class AgentkycComponent implements OnInit, OnDestroy {
   fileInfos: '';
   message = '';
   closeResult: string;
+  kyc = new AgentKYC();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,8 +63,8 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       bankname: ['', Validators.required],
       branchname: ['', Validators.required],
       accounttype: ['', Validators.required],
-      accountnumber: ['', Validators.required],
-      ifsccode: ['', Validators.required],
+      accountnumber: ['', [Validators.required, Validators.minLength(9)]],
+      ifsccode: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
       GSTNumber: [''],
       document1: ['', Validators.required],
       fileSource1: ['', Validators.required],
@@ -83,9 +85,9 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       if (this._session['agentphone']) {
         this.posKycForm.controls.mobile.setValue(this._session['agentphone']);
         this.posKycForm.controls.email.setValue(this._session['agentemail']);
-        this.posKycForm.controls.pincode.setValue(this._session['pincode'].Pincode);
-        this.posKycForm.controls.city.setValue(this._session['pincode'].City);
-        this.posKycForm.controls.state.setValue(this._session['pincode'].State);
+        this.posKycForm.controls.pincode.setValue(this._session['pincode'].pincode1);
+        this.posKycForm.controls.city.setValue(this._session['pincode'].city);
+        this.posKycForm.controls.state.setValue(this._session['pincode'].state);
         this.posKycForm.controls.mobile.disable();
         this.posKycForm.controls.email.disable();
         this.posKycForm.controls.pincode.disable();
@@ -103,28 +105,19 @@ export class AgentkycComponent implements OnInit, OnDestroy {
   onFileChange1(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.posKycForm.patchValue({
-        fileSource1: file
-      });
-      this.posKycForm.get('fileSource1').updateValueAndValidity()
+      this.kyc.document1 = this.uploadFileToActivity(file,'fileSource1');
     }
   }
   onFileChange2(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.posKycForm.patchValue({
-        fileSource2: file
-      });
-      this.posKycForm.get('fileSource2').updateValueAndValidity()
+      this.kyc.document2 = this.uploadFileToActivity(file,'fileSource2');
     }
   }
   onFileChange3(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.posKycForm.patchValue({
-        fileSource3: file
-      });
-      this.posKycForm.get('fileSource3').updateValueAndValidity()
+      this.kyc.document3 = this.uploadFileToActivity(file,'fileSource3');
     }
   }
   openWithConfirmation(event) {
@@ -147,36 +140,36 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const formData = new FormData    
-    formData.append("document1", this.posKycForm.get('fileSource1').value);
-    formData.append("document2", this.posKycForm.get('fileSource2').value);
-    formData.append("document3", this.posKycForm.get('fileSource3').value);
-    formData.append("gender", this.posKycForm.get('gender').value);
-    formData.append("firstname", this.posKycForm.get('firstName').value);
-    formData.append("middlename", this.posKycForm.get('middleName').value);
-    formData.append("lastname", this.posKycForm.get('lastName').value);
-    formData.append("dob", this.posKycForm.get('dob').value);
-    formData.append("mobile", this.posKycForm.get('mobile').value);
-    formData.append("email", this.posKycForm.get('email').value);
-    formData.append("extramobile", this.posKycForm.get('extramobile').value);
-    formData.append("password", this.posKycForm.get('password').value);    
-    formData.append("qualification", this.posKycForm.get('qualification').value);
-    formData.append("pancard", this.posKycForm.get('pancard').value);
-    formData.append("address1", this.posKycForm.get('address1').value);
-    formData.append("address2", this.posKycForm.get('address2').value);
-    formData.append("address3", this.posKycForm.get('address3').value);
-    formData.append("state", this.posKycForm.get('state').value);
-    formData.append("city", this.posKycForm.get('city').value);
-    formData.append("pincode", this.posKycForm.get('pincode').value);
-    formData.append("bankname", this.posKycForm.get('bankname').value);
-    formData.append("branchname", this.posKycForm.get('branchname').value);
-    formData.append("accounttype", this.posKycForm.get('accounttype').value);
-    formData.append("accountnumber", this.posKycForm.get('accountnumber').value);
-    formData.append("ifsccode", this.posKycForm.get('ifsccode').value);
-    formData.append("gsTnumber", this.posKycForm.get('GSTNumber').value);
-    formData.append("aadharcard", this.posKycForm.get('aadharcard').value);
+    this.kyc.document1 = this.posKycForm.get('fileSource1').value;
+    this.kyc.document2 = this.posKycForm.get('fileSource2').value;
+    this.kyc.document3 = this.posKycForm.get('fileSource3').value;
+    this.kyc.gender = this.posKycForm.get('gender').value;
+    this.kyc.firstname = this.posKycForm.get('firstName').value;
+    this.kyc.middlename = this.posKycForm.get('middleName').value;
+    this.kyc.lastname = this.posKycForm.get('lastName').value;
+    this.kyc.dob = this.posKycForm.get('dob').value;
+    this.kyc.mobile = this.posKycForm.get('mobile').value;
+    this.kyc.email = this.posKycForm.get('email').value;
+    this.kyc.extramobile = this.posKycForm.get('extramobile').value;
+    this.kyc.password = this.posKycForm.get('password').value;
+    this.kyc.qualification = this.posKycForm.get('qualification').value;
+    this.kyc.pancard = this.posKycForm.get('pancard').value;
+    this.kyc.address1 = this.posKycForm.get('address1').value;
+    this.kyc.address2 = this.posKycForm.get('address2').value;
+    this.kyc.address3 = this.posKycForm.get('address3').value;
+    this.kyc.state = this.posKycForm.get('state').value;
+    this.kyc.city = this.posKycForm.get('city').value;
+    this.kyc.pincode = this.posKycForm.get('pincode').value;
+    this.kyc.bankname = this.posKycForm.get('bankname').value;
+    this.kyc.branchname = this.posKycForm.get('branchname').value;
+    this.kyc.accountnumber = this.posKycForm.get('accounttype').value;
+    this.kyc.accounttype = this.posKycForm.get('accountnumber').value;
+    this.kyc.ifsccode = this.posKycForm.get('ifsccode').value;
+    this.kyc.gsTnumber = this.posKycForm.get('GSTNumber').value;
+    this.kyc.aadharcard = this.posKycForm.get('aadharcard').value;
+    this.kyc.status = 0;
 
-    this.agentposService.agentposconfirmregister(formData)
+    this.agentposService.agentposconfirmregister(this.kyc)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -219,4 +212,19 @@ export class AgentkycComponent implements OnInit, OnDestroy {
       return `with: ${reason}`;
     }
   }
+
+  uploadFileToActivity(fileToUpload : File, fileSource: any) : any {
+    this.uploadfilesService.uploadFile(fileToUpload).subscribe(data => {
+      setTimeout(function () {
+        this.showElement = false;
+        }, 2000);        
+        if(data.dbPath){          
+          this.posKycForm.controls[fileSource].setValue(data.dbPath);
+          return data.dbPath + '';
+        }        
+      }, error => {
+        console.log(error);
+      });
+  }
+
 }

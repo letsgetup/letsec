@@ -5,44 +5,42 @@ import { BehaviorSubject, Observable, Subscriber, throwError } from 'rxjs';
 import { catchError, map, subscribeOn } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { AgentUser } from '@app/_models';
+import { AgentKYC } from '@app/_models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
-  private agentuserSubject: BehaviorSubject<AgentUser>;
-  public agentuser: Observable<AgentUser>;
+  private agentuserSubject: BehaviorSubject<AgentKYC>;
+  public agentuser: Observable<AgentKYC>;
 
   constructor(
     private router: Router,
     private http: HttpClient
   ) {
-    this.agentuserSubject = new BehaviorSubject<AgentUser>(JSON.parse(localStorage.getItem('agentuser')));
+    this.agentuserSubject = new BehaviorSubject<AgentKYC>(JSON.parse(localStorage.getItem('agentuser')));
     this.agentuser = this.agentuserSubject.asObservable();
   }
 
-  public get agentuserValue(): AgentUser {
+  public get agentuserValue(): AgentKYC {
     return this.agentuserSubject.value;
   }
   getAgentById(agentId: string): Observable<any> {
-    let params = new HttpParams().set('agentid', agentId);
-    return this.http.get<any>(`${environment.apiUrl}/agent/agentDetails`, { params }).pipe(
+    return this.http.get<any>(`${environment.apiUrl}/agent/getagentdetails/${agentId}`).pipe(
       map((res) => {
         return res;
       }));
   }
 
   getAllAgentLeades(agentId: string): Observable<any> {
-    let params = new HttpParams().set('agentid', agentId);
-    return this.http.get<any>(`${environment.apiUrl}/agent/agentLeadDetails`, { params }).pipe(
+    return this.http.get(`${environment.apiUrl}/agent/getleaddetails/${agentId}`).pipe(
       map((res) => {
         return res;
       }));
   }
 
-  addAgentLeade(agentLead: FormData) {
-    return this.http.post<any>(`${environment.apiUrl}/agent/addagentLead`, agentLead ).pipe(
+  addAgentLeade(agentLead) {
+    return this.http.post<any>(`${environment.apiUrl}/agent/addlead`, agentLead ).pipe(
       map((res) => {
         return res;
       }));
@@ -52,15 +50,15 @@ export class AgentService {
   login(agentLogin: FormData) {
 
     const formData: FormData = new FormData();
-    formData.append("username", agentLogin['username']);
+    formData.append("email", agentLogin['username']);
     formData.append("password", agentLogin['password']);
 
 
-    return this.http.post<any>(`${environment.apiUrl}/agent/getLoginDetails`, formData)
+    return this.http.post<any>(`${environment.apiUrl}/agent/agentlogin`, {'email': agentLogin['username'],'password':agentLogin['password']})
       .pipe(map(agentuser => {
 
-        localStorage.setItem('agentuser', agentuser);
-        this.agentuserSubject.next(JSON.parse(agentuser));
+        localStorage.setItem('agentuser', JSON.stringify(agentuser.agentdetails[0]));
+        this.agentuserSubject.next(agentuser.agentdetails[0]);
         return agentuser;
       }));
 

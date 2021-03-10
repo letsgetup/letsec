@@ -1,5 +1,5 @@
 import { Component, Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { AgentUser } from '@app/_models';
+import { AgentKYC, Lead } from '@app/_models';
 import { AgentService } from '@app/_services';
 import { ModalDismissReasons, NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { first } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export interface SortEvent {
 }
 export type SortColumn = keyof Leades | '';
 export type SortDirection = 'asc' | 'desc' | '';
-const rotate: {[key: string]: SortDirection} = { 'asc': 'desc', 'desc': '', '': 'asc' };
+const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
 
 const compare = (v1: string | number, v2: string | number) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
@@ -40,7 +40,7 @@ export class NgbdSortableHeader {
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({column: this.sortable, direction: this.direction});
+    this.sort.emit({ column: this.sortable, direction: this.direction });
   }
 }
 
@@ -49,21 +49,21 @@ export class NgbdSortableHeader {
   templateUrl: './agent-leads.component.html'
 })
 export class AgentLeadsComponent implements OnInit {
-  leadDetails: any = [];
-  agentuser: AgentUser;
+  agentLeads: any[] = [];
+  agentuser: AgentKYC;
   agentid: string;
   closeResult: string;
   myForm: FormGroup;
-  message:string;
+  message: string;
   page = 2;
-  pageSize =10;
+  pageSize = 10;
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(private agentService: AgentService,  
+  constructor(private agentService: AgentService,
     private modalService: NgbModal,
     //public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder
-    ) {
+  ) {
     this.agentuser = this.agentService.agentuserValue;
     this.agentid = this.agentuser.agentid;
     this.createForm();
@@ -71,52 +71,53 @@ export class AgentLeadsComponent implements OnInit {
 
   private createForm() {
     this.myForm = this.formBuilder.group({
-      leadname: ['', [Validators.required, Validators.minLength(10) , Validators.pattern('^[A-z]*((-|\s)*[A-z ])*$')]],
-      leadmobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")] ],
+      leadname: ['', [Validators.required, Validators.minLength(10), Validators.pattern('^[A-z]*((-|\s)*[A-z ])*$')]],
+      leadmobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       leademail: ['', [Validators.required, Validators.email]],
-      policytype: ['', [Validators.required, Validators.minLength(3) , Validators.maxLength(10), Validators.pattern('^[a-zA-Z]*$')]],
+      policytype: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10), Validators.pattern('^[a-zA-Z]*$')]],
     });
   }
   get f() { return this.myForm.controls; }
 
   private submitForm() {
-   const formData: FormData = new FormData();
-   formData.append("name",this.myForm.value.leadname );
-   formData.append("mobile",this.myForm.value.leadmobile);
-   formData.append("email",this.myForm.value.leademail);
-   formData.append("policy",this.myForm.value.policytype);
-   formData.append("agentid",this.agentid);
-   formData.append("status","0");
+    const leadData = new Lead();
+    leadData.email = this.myForm.value.leademail;
+    leadData.mobile = this.myForm.value.leadmobile;
+    leadData.name = this.myForm.value.leadname;
+    leadData.policy = this.myForm.value.policytype;
+    leadData.status = 0;
+    leadData.agentid = this.agentid;
 
-   this.agentService.addAgentLeade(formData)
-   .pipe(first())
-   .subscribe(leadDetails => {
-      this.message ="Lead added sucesfully..";
-      this.showLeadsDetail();
-  } ,
-    err => {
-      this.message ="Having problem..Please try after some time.."
-      this.showLeadsDetail();
-    }
-    
-    );
+    this.agentService.addAgentLeade(leadData)
+      .pipe(first())
+      .subscribe(leadDetails => {
+        this.message = "Lead added sucesfully..";
+        this.showLeadsDetail();
+      },
+        err => {
+          this.message = "Having problem..Please try after some time.."
+          this.showLeadsDetail();
+        }
 
-   
+      );
 
-   this.closeResult = `Dismissed ${this.getDismissReason("Submit")}`;
+
+
+    this.closeResult = `Dismissed ${this.getDismissReason("Submit")}`;
   }
 
   ngOnInit(): void {
-      this.showLeadsDetail();
+    this.showLeadsDetail();
   }
 
   showLeadsDetail() {
-    this.agentService.getAllAgentLeades(this.agentid)
-      .pipe(first())
-      .subscribe(leadDetails => {
-        this.leadDetails =JSON.parse( leadDetails);
-        //console.log(this.leadDetails)
-      });
+    this.agentService.getAllAgentLeades(this.agentid).toPromise().then((data)=>{
+      if(data){
+        this.agentLeads = data.leaddetails;
+        console.log(data.leaddetails);
+        console.log(this.agentLeads);
+      }
+    });
   }
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -139,7 +140,7 @@ export class AgentLeadsComponent implements OnInit {
 
 
 
-  onSort({column, direction}: SortEvent) {
+  onSort({ column, direction }: SortEvent) {
 
     // resetting other headers
     this.headers.forEach(header => {
@@ -150,9 +151,9 @@ export class AgentLeadsComponent implements OnInit {
 
     // sorting countries
     if (direction === '' || column === '') {
-      this.leadDetails = this.leadDetails;
+      this.agentLeads = this.agentLeads;
     } else {
-      this.leadDetails = [...this.leadDetails].sort((a, b) => {
+      this.agentLeads = [...this.agentLeads].sort((a, b) => {
         const res = compare(a[column], b[column]);
         return direction === 'asc' ? res : -res;
       });

@@ -4,7 +4,6 @@
   <table class="table table-striped">
       <thead>
       <tr>
-     
         <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
         <th scope="col" sortable="mobile" (sort)="onSort($event)">Mobile</th>
         <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
@@ -13,19 +12,19 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let leadDetail of leadDetails | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; index as i ">
+      <tr *ngFor="let lead of agentLeads; index as i ">
        
         <td>
-           {{ leadDetail.name }}
+           {{ lead.name }}
         </td>
-        <td>{{ leadDetail.mobile }}</td>
-        <td>{{ leadDetail.email }}</td> 
-        <td class="text-center"><span><i class="fas fa-user {{leadDetail.status ==1 ? 'text-success' : 'text-muted'}}"></i></span></td>
-        <td>{{ leadDetail.policy | uppercase}}</td>
+        <td>{{ lead.mobile }}</td>
+        <td>{{ lead.email }}</td> 
+        <td class="text-center"><span><i class="fas fa-user {{lead.status ==1 ? 'text-success' : 'text-muted'}}"></i></span></td>
+        <td>{{ lead.policy | uppercase}}</td>
       </tr>
       </tbody>
     </table> 
-    <ngb-pagination *ngIf="leadDetails.length > 20" class="d-flex justify-content-center" [collectionSize]="leadDetails.length" [pageSize] = "pageSize"  [(page)]="page" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+    <ngb-pagination *ngIf="agentLeads.length > 20" class="d-flex justify-content-center" [collectionSize]="agentLeads.length" [pageSize] = "pageSize"  [(page)]="page" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 <ng-template #mymodal let-modal>
 
 <form [formGroup]="myForm" (ngSubmit)="submitForm();modal.close('Save click')" *ngIf="myForm">
@@ -60,7 +59,7 @@
       [disabled]="!myForm.valid">
       Add
     </button>
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cancle</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cross click')">Cancel</button>
   </div>
 </form>
 </ng-template>
