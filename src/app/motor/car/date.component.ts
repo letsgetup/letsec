@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,6 +15,7 @@ export class DateComponent implements OnInit {
   @ViewChild('content', { static: true }) content: TemplateRef<any>;
   @Output() expiryDate: EventEmitter<any> = new EventEmitter();
   @Output() policyClaim: EventEmitter<any> = new EventEmitter();
+  @Output() claimSelected: EventEmitter<boolean> = new EventEmitter();
   calendarOptions = {};
   calendarValue = null;
   showModal = false;
@@ -23,7 +25,8 @@ export class DateComponent implements OnInit {
   selectedClaimValue: any;
   policyExpiryState: any;
 
-  constructor(private router: Router, private modalService: NgbModal) {
+  constructor(private router: Router, private modalService: NgbModal,
+    private datepipe: DatePipe) {
 
   }
 
@@ -36,9 +39,8 @@ export class DateComponent implements OnInit {
   }
 
   onChooseDate(date: any, claim) {
-    console.log('selected date', date);
     this.calendarValue = date;
-    this.expiryDate.emit(date);
+    this.expiryDate.emit(this.datepipe.transform(date, 'yyyy-MM-dd'));
     this.openCalender(claim);
   }
 
@@ -73,7 +75,7 @@ export class DateComponent implements OnInit {
     this.selectedClaimValue = claim.value;
     this.policyClaim.emit(claim.value);
     console.log('selected:::', claim.value);
-    this.modalService.dismissAll('Esc');
+    this.closeModal();
   }
 
   onExpiryChange(expiry: any, claim) {
@@ -82,8 +84,13 @@ export class DateComponent implements OnInit {
     if(expiry.key != 'E5'){
       this.openCalender(claim);
     } else {
-      this.modalService.dismissAll('Esc');
+      this.closeModal();
     }
+  }
+
+  closeModal() {
+    this.claimSelected.emit(true);
+    this.modalService.dismissAll('Esc');
   }
 
 }

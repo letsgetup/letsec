@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
   }
 
   insurancePlanProvider(){
-    if(this.insurancePlan.insuranceType === 'AIG'){
+    if(this.insurancePlan.insuranceType === 'tataaig'){
       this.imagePath = "../../assets/images/logo-AIG.png";
     } else {
       this.imagePath = "https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2";

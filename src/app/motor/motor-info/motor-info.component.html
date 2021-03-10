@@ -17,18 +17,19 @@
                 <div>valid registration no is required</div>
             </div> -->
 
-            <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Launch demo modal</button>
+            <!-- <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Launch demo modal</button> -->
         </div>
-        <p *ngIf="true" class="small form-text text-red text-center">
+        <p *ngIf="motorInfoForm.invalid && formControl.vehicleNo.errors.required" class="small form-text text-red text-center">
             Valid registration number is required
-    </p>
+        </p>
 
         <p class="form-text text-red text-center d-none" >Please enter correct {{ motorType }} number</p>
         <div class="d-flex justify-content-center my-4">
-            <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3">Proceed without {{ motorType }} Number</button>
-            <button id="btn-proceednewcar" class="btn btn-secondary">Click here for Brand New {{ motorType }}?</button>
+            <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3" (click)="selectWithOutRegNo()">Proceed without {{ motorType }} Number</button>
+            <button id="btn-proceednewcar" class="btn btn-secondary" (click)="selectNewVehicle()">Click here for Brand New {{ motorType }}?</button>
         </div>
     </div>
+
     <div id="rto-section" style="display:none">
         <h2 class="font-weight-light text-center mb-3 c-heading">Please Enter your RTO code </h2>
         <div class="col-md-9  mx-auto">

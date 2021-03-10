@@ -7,9 +7,9 @@ import { TataAigInsurance } from '@app/_models/tata-aig-insurance';
 import { Router } from '@angular/router';
 import { LtsSharedService } from '@app/_services';
 import { UserVehicleDetails } from '@app/_models';
+import { InsurerQuotesDetails } from '@app/_models/insurer-quotes-details';
 import { ModalDismissReasons, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AnyNaptrRecord } from 'dns';
 
 @Component({
   selector: 'app-listing',
@@ -35,6 +35,7 @@ export class ListingComponent implements OnInit {
   enumAccessory = AccessoriesEnum;
   selectedIdv: any;
   selectedModalClaim: any;
+  quickQuotes: QuickQuotes[] = [];
   
 
   constructor(private customService: CustomService,
@@ -91,8 +92,6 @@ export class ListingComponent implements OnInit {
   }
 
   open(content) {
-    //this.modalService.open(id);
-    //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -101,8 +100,6 @@ export class ListingComponent implements OnInit {
   }
 
   openConfirm(content) {
-    //this.modalService.open(id);
-    //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -118,6 +115,12 @@ export class ListingComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  getIconPath(insurer: string): string {
+    if(insurer === 'tataaig') {
+      return "../assets/images/logo-AIG.png";
+    } else { return "https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2"; }
   }
 
   policyExpiryDate(date:any){
@@ -193,6 +196,17 @@ export class ListingComponent implements OnInit {
     this.changeRouteToPayment();
   }
 
+  selectPremiumPlan(insurerName: string, premium: string, idv: string) {
+    let user=this.userVehicle.user;
+    let selectedPremium = premium;
+    if(insurerName === 'digit') {
+      selectedPremium = selectedPremium.split(" ")[1];
+    }
+    let plan = new InsurancePlan(insurerName, selectedPremium, idv, user.contactNo, user.email);
+    this.sharedService.setInsurancePlan(plan);
+    this.changeRouteToPayment();
+  }
+
   changeRouteToPayment() {
     this.router.navigate(['motor-insurance/payment']);
   }
@@ -218,6 +232,7 @@ export class ListingComponent implements OnInit {
     console.log("selectd claim :::", claim);
     if(claim != 'Not Sure') {
       this.selectedModalClaim = claim === 'No' ? 'No' : 1;
+      this.userVehicle.isClaim = claim === 'No' ? false : true;
     }
   }
   onSubmitVehicleDetails(modal){
@@ -243,6 +258,73 @@ export class ListingComponent implements OnInit {
       console.log('fuel::', fuel);
       fuelList = fuel;
     });
+  }
+
+  getVehicleType() {
+    VehicleTypeEnum.Byke;
+  }
+
+  onClaimSelection(claimed: any){
+    console.log('onClaimSelection::', VehicleTypeEnum.Car);
+    if(claimed) { 
+      console.log('matched::', claimed);
+      this.initalizeQuoteApiData();
+    }
+  }
+
+  getVehicletype(): string {
+    if(this.userVehicle.vehicleType === 'Car'){
+      return VehicleTypeEnum.Car;
+    } else if(this.userVehicle.vehicleType === '2W') {
+      return VehicleTypeEnum.Byke;
+    }
+  }
+
+  initalizeQuoteApiData(){
+    let insurer = new InsurerQuotesDetails();
+    insurer.enquiryId = "en0";
+    insurer.type = this.getVehicletype(); // 1 byje, 2car, 3commercial
+    insurer.reg_no = this.userVehicle.rtoRegistrationNo.substr(0, 4);//rto no only ex:mh12
+    insurer.tppd_restricted_to = false;//third party
+    insurer.make = this.userVehicle.vehicleMenufacturer;
+    insurer.model = this.userVehicle.vehicleModel;
+    insurer.variant = this.userVehicle.vehicleVariant.split('-')[0];
+    insurer.fuel_type = this.userVehicle.fuelType;
+    let cubic = this.userVehicle.vehicleVariant.split('-')[1];
+    insurer.cubic_capacity = cubic.replace(',', '');
+    insurer.claim = this.userVehicle.isClaim;//
+    insurer.policy_expire_date = this.policyExpireDate;
+    insurer.vehicle_owned_by = "INDIVIDUAL";//individual ///for car n byke
+    insurer.registration_no = this.userVehicle.rtoRegistrationNo;//
+    insurer.manufacturer= this.userVehicle.vehicleMenufacturer;//maker
+    insurer.year = this.userVehicle.year;//reagistration yr
+    insurer.previous = false;//true if vehicle is nt new brand
+    insurer.policy_type = "Comprehensive";//comprehensive or third party(comp: if user provided the reg no)
+    insurer.policy_expiry = this.policyExpireDate;;//
+    insurer.pincode = "411021";//'411021' fr temp 
+    insurer.customer_mobile= this.userVehicle.user.contactNo;
+    insurer.customer_email = this.userVehicle.user.email;
+
+    console.log('insurer:::', insurer);
+    this.getQuotesApiDetails(insurer);
+  }
+
+  getQuotesApiDetails(vehicleDetails: any) {
+    let quotesDetails : any[] = [];
+    this.customService.getQuickQuotesDetails(vehicleDetails).subscribe({
+      next: data => {
+        console.log('quotes post res::::', data, data.quickQuotes.length);
+        if(data.isSuccess && data.quickQuotes.length > 0){
+          this.quickQuotes = data.quickQuotes;
+          this.quickQuotes.forEach(e => {
+            console.log('qots',e.nameOfInsurer);
+          });
+        }
+      },
+      error: error => {
+          console.error('There was an error!', error.message);
+      }
+  })
   }
 
 }
@@ -291,8 +373,7 @@ export class VehicleDetails {
 
 export enum InsurerEnum {
   I1 = 'Digit General Insurance',
-  I2 = 'Tata Aig',
-  I3 = 'Bajaj Allianz'
+  I2 = 'Tata Aig'
 }
 
 export enum IdvEnum {
@@ -314,6 +395,40 @@ export enum AccessoriesEnum {
   A1 = 'Electrical',
   A2 = 'Non-Electrical',
   A3 = 'External Bi Fuel Kit',
+}
+
+export enum VehicleTypeEnum {
+  Byke = '1',
+  Car = '2',
+  Commercial = '3'
+}
+
+export interface QuickQuotes {
+  addons: string;
+  idv: string;
+  insurerImagePath: string;
+  isThirdPartyAvailable: boolean;
+  maxidv: string;
+  minidv: string;
+  nameOfInsurer: string;
+  ncb: string;
+  policytype: string;
+  premium: string;
+  servicetax: string;
+  quote: Quote;
+}
+
+export interface Quote {
+  asyncState: string;
+  creationOptions: string;
+  exception: string;
+  id: string;
+  isCanceled: boolean;
+  isCompleted: boolean;
+  isCompletedSuccessfully: boolean;
+  isFaulted: boolean;
+  status: string;
+  result: any;
 }
 
 
