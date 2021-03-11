@@ -162,8 +162,8 @@ export class AgentkycComponent implements OnInit, OnDestroy {
     this.kyc.pincode = this.posKycForm.get('pincode').value;
     this.kyc.bankname = this.posKycForm.get('bankname').value;
     this.kyc.branchname = this.posKycForm.get('branchname').value;
-    this.kyc.accountnumber = this.posKycForm.get('accounttype').value;
-    this.kyc.accounttype = this.posKycForm.get('accountnumber').value;
+    this.kyc.accountnumber = this.posKycForm.get('accountnumber').value;
+    this.kyc.accounttype = this.posKycForm.get('accounttype').value;
     this.kyc.ifsccode = this.posKycForm.get('ifsccode').value;
     this.kyc.gsTnumber = this.posKycForm.get('GSTNumber').value;
     this.kyc.aadharcard = this.posKycForm.get('aadharcard').value;
