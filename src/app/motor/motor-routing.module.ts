@@ -19,9 +19,7 @@ const routes: Routes = [
       { path: 'third-party-insurance', component: ThirdPartyComponent },
       { path: 'taxi-insurance', component: TaxiComponent },
       { path: 'commercial-vehicle-insurance', component: CommercialVehicleComponent },
-      { path: 'car-insurance/listing', component: ListingComponent },
-      { path: 'third-party-insurance/listing', component: ListingComponent },
-      { path: 'two-wheeler-insurance/listing', component: ListingComponent },
+      { path: 'quotes', component: ListingComponent },
       { path: 'payment', component: PaymentComponent },
       { path: 'date', component: DateComponent }
     ]

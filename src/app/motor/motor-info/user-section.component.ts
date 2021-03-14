@@ -57,7 +57,7 @@ export class UserSectionComponent implements OnInit {
       this.fetchUserDetails();
       this._session = this.userForm.value;
       sessionStorage.setItem("userinfo", JSON.stringify(this.userForm.value));
-      this.router.navigate(['motor-insurance/car-insurance/listing']);
+      this.router.navigate(['motor-insurance/quotes']);
     }
   }
 

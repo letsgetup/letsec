@@ -101,7 +101,7 @@
                                 <!-- <p class="mb-0 text-d"><del>&#x20B9;2,333</del><span class="ml-2 small"><a
                                             href="#">Policy Coverag</a></span></p> -->
                                 <button class="btn btn-danger" (click)="selectPremiumPlan(quote.nameOfInsurer, quote.premium, quote.idv)">
-                                    &#x20B9;{{ quote.premium }}</button>
+                                    &#x20B9;{{ removeINRInPremium(quote.premium, quote.nameOfInsurer) }}</button>
                             </div>
                         </div>
                     </div>
