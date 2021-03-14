@@ -198,7 +198,7 @@ export class VehicleInfoComponent implements OnInit {
    
     this._session = this.venqForm.value;
     sessionStorage.setItem("userinfo", JSON.stringify(this.venqForm.value));
-    this.router.navigate(['motor-insurance/car-insurance/listing']);
+    this.router.navigate(['motor-insurance/quotes']);
   }
 
   public validateRTOfields() {

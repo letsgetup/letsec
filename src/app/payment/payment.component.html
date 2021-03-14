@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-4">
                 <p class="font-weight-bold mb-0">{{userVehicle.vehicleModel}} {{userVehicle.vehicleVariant}}</p>
-                <span class="small">Private Car | {{userVehicle.fuelType}} | {{userVehicle.rtoCode}}</span>
+                <span class="small">{{userVehicle.vehicleType}} | {{userVehicle.fuelType}} | {{userVehicle.rtoCode}}</span>
             </div>
             <div class="col-md-4 small">Existing Policy Expiry Date: 4-Sep-2020</div>
             <div class="col-md-4 small">
@@ -20,11 +20,11 @@
                     <div class="shadow-sm border payment-bg-foot">
                         <div class="card-body">
                             <div class="form-group">
-                                <label class="font-weight-bold">Please selet your car registration Date</label>
+                                <label class="font-weight-bold">Please selet your {{userVehicle.vehicleType}} registration Date</label>
                                 <input type="date" class="form-control w-auto" />
                             </div>
                             <div class="form-group">
-                                <label class="font-weight-bold">Please selet your car is owned for</label>
+                                <label class="font-weight-bold">Please selet your {{userVehicle.vehicleType}} is owned for</label>
                                 <select class="form-control w-auto">
                                     <option>For Company</option>
                                     <option>For an Invidual</option>

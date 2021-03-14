@@ -48,6 +48,8 @@ export class MotorInfoComponent implements OnInit {
   fuelTypes = Object.values(FuelTypesEnum);
   calenderYear: any[] = [];
   closeResult:any;
+  vehicleType: string;
+  isRegistrationNoValid: boolean;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -87,6 +89,15 @@ export class MotorInfoComponent implements OnInit {
     //  this.motorInfoForm.setValue(JSON.parse(sessionStorage.getItem("userinfo")));
    // }
    this.calenderYears();
+   this.getVehicleType();
+  }
+
+  getVehicleType() {
+    if(this.motorType === '2W') {
+      this.vehicleType = 'Two Wheeler';
+    } else {
+      this.vehicleType = 'Car';
+    }
   }
 
   selectWithOutRegNo() {
@@ -97,9 +108,8 @@ export class MotorInfoComponent implements OnInit {
     console.log("new vehicle no");
     this.userVehicleDetails.isNewVehicle = true;
   }
+
   openModal(content) {
-    //this.modalService.open(id);
-    //this.modalService.open(content, {backdropClass: 'light-blue-backdrop'});
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -223,19 +233,33 @@ export class MotorInfoComponent implements OnInit {
   }
 
   onViewPlanClick() {
-    //debugger;
-    //this.submitted = true;
     console.log("validate::", this.motorInfoForm.invalid);
     console.log("validate:no:", this.motorInfoForm.controls['vehicleNo'].value);
     if (this.motorInfoForm.get('vehicleNo').value === "") {
-      //this.submitted = false;
       return false;
-    }
-    else {
+    } else {
       $('#form-viewPlans').hide();
       $('#rto-section').show();
       this.userVehicleDetails.rtoRegistrationNo = this.motorInfoForm.get('vehicleNo').value;
     }
+  }
+
+  validateRtoNoViewPlanClick() {
+    console.log("validateRtoNoViewPlanClick::", this.motorInfoForm.controls['vehicleNo'].hasError('pattern'));
+    let rtoNo: string = (this.motorInfoForm.controls['vehicleNo'].value).substr(0,4);
+    this.customService.getSearchedrtos(rtoNo).subscribe(dataRTO => {
+      console.log(">rto::>", dataRTO);
+      if(dataRTO != '' && dataRTO.length > 0) {
+        if(dataRTO[0].region_code === rtoNo){
+          this.isRegistrationNoValid = false;
+          this.onViewPlanClick();
+          this.motorInfoForm.controls['state'].setValue(dataRTO[0].registered_state_name);
+          this.motorInfoForm.controls['city'].setValue(dataRTO[0].registered_city_name);
+          this.motorInfoForm.controls['rto'].setValue(dataRTO[0].region_code);
+          this.validateRTOfields();
+        }
+      } else { this.isRegistrationNoValid = true; }
+    });
   }
 
   private bindallState() {

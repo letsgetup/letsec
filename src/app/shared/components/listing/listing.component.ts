@@ -46,7 +46,6 @@ export class ListingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log("enum", this.enumInsurer);
     this.vehicleListForm = this.formBuilder.group({
       maker: ['', [Validators.required]],
       model: ['', [Validators.required]],
@@ -55,10 +54,10 @@ export class ListingComponent implements OnInit {
     });
     this.sharedService.getVehicleData().subscribe(data=>{this.userVehicle = data});
     console.log('data:',this.userVehicle.vehicleVariant);
-    this.customService.getDemoListingData("").subscribe(apiData=>{ if(apiData != undefined) this.isApi = true;});
-    this.fetchInsuranceData();
+    //this.customService.getDemoListingData("").subscribe(apiData=>{ if(apiData != undefined) this.isApi = true;});
+    //this.fetchInsuranceData();
 
-    this.initializeThirdPartyObj();
+    //this.initializeThirdPartyObj();
     this.initializeuserVehicleData();
 
   }
@@ -207,6 +206,13 @@ export class ListingComponent implements OnInit {
     this.changeRouteToPayment();
   }
 
+  removeINRInPremium(premium: string, insurer: string) {
+    if(insurer === 'digit'){
+      premium = premium.split(" ")[1];
+    }
+    return premium;
+  }
+
   changeRouteToPayment() {
     this.router.navigate(['motor-insurance/payment']);
   }
@@ -284,7 +290,7 @@ export class ListingComponent implements OnInit {
     let insurer = new InsurerQuotesDetails();
     insurer.enquiryId = "en0";
     insurer.type = this.getVehicletype(); // 1 byje, 2car, 3commercial
-    insurer.reg_no = this.userVehicle.rtoRegistrationNo.substr(0, 4);//rto no only ex:mh12
+    insurer.reg_no = this.getSubstring(this.userVehicle.rtoRegistrationNo);//rto no only ex:mh12
     insurer.tppd_restricted_to = false;//third party
     insurer.make = this.userVehicle.vehicleMenufacturer;
     insurer.model = this.userVehicle.vehicleModel;
@@ -309,12 +315,19 @@ export class ListingComponent implements OnInit {
     this.getQuotesApiDetails(insurer);
   }
 
+  getSubstring(text: string): string {
+    if(text != null || text != undefined) {
+      return text.substr(0, 4);
+    }
+    return text;
+  }
+
   getQuotesApiDetails(vehicleDetails: any) {
     let quotesDetails : any[] = [];
     this.customService.getQuickQuotesDetails(vehicleDetails).subscribe({
       next: data => {
         console.log('quotes post res::::', data, data.quickQuotes.length);
-        if(data.isSuccess && data.quickQuotes.length > 0){
+        if(data != null && data.isSuccess && data.quickQuotes.length > 0){
           this.quickQuotes = data.quickQuotes;
           this.quickQuotes.forEach(e => {
             console.log('qots',e.nameOfInsurer);
