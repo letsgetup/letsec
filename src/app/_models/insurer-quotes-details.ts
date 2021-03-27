@@ -4,7 +4,7 @@ export class InsurerQuotesDetails {
     idv_up: string = "0";
     qid: string = "";
     type: string;
-    reg_no: string;
+    reg_no: string = "";
     tppd_restricted_to: boolean;
     make: string;
     model: string;
@@ -39,7 +39,7 @@ export class InsurerQuotesDetails {
     policy_expire_date: string;
     policy_number: string = null;
     vehicle_owned_by: string = null;
-    registration_no: string;
+    registration_no: string = "";
     manufacturer: string;
     year: string;
     previous: boolean;

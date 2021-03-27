@@ -107,6 +107,10 @@ export class MotorInfoComponent implements OnInit {
   selectNewVehicle() {
     console.log("new vehicle no");
     this.userVehicleDetails.isNewVehicle = true;
+    let date = new Date();
+    console.log('date:', date.getFullYear());
+    this.motorInfoForm.controls['year'].setValue(date.getFullYear());
+    this.motorInfoForm.controls['year'].disable();
   }
 
   openModal(content) {
@@ -155,15 +159,15 @@ export class MotorInfoComponent implements OnInit {
   getSearchedrtos(termRTO: string) {
     console.log("getSearchedrtos:", termRTO);
     this.customService.getSearchedrtos(termRTO).subscribe(dataRTO => {
-      this.listRTO = dataRTO;
-      console.log(">rto::>", this.listRTO);
+      console.log(">rto::>", dataRTO.isSuccess);
+      console.log(">rto::>", dataRTO.rtoDetails);
+      this.listRTO = dataRTO.rtoDetails;
     });
     //this.getSearchedStates(termRTO);
     //this.getSearchedCities(termRTO);
   }
 
   getSearchedStates(text: string){
-    
     this.customService.getSearchedStates(text).subscribe(states =>{
       this.stateList = states;
       console.log(">states::>", this.stateList);
@@ -195,24 +199,26 @@ export class MotorInfoComponent implements OnInit {
       debounceTime(200),
       map(maketerm => this.listMaker)
     )
-  formattermaker = (x: { Make: string }) => x.Make.trim();
+  formattermaker = (x: { Make: string }) => x.Make;
   // tslint:disable-next-line: typedef
   getSearchedMakers(termMaker: string) {
     console.log('Vtype:::::', this.motorType);
     this.customService.getSearchedmaker(termMaker, this.motorType).subscribe(dataMaker => {
       this.listMaker = [];
-      this.listMaker = dataMaker;
-      //this.listMaker = JSON.parse(this.listMaker);
-      console.log(">vehicle maker::>", this.listMaker);
+      console.log(">vehicle maker::>", dataMaker);
+      if(dataMaker.isSuccess){
+        this.listMaker = dataMaker.vehicleManufacturers;
+      }
     });
-    this.getSerchedModel(termMaker);
   }
 
   getSerchedModel(searchText: string){
     this.customService.getTmpSearchedModel(searchText, this.motorType).subscribe(model=>{
       this.modelList = [];
-      this.modelList = model;
-      console.log('model:', this.modelList);
+      console.log('model:', model);
+      if(model.isSuccess){
+        this.modelList = model.vehicleModels;
+      }
     });
   }
 
@@ -220,7 +226,9 @@ export class MotorInfoComponent implements OnInit {
     this.customService.getTmpSearchedVariants(searchText, model).subscribe(variant => { 
       this.fversionList = [];
       console.log('variant:',variant);
-      this.fversionList = variant;
+      if(variant.isSuccess){
+        this.fversionList = variant.vehicleVariants;
+      }
     });
   }
 
@@ -228,7 +236,9 @@ export class MotorInfoComponent implements OnInit {
     this.customService.getTmpSearchedFueltypes(maker, model, variant).subscribe(fuel=>{
       this.fuelList = [];
       console.log('fuel::', fuel);
-      this.fuelList = fuel;
+      if(fuel.isSuccess){
+        this.fuelList = fuel.vehicleFuelTypes;
+      }
     });
   }
 
@@ -239,7 +249,7 @@ export class MotorInfoComponent implements OnInit {
       return false;
     } else {
       $('#form-viewPlans').hide();
-      $('#rto-section').show();
+      $('#cars-section').show();
       this.userVehicleDetails.rtoRegistrationNo = this.motorInfoForm.get('vehicleNo').value;
     }
   }
@@ -248,15 +258,15 @@ export class MotorInfoComponent implements OnInit {
     console.log("validateRtoNoViewPlanClick::", this.motorInfoForm.controls['vehicleNo'].hasError('pattern'));
     let rtoNo: string = (this.motorInfoForm.controls['vehicleNo'].value).substr(0,4);
     this.customService.getSearchedrtos(rtoNo).subscribe(dataRTO => {
-      console.log(">rto::>", dataRTO);
-      if(dataRTO != '' && dataRTO.length > 0) {
-        if(dataRTO[0].region_code === rtoNo){
+
+      console.log(">rto::>", dataRTO.isSuccess, dataRTO.rtoDetails);
+      if(dataRTO.isSuccess && dataRTO.rtoDetails.length > 0) {
+        if(dataRTO.rtoDetails[0].region_code === rtoNo){
           this.isRegistrationNoValid = false;
+          this.initalizeRtoDetails(dataRTO.rtoDetails[0].region_code, 
+            dataRTO.rtoDetails[0].registered_state_name, dataRTO.rtoDetails[0].registered_city_name);
           this.onViewPlanClick();
-          this.motorInfoForm.controls['state'].setValue(dataRTO[0].registered_state_name);
-          this.motorInfoForm.controls['city'].setValue(dataRTO[0].registered_city_name);
-          this.motorInfoForm.controls['rto'].setValue(dataRTO[0].region_code);
-          this.validateRTOfields();
+          
         }
       } else { this.isRegistrationNoValid = true; }
     });
@@ -305,6 +315,7 @@ export class MotorInfoComponent implements OnInit {
     this.loading = true;
 
     this.customService.getselectedmakerdata(this.strMaker).subscribe(makerData => {
+      console.log("res:", makerData);
       this.makerDetails = makerData;
       this.makerDetails = JSON.parse(this.makerDetails);
 
@@ -344,13 +355,18 @@ export class MotorInfoComponent implements OnInit {
       $('#errSpan').hide();
       $('#rto-section').hide();
       $('#cars-section').show();
-      this.userVehicleDetails.vehicleType = this.motorType;
-      this.userVehicleDetails.rtoCode = this.motorInfoForm.controls['rto'].value;
-      this.userVehicleDetails.state = this.motorInfoForm.controls['state'].value;
-      this.userVehicleDetails.city = this.motorInfoForm.controls['city'].value;
-
+      this.initalizeRtoDetails(this.motorInfoForm.controls['rto'].value, 
+            this.motorInfoForm.controls['state'].value, this.motorInfoForm.controls['city'].value);
     }
   }
+
+  initalizeRtoDetails(rto: string, state: string, city: string) { 
+    this.userVehicleDetails.vehicleType = this.motorType;
+      this.userVehicleDetails.rtoCode = rto;
+      this.userVehicleDetails.state = state;
+      this.userVehicleDetails.city = city;
+  }
+
   public validateVehiclefields() {
     let isErr = false;
 
@@ -423,6 +439,7 @@ export class MotorInfoComponent implements OnInit {
       //this.bindModel(makerVal);
       this.motorInfoForm.controls['model'].setValue(0);
     }
+    this.getSerchedModel(makerVal);
   }
 
   bindModel(makerPrmVal: string) {

@@ -45,8 +45,8 @@ export class CustomService {
   }
 
   getSearchedrtos(searchedText: string): Observable<any> {
-    let params = new HttpParams().set('searchTerm', searchedText);
-    return this.http.get(`${environment.azureApiUrl}/api/rtos`, { params: params })
+    let params = new HttpParams().set('searchWord', searchedText);
+    return this.http.get(`${environment.azureApiUrl}/api/RTOs/getrtos`, { params: params })
       .pipe(
         map(response => response)
       );
@@ -104,9 +104,9 @@ export class CustomService {
 
   getSearchedmaker(makerterm: string, motorType: string): Observable<any> {
     let motor = motorType === 'Car' ? '4W' : '2W';
-    const params = new HttpParams().set('searchTerm', makerterm)
+    const params = new HttpParams().set('searchWord', makerterm)
                                  .set('vehicleType', motor);
-    return this.http.get(`${environment.azureApiUrl}/api/vehicledata/makers`, { params })
+    return this.http.get(`${environment.azureApiUrl}/api/VehicleData/getvehiclemanufacturer`, { params })
       .pipe(
         map(response => response)
       );
@@ -114,22 +114,22 @@ export class CustomService {
 
   getTmpSearchedModel(makerterm: string, motorType: string): Observable<any> {
     let motor = motorType === 'Car' ? '4W' : '2W';
-    const params = new HttpParams().set('makeSearchTerm', makerterm)
+    const params = new HttpParams().set('searchWord', makerterm)
                                      .set('vehicleType', motor);
-    return this.http.get(`${environment.azureApiUrl}/api/vehicledata/models`, { params })
+    return this.http.get(`${environment.azureApiUrl}/api/VehicleData/getvehiclemodel`, { params })
       .pipe(map(response => response));
   }
 
   getTmpSearchedVariants(makerterm: string, model: string): Observable<any> {
-    const params = new HttpParams().set('makeSearchTerm', makerterm).set('modelSearchTerm', model);
-    return this.http.get(`${environment.azureApiUrl}/api/vehicledata/variants`, { params })
+    const params = new HttpParams().set('make', makerterm).set('model', model);
+    return this.http.get(`${environment.azureApiUrl}/api/VehicleData/getvehiclevariant`, { params })
       .pipe( map(response => response));
   }
 
   getTmpSearchedFueltypes(maker: string, model: string, variant: string): Observable<any> {
-    const params = new HttpParams().set('makeSearchTerm', maker)
-      .set('modelSearchTerm', model).set('variantSearchTerm', variant);
-    return this.http.get(`${environment.azureApiUrl}/api/vehicledata/fueltypes`, { params })
+    const params = new HttpParams().set('make', maker)
+      .set('model', model).set('variant', variant);
+    return this.http.get(`${environment.azureApiUrl}/api/VehicleData/getvehiclefueltype`, { params })
       .pipe( map(response => response));
   }
 
