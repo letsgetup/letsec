@@ -1,9 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserVehicleDetails } from '@app/_models';
+import { LtsSharedService } from '@app/_services';
 import { ModalDismissReasons, NgbCalendar, NgbDate, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxCalendarComponent } from 'ss-ngx-calendar';
+
+declare var $: any;
 
 @Component({
   selector: 'app-date',
@@ -24,10 +28,11 @@ export class DateComponent implements OnInit {
   ePolicyExpire = PolicyExpireEnum;
   selectedClaimValue: any;
   policyExpiryState: any;
+  userVehicle: UserVehicleDetails;
 
   constructor(private router: Router, private modalService: NgbModal,
-    private datepipe: DatePipe) {
-
+    private datepipe: DatePipe, private sharedService: LtsSharedService) {
+      this.sharedService.getVehicleData().subscribe(data => { this.userVehicle = data });
   }
 
   ngAfterViewInit() {
@@ -35,7 +40,15 @@ export class DateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.openCalender(this.content);
+    this.validateIsVehicleNew();
+  }
+
+  validateIsVehicleNew() {
+    if(this.userVehicle.isNewVehicle) {  
+      $('#date-section').hide(); 
+    } else {
+      this.openCalender(this.content);
+    }
   }
 
   onChooseDate(date: any, claim) {

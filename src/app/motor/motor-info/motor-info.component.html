@@ -79,42 +79,42 @@
         <div class="col-md-9  mx-auto">
             <div class="input-group  p-3 bg-secondary border  mb-3 rounded">
                 <input tye="text" class="form-control form-control-lg " placeholder="Search {{vehicleType}} Maker"
-                    [resultTemplate]="rtcarmaker" [inputFormatter]="formattermaker"
+                    
                     (selectItem)="selectedMakerItem($event)" (keyup)="getSearchedMakers($event.target.value)"
                     [ngbTypeahead]="makersearch" />
                 <div class="input-group-append"> <span class="input-group-text">
                         <button class="btn btn-link py-0"><img src="../assets/images/search.png" width="28" /></button>
                     </span> </div>
-                <ng-template #rtcarmaker let-r="result" let-t="maketerm">
-                    <ngb-highlight [result]="r.Make" [maketerm]="t"></ngb-highlight>
-                </ng-template>
+                <!-- <ng-template #rtcarmaker let-r="result" let-t="maketerm">
+                    <ngb-highlight [result]="r" [maketerm]="t"></ngb-highlight>
+                </ng-template> -->
             </div>
 
             <select id="maker" formControlName="maker" (change)="makerChange($event.target.value)"
                 class="form-control mx-auto">
                 <option value="0" selected>Select {{vehicleType}} Maker</option>
-                <option *ngFor="let maker of listMaker" value={{maker.Make}}>
-                    {{maker.Make}}
+                <option *ngFor="let maker of listMaker" value={{maker}}>
+                    {{maker}}
                 </option>
             </select>
             <select id="model" formControlName="model" (change)="modelChange($event.target.value)"
                 class="form-control mx-auto my-4">
                 <option value="0" selected>Select {{vehicleType}} Model</option>
-                <option *ngFor="let model of modelList" value={{model.VehicleModel}}>
-                    {{model.VehicleModel}}
+                <option *ngFor="let model of modelList" value={{model}}>
+                    {{model}}
                 </option>
             </select>
             <select id="variant" formControlName="variant" (change)="variantChange($event.target.value)"
                 class="rto-number form-control mx-auto">
                 <option value="0" selected>Select variant</option>
-                <option *ngFor="let ftype of fversionList" value={{ftype.Variant}}>
-                    {{ftype.Variant}}
+                <option *ngFor="let ftype of fversionList" value={{ftype}}>
+                    {{ftype}}cc
                 </option>
             </select>
             <select id="fueltype" formControlName="fueltype" class="rto-number form-control my-4">
                 <option value="0" selected>Select Fuel Type</option>
-                <option *ngFor="let ftype of fuelList" value={{ftype.FuelType}}>
-                    {{ftype.FuelType}}
+                <option *ngFor="let ftype of fuelList" value={{ftype}}>
+                    {{ftype}}
                 </option>
             </select>
             <select id="fueltype" formControlName="year" class="rto-number form-control my-4">

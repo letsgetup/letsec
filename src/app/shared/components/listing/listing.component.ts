@@ -1,15 +1,19 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { DigitInsuranceDetails, Vehicle } from '../../../_models/digit-insurance-details';
 import { CustomService } from '@app/_services';
-import digitdata from "../../assets/json/digitdata.json";
-import tataaig from "../../assets/json/tataaig.json";
-import { TataAigInsurance } from '@app/_models/tata-aig-insurance';
 import { Router } from '@angular/router';
 import { LtsSharedService } from '@app/_services';
 import { UserVehicleDetails } from '@app/_models';
 import { InsurerQuotesDetails } from '@app/_models/insurer-quotes-details';
 import { ModalDismissReasons, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+
+
+const insurerData = [
+  { id: 'digit', name: 'Digit', isChecked: false },
+  { id: 'tataaig', name: 'Tata Aig', isChecked: false },
+];
 
 @Component({
   selector: 'app-listing',
@@ -18,32 +22,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ListingComponent implements OnInit {
   @ViewChild('content', { static: true }) content: TemplateRef<any>;
   vehicleListForm: FormGroup;
-  tataAig2W: TataAigInsurance;
-  digitTwoWheeler: DigitInsuranceDetails;
   userVehicle: UserVehicleDetails;
   isApi: boolean = false;
-  isSelectAllInsurer: boolean = false;
   insurancePlan: InsurancePlan;
   closeResult = '';
-  objectPolicy: ObjectPolicy;
   vehicleData: VehicleDetails;
   policyExpireDate: any;
   claimBonus: any[] = ['0', '20', '25', '35', '45', '50'];
+  insurerList: any[] = insurerData;
   enumInsurer = InsurerEnum;
   enumIDV = IdvEnum;
   enumAddon = AddOnsEnum;
   enumAccessory = AccessoriesEnum;
   selectedIdv: any;
   selectedModalClaim: any;
-  quickQuotes: QuickQuotes[] = [];
-  
+  //quickQuotes: QuickQuotes[] = [];
+  quickQuotesApiRes: QuickQuotes[] = [];
+  quickQuotesInsurer: QuickQuotes[] = [];
+
 
   constructor(private customService: CustomService,
     private router: Router,
     private sharedService: LtsSharedService,
     private modalService: NgbModal, private formBuilder: FormBuilder) {
-    this.getFourWheelerData();
-   }
+      this.sharedService.getVehicleData().subscribe(data => { this.userVehicle = data });
+      console.log('data:', this.userVehicle);
+  }
 
   ngOnInit(): void {
     this.vehicleListForm = this.formBuilder.group({
@@ -52,54 +56,21 @@ export class ListingComponent implements OnInit {
       variant: ['', [Validators.required]],
       fuel: ['', [Validators.required]]
     });
-    this.sharedService.getVehicleData().subscribe(data=>{this.userVehicle = data});
-    console.log('data:',this.userVehicle.vehicleVariant);
-    //this.customService.getDemoListingData("").subscribe(apiData=>{ if(apiData != undefined) this.isApi = true;});
-    //this.fetchInsuranceData();
-
-    //this.initializeThirdPartyObj();
+    this.sharedService.getVehicleData().subscribe(data => { this.userVehicle = data });
+    console.log('data:', this.userVehicle.vehicleVariant);
     this.initializeuserVehicleData();
-
+    if(this.userVehicle.isNewVehicle) { this.initalizeQuoteApiData(); }
   }
 
-  initializeuserVehicleData(){
+  initializeuserVehicleData() {
     this.vehicleListForm.controls['maker'].setValue(this.userVehicle.vehicleMenufacturer);
     this.vehicleListForm.controls['model'].setValue(this.userVehicle.vehicleModel);
     this.vehicleListForm.controls['variant'].setValue(this.userVehicle.vehicleVariant);
     this.vehicleListForm.controls['fuel'].setValue(this.userVehicle.fuelType);
   }
 
-  initializeThirdPartyObj(){
-    this.objectPolicy = new ObjectPolicy();
-    this.objectPolicy.UserName = "WIBL";
-    this.objectPolicy.ProductCode = '2311';
-    this.objectPolicy.TraceID = 'TAPI190520008063';
-    this.objectPolicy.PolicyStartDate = '2021-02-01';
-    this.objectPolicy.SessionID = '';
-    this.objectPolicy.TPSourceName = '7';
-    this.objectPolicy.BusinessTypeID = '25';
-
-    this.vehicleData = new VehicleDetails();
-    this.vehicleData.MakeModelVarient="MARUTI SUZUKI|1000|AC|970CC";
-    this.vehicleData.RtoLocation="MH02";
-    this.vehicleData.RegistrationDate="2020-01-01";
-    this.vehicleData.ManufacturingMonth="2017";
-    this.vehicleData.ManufacturingMonth="05";
-
-    this.customService.getThirdPartyInsurance(this.objectPolicy, this.vehicleData)
-      .subscribe(r=>{console.log('res::', r)});
-  }
-
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  openConfirm(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -116,89 +87,99 @@ export class ListingComponent implements OnInit {
     }
   }
 
+  /* For Vehicle details*/
+  formattermaker = (x: { Make: string }) => x.Make;
+
+  searchVehicleMaker = (text$: Observable<string>) =>
+    text$.pipe(debounceTime(300), distinctUntilChanged(),
+      switchMap(term =>
+        this.getSearchedMakers(term, this.userVehicle.vehicleType).pipe(
+          catchError(() => {
+            return of([]);
+          }))
+      )
+    );
+
+  getSearchedMakers(termMaker: string, vehicleType: string) {
+    return this.customService.getSearchedmaker(termMaker, vehicleType)
+      .pipe(map(res => {
+        console.log('res:::', res);
+        return res.vehicleManufacturers;
+      })
+      );
+  }
+
+  searchVehicleModel = (text$: Observable<string>) =>
+    text$.pipe(debounceTime(300), distinctUntilChanged(),
+      switchMap(term =>
+        this.getVehicleModel(term, this.userVehicle.vehicleType).pipe(
+          catchError(() => {
+            return of([]);
+          }))
+      )
+    );
+
+  getVehicleModel(termModel: string, vehicleType: string) {
+    console.log('control::', this.vehicleListForm.controls['maker'].value);
+    return this.customService.getTmpSearchedModel(this.vehicleListForm.controls['maker'].value, vehicleType).pipe(map(res => {
+      console.log('res:model::', res);
+      return res.vehicleModels;
+    }));
+  }
+
+  searchVehicleVariant = (text$: Observable<string>) =>
+    text$.pipe(debounceTime(300), distinctUntilChanged(),
+      switchMap(term =>
+        this.getVehicleVariant(term, this.userVehicle.vehicleType).pipe(
+          catchError(() => {
+            return of([]);
+          }))
+      )
+    );
+
+  getVehicleVariant(termModel: string, vehicleType: string) {
+    console.log('control::', this.vehicleListForm.controls['model'].value);
+    return this.customService.getTmpSearchedVariants(this.vehicleListForm.controls['maker'].value,
+      this.vehicleListForm.controls['model'].value).pipe(map(res => {
+        console.log('res:var::', res);
+        return res.vehicleVariants;
+      }));
+  }
+
+  searchVehicleFuel = (text$: Observable<string>) =>
+    text$.pipe(debounceTime(300), distinctUntilChanged(),
+      switchMap(term =>
+        this.getVehicleFueltype().pipe(
+          catchError(() => {
+            return of([]);
+          }))
+      )
+    );
+
+    getVehicleFueltype() {
+      this.vehicleListForm.controls['variant'].value.split('-')[0];
+      return this.customService.getTmpSearchedFueltypes(this.vehicleListForm.controls['maker'].value,
+        this.vehicleListForm.controls['model'].value, this.vehicleListForm.controls['variant'].value.split('-')[0]).pipe(map(res => {
+          console.log('res:fuel::', res);
+          return res.vehicleFuelTypes;
+        }));
+    }  
+
   getIconPath(insurer: string): string {
-    if(insurer === 'tataaig') {
+    if (insurer === 'tataaig') {
       return "../assets/images/logo-AIG.png";
     } else { return "https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2"; }
   }
 
-  policyExpiryDate(date:any){
+  policyExpiryDate(date: any) {
     console.log('listng expry::::', date);
     this.policyExpireDate = date;
   }
 
-  fetchInsuranceData(){
-    if(this.isApi) {
-
-    }else{
-      if(this.userVehicle.vehicleType === 'Car') {
-        this.getFourWheelerData();
-      }else{
-        this.getTwoWheelerData();
-      }
-    }
-  }
-
-  getTwoWheelerData(){
-    this.getTwoWheelerDigitJsonData();
-    this.getTwoWheelerTataAigJsonData();
-  }
-
-  getFourWheelerData(){
-    this.getCarTataAigJsonDat();
-    this.getCarDigitJsonData();
-  }
-
-  getTwoWheelerDigitJsonData() {
-    this.customService.getLocalJsonFileData("../../assets/json/digitdata.json")
-      .subscribe(json => {
-        this.digitTwoWheeler = json[0];
-        console.log("json obj>>digit>>>>", this.digitTwoWheeler.netPremium);
-      });
-  }
-
-  getTwoWheelerTataAigJsonData(){
-    this.customService.getLocalJsonFileData("../../assets/json/tataaig.json")
-      .subscribe(json => {
-        this.tataAig2W = json[0].data;
-        console.log("json obj>>tata1>>>>", this.tataAig2W);
-      });
-  }
-
-  getCarTataAigJsonDat(){
-    this.customService.getLocalJsonFileData("../../assets/json/tatacar.json")
-    .subscribe(json => {
-      this.tataAig2W = json[0].data;
-      console.log("json obj>>tata car>>>>", this.tataAig2W);
-    });
-  }
-
-  getCarDigitJsonData(){
-    this.customService.getLocalJsonFileData("../../assets/json/digitcar.json")
-    .subscribe(json => {
-      this.digitTwoWheeler = json[0];
-      console.log("json obj>>digit car>>>>", this.digitTwoWheeler);
-    });
-  }
-
-  selectAigPlan(idv: string, premium: string){
-    let user=this.userVehicle.user;
-    let plan = new InsurancePlan("AIG", premium, idv, user.contactNo, user.email);
-    this.sharedService.setInsurancePlan(plan);
-    this.changeRouteToPayment();
-  }
-
-  selectDigitPlan(idv: string, premium: string) {
-    let user=this.userVehicle.user;
-    let plan = new InsurancePlan("DIGIT", premium.split(" ")[1], idv, user.contactNo, user.email);
-    this.sharedService.setInsurancePlan(plan);
-    this.changeRouteToPayment();
-  }
-
   selectPremiumPlan(insurerName: string, premium: string, idv: string) {
-    let user=this.userVehicle.user;
+    let user = this.userVehicle.user;
     let selectedPremium = premium;
-    if(insurerName === 'digit') {
+    if (insurerName === 'digit') {
       selectedPremium = selectedPremium.split(" ")[1];
     }
     let plan = new InsurancePlan(insurerName, selectedPremium, idv, user.contactNo, user.email);
@@ -207,7 +188,7 @@ export class ListingComponent implements OnInit {
   }
 
   removeINRInPremium(premium: string, insurer: string) {
-    if(insurer === 'digit'){
+    if (insurer === 'digit') {
       premium = premium.split(" ")[1];
     }
     return premium;
@@ -219,32 +200,53 @@ export class ListingComponent implements OnInit {
 
   selectBonus(bonus: any) {
     console.log("claim bonus %:::", bonus);
+    this.userVehicle.claimBonus = bonus;
+  }
+
+  updateNCB(){
+    this.initalizeQuoteApiData();
   }
 
   selectInsurer(insurer: any) {
     console.log("selectInsurer %:::", insurer);
+    insurer.isChecked = true;
+  }
+
+  updateInsurerSelection() {
+    console.log("updateselectInsurer %:::", this.insurerList);
+    this.quickQuotesInsurer = [];
+    this.insurerList.forEach(e => {
+      if (e.isChecked) {
+        this.quickQuotesApiRes.forEach(q => {
+          if (e.id === q.nameOfInsurer) {
+            this.quickQuotesInsurer.push(q);
+          }
+        });
+      }
+    });
+
   }
 
   selectAllInsurer(event) {
     console.log("selectAllInsurer %:::", event.target.checked);
-    this.isSelectAllInsurer = event.target.checked;
+    this.insurerList.forEach(e => { e.isChecked = event.target.checked; });
   }
 
-  onIDVChange(value: any){
+  onIDVChange(value: any) {
     this.selectedIdv = value;
   }
 
-  policyClaimInModal(claim: any){
+  policyClaimInModal(claim: any) {
     console.log("selectd claim :::", claim);
-    if(claim != 'Not Sure') {
+    if (claim != 'Not Sure') {
       this.selectedModalClaim = claim === 'No' ? 'No' : 1;
       this.userVehicle.isClaim = claim === 'No' ? false : true;
     }
   }
-  onSubmitVehicleDetails(modal){
+  onSubmitVehicleDetails(modal) {
     this.updateVehicleDetails();
     modal.close('Close click');
-    //this.validateFuelType();
+    this.initalizeQuoteApiData();
   }
 
   updateVehicleDetails() {
@@ -254,43 +256,52 @@ export class ListingComponent implements OnInit {
     this.userVehicle.fuelType = this.vehicleListForm.controls['fuel'].value;
   }
 
-  validateFuelType(){
+  validateFuelType() {
     let fuelList: any[];
     let variant = this.vehicleListForm.controls['variant'].value;
-    
-    this.customService.getTmpSearchedFueltypes(this.vehicleListForm.controls['maker'].value, 
-      this.vehicleListForm.controls['model'].value, (variant.split('-')[0]).trim()).subscribe(fuel=>{
-      fuelList = [];
-      console.log('fuel::', fuel);
-      fuelList = fuel;
-    });
+
+    this.customService.getTmpSearchedFueltypes(this.vehicleListForm.controls['maker'].value,
+      this.vehicleListForm.controls['model'].value, (variant.split('-')[0]).trim()).subscribe(fuel => {
+        fuelList = [];
+        console.log('fuel::', fuel);
+        fuelList = fuel;
+      });
+  }
+
+  showAddonAccessories(): boolean {
+    if(this.userVehicle.vehicleType === '2W') {
+      return false;
+    } else if(this.userVehicle.isNewVehicle) {
+      return false;
+    }
+    return true;
   }
 
   getVehicleType() {
     VehicleTypeEnum.Byke;
   }
 
-  onClaimSelection(claimed: any){
+  onClaimSelection(claimed: any) {
     console.log('onClaimSelection::', VehicleTypeEnum.Car);
-    if(claimed) { 
+    if (claimed) {
       console.log('matched::', claimed);
       this.initalizeQuoteApiData();
     }
   }
 
   getVehicletype(): string {
-    if(this.userVehicle.vehicleType === 'Car'){
+    if (this.userVehicle.vehicleType === 'Car') {
       return VehicleTypeEnum.Car;
-    } else if(this.userVehicle.vehicleType === '2W') {
+    } else if (this.userVehicle.vehicleType === '2W') {
       return VehicleTypeEnum.Byke;
     }
   }
 
-  initalizeQuoteApiData(){
+  initalizeQuoteApiData() {
     let insurer = new InsurerQuotesDetails();
     insurer.enquiryId = "en0";
     insurer.type = this.getVehicletype(); // 1 byje, 2car, 3commercial
-    insurer.reg_no = this.getSubstring(this.userVehicle.rtoRegistrationNo);//rto no only ex:mh12
+    insurer.reg_no = this.userVehicle.rtoCode;//rto no only ex:mh12
     insurer.tppd_restricted_to = false;//third party
     insurer.make = this.userVehicle.vehicleMenufacturer;
     insurer.model = this.userVehicle.vehicleModel;
@@ -299,16 +310,17 @@ export class ListingComponent implements OnInit {
     let cubic = this.userVehicle.vehicleVariant.split('-')[1];
     insurer.cubic_capacity = cubic.replace(',', '');
     insurer.claim = this.userVehicle.isClaim;//
+    insurer.ncb = this.userVehicle.claimBonus;
     insurer.policy_expire_date = this.policyExpireDate;
     insurer.vehicle_owned_by = "INDIVIDUAL";//individual ///for car n byke
     insurer.registration_no = this.userVehicle.rtoRegistrationNo;//
-    insurer.manufacturer= this.userVehicle.vehicleMenufacturer;//maker
+    insurer.manufacturer = this.userVehicle.vehicleMenufacturer;//maker
     insurer.year = this.userVehicle.year;//reagistration yr
     insurer.previous = false;//true if vehicle is nt new brand
     insurer.policy_type = "Comprehensive";//comprehensive or third party(comp: if user provided the reg no)
     insurer.policy_expiry = this.policyExpireDate;;//
     insurer.pincode = "411021";//'411021' fr temp 
-    insurer.customer_mobile= this.userVehicle.user.contactNo;
+    insurer.customer_mobile = this.userVehicle.user.contactNo;
     insurer.customer_email = this.userVehicle.user.email;
 
     console.log('insurer:::', insurer);
@@ -316,28 +328,26 @@ export class ListingComponent implements OnInit {
   }
 
   getSubstring(text: string): string {
-    if(text != null || text != undefined) {
+    if (text != null || text != undefined) {
       return text.substr(0, 4);
     }
     return text;
   }
 
   getQuotesApiDetails(vehicleDetails: any) {
-    let quotesDetails : any[] = [];
+    this.quickQuotesInsurer = [];
     this.customService.getQuickQuotesDetails(vehicleDetails).subscribe({
       next: data => {
         console.log('quotes post res::::', data, data.quickQuotes.length);
-        if(data != null && data.isSuccess && data.quickQuotes.length > 0){
-          this.quickQuotes = data.quickQuotes;
-          this.quickQuotes.forEach(e => {
-            console.log('qots',e.nameOfInsurer);
-          });
+        if (data != null && data.isSuccess && data.quickQuotes.length > 0) {
+          this.quickQuotesApiRes = data.quickQuotes;
+          this.quickQuotesInsurer = data.quickQuotes;
         }
       },
       error: error => {
-          console.error('There was an error!', error.message);
+        console.error('There was an error!', error.message);
       }
-  })
+    })
   }
 
 }
@@ -356,24 +366,13 @@ export class InsurancePlan {
   userMobile: string;
   userEmail: string;
 
-  constructor(insuranceType: string, premium: string, idv: string, userMobile: string,userEmail: string){
+  constructor(insuranceType: string, premium: string, idv: string, userMobile: string, userEmail: string) {
     this.insuranceType = insuranceType;
     this.premium = premium;
     this.idv = idv;
     this.userMobile = userMobile;
     this.userEmail = userEmail;
   }
-}
-
-
-export class ObjectPolicy {
-  UserName: string;
-  ProductCode: string;
-  TraceID: string;
-  PolicyStartDate: string;
-  SessionID: string;
-  TPSourceName: string;
-  BusinessTypeID: string;
 }
 
 export class VehicleDetails {

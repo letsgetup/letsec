@@ -12,11 +12,12 @@
                 <span class="small">{{ userVehicle.vehicleType }} | {{userVehicle.fuelType}} |
                     {{userVehicle.rtoCode}}</span>
             </div>
-            <div class="col-md-4"><span class="text-muted">Existing Policy Expiry Date:</span><br/>{{policyExpireDate | date:'mediumDate'}}</div>
-            <div class="col-md-4 small">
+            <div class="col-md-4" *ngIf="!userVehicle.isNewVehicle">
+                <span class="text-muted">Existing Policy Expiry Date:</span><br/>{{policyExpireDate | date:'mediumDate'}}</div>
+            <div class="col-md-4 small" *ngIf="!userVehicle.isNewVehicle">
                 <div ngbDropdown class="d-inline-block w-100">
-                    <button class="btn btn-outline-secondary w-100 btn-sm" id="dropdownForm1" ngbDropdownToggle>NCB not
-                        verified</button>
+                    <button class="btn btn-outline-secondary w-100 btn-sm" 
+                        id="dropdownForm1" ngbDropdownToggle>NCB not verified</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="p-4 shadow">
                         <p class="mb-0 font-weight-bold small">Did you make a claim in your existing policy?</p>
                         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="selectedModalClaim">
@@ -27,14 +28,14 @@
                                 <input ngbButton type="radio" name="N" value="No"> No
                             </label>
                         </div>
-                        <p class="mb-0 font-weight-bold small mt-3">Select your existingNo Claim Bonus (NCB)</p>
+                        <p class="mb-0 font-weight-bold small mt-3">Select your existing, No Claim Bonus (NCB)</p>
                         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" *ngFor="let bonus of claimBonus; let i = index">
                             <label ngbButtonLabel class="btn-primary">
                                 <input ngbButton type="radio" name="i" [value]="0" (click)="selectBonus(bonus)">{{ bonus }}
                             </label>
                         </div>
                         <p class="bg-light border small p-2 mt-3">You are eligible for 50% NCB in your new policy</p>
-                        <button ngbDropdownItem class="btn btn-sm btn-danger text-white text-center">Update</button>
+                        <button ngbDropdownItem class="btn btn-sm btn-danger text-white text-center" (click)="updateNCB()">Update</button>
                     </div>
                 </div>
             </div>
@@ -45,48 +46,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    <!-- <div class="card shadow-sm mb-3" *ngIf="digitTwoWheeler != undefined">
-                        <div class="card-body row">
-                            <div class="col-md-3"><img src="https://static.pbcdn.in/car-cdn/rct/images/36.png?v=2" />
-                            </div>
-                            <div class="col-md-3 col-6" *ngIf="digitTwoWheeler.vehicle != undefined">
-                                <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9; {{ digitTwoWheeler.vehicle.vehicleIDV.idv }}</h5>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <p class="text-black-50 mb-0">Add ons</p>
-                                <span class="small">Zero Dep: Unavailable</span>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="mb-0 text-d" *ngIf="false"><del>&#x20B9;4,333</del><span class="ml-2 small"><a
-                                            href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger w-100"
-                                    (click)="selectDigitPlan(digitTwoWheeler.vehicle.vehicleIDV.idv, digitTwoWheeler.netPremium)">&#x20B9;
-                                    {{ digitTwoWheeler.netPremium }}</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow-sm mb-3" *ngIf="tataAig2W != undefined">
-                        <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/logo-AIG.png" /></div>
-                            <div class="col-md-3 col-6" *ngIf="tataAig2W.quotationdata != undefined">
-                                <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;{{ tataAig2W.quotationdata.idv }}</h5>
-                            </div>
-                            <div class="col-md-3 col-6">
-                                <p class="text-black-50 mb-0">Add ons</p>
-                                <span class="small">Zero Dep: Unavailable</span>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="mb-0 text-d" *ngIf="false"><del>&#x20B9;123,333</del><span
-                                        class="ml-2 small"><a href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger w-100"
-                                    (click)="selectAigPlan(tataAig2W.quotationdata.idv, tataAig2W.TOTALPAYABLE)">&#x20B9;
-                                    INR {{ tataAig2W.TOTALPAYABLE }}</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="card shadow-sm mb-3" *ngFor="let quote of quickQuotes; let i=index">
+                    <div class="card shadow-sm mb-3" *ngFor="let quote of quickQuotesInsurer; let i=index">
                         <div class="card-body row">
                             <div class="col-md-3"><img [src]="getIconPath(quote.nameOfInsurer)" /></div>
                             <div class="col-md-3">
@@ -105,42 +65,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card shadow-sm mb-3">
-                        <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/16.png" /></div>
-                            <div class="col-md-3">
-                                <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;123,333</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="text-black-50 mb-0">Add ons</p>
-                                <span class="small">Zero Dep: Unavailable</span>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="mb-0 text-d"><del>&#x20B9;4,586</del><span class="ml-2 small"><a
-                                            href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger">&#x20B9;12,333</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="card shadow-sm mb-3">
-                        <div class="card-body row">
-                            <div class="col-md-3"><img src="../assets/images/39.png" /></div>
-                            <div class="col-md-3">
-                                <p class="text-black-50 mb-0">IDV</p>
-                                <h5>&#x20B9;123,333</h5>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="text-black-50 mb-0">Add ons</p>
-                                <span class="small">Zero Dep: Unavailable</span>
-                            </div>
-                            <div class="col-md-3">
-                                <p class="mb-0 text-d"><del>&#x20B9;4,586</del><span class="ml-2 small"><a
-                                            href="#">Policy Coverag</a></span></p>
-                                <button class="btn btn-danger">&#x20B9;12,333</button>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="col-md-3 bg-white py-2 shadow-sm">
                     <div class="card">
@@ -155,16 +79,16 @@
                                         Select All
                                     </label>
                                 </li>
-                                <li class="py-1 list-unstyled" *ngFor="let insurer of enumInsurer | keyvalue; let i = index">
-                                    <input class="form-check-input" type="checkbox" [checked]="isSelectAllInsurer" [id]="i" (change)="selectInsurer(insurer)">
+                                <li class="py-1 list-unstyled" *ngFor="let insurer of insurerList; let i = index">
+                                    <input class="form-check-input" type="checkbox" [checked]="insurer.isChecked" [id]="i" (change)="selectInsurer(insurer)">
                                     <label class="form-check-label" [for]="i">
-                                        {{ insurer.value }}
+                                        {{ insurer.name }}
                                     </label>
                                 </li>
                             </ul>
                         </div>
                         <div class="card-footer text-right bg-light">
-                            <button class="btn btn-sm btn-danger">Update</button>
+                            <button class="btn btn-sm btn-danger" (click)="updateInsurerSelection()">Update</button>
                         </div>
                     </div>
 
@@ -191,7 +115,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card" *ngIf="!userVehicle.isNewVehicle">
                         <div class="card-header  font-weight-bold bg-white">
                             Plan Types
                         </div>
@@ -203,7 +127,7 @@
                                     class="d-block text-muted small">Covers third party damage only</span></p>
                         </div>
                     </div>
-                    <div class="card my-3">
+                    <div class="card my-3" *ngIf="showAddonAccessories()">
                         <div class="card-header bg-white font-weight-bold">
                             Addons & Accessories
                         </div>
@@ -236,15 +160,6 @@
 </div>
 
 <ng-template #vehicle let-modal>
-    <!-- <div class="modal-header">
-        <h6 class="modal-title font-weight-bold">TOYOTA ETIOS LIVA 1.4 D-4D GD
-            <div class="small"><span>MH14DF4711</span><span class="ml-3">MH14</span></div>
-        </h6>
-        <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="Close"
-            (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">Change</span>
-        </button>
-    </div> -->
     <div class="modal-body pt-0">
         <div class="modal-body">
             <p><strong>Please select Vehical Type</strong></p>
@@ -254,16 +169,20 @@
             </div>
             <form  [formGroup]="vehicleListForm">
                 <p><strong>Maker</strong></p>
-                <input type="text" formControlName="maker" class="form-control form-control-sm" />
+                <!-- <ng-template #resultMaker let-r="result" let-t="term">
+                    <ngb-highlight [result]="r.Make" [term]="t"></ngb-highlight>
+                </ng-template> -->
+                <input type="text" formControlName="maker" class="form-control form-control-sm" 
+                    [ngbTypeahead]="searchVehicleMaker" />
 
                 <p class="mt-3"><strong>Model</strong></p>
-                <input type="text" formControlName="model" class="form-control form-control-sm" />
+                <input type="text" formControlName="model" class="form-control form-control-sm"  [ngbTypeahead]="searchVehicleModel" />
 
                 <p class="mt-3"><strong>Variant</strong></p>
-                <input type="text" formControlName="variant" class="form-control form-control-sm" />
+                <input type="text" formControlName="variant" class="form-control form-control-sm" [ngbTypeahead]="searchVehicleVariant" />
 
                 <p class="mt-3"><strong>Fuel Type</strong></p>
-                <input type="text" formControlName="fuel" class="form-control form-control-sm" />
+                <input type="text" formControlName="fuel" class="form-control form-control-sm" [ngbTypeahead]="searchVehicleFuel"/>
             </form>
             
         </div>

@@ -4,11 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://admin-lets-secure.azurewebsites.net/api',
+  apiUrl: 'https://letssecure-insurance-backoffice-dev.azurewebsites.net/api',
   apiPhp: 'https://apiphpletsec.azurewebsites.net/index.php/api',
   azureApi: 'http://letssecure.centralindia.cloudapp.azure.com/',
-  azureApiUrl: 'http://apils.centralindia.cloudapp.azure.com',
-  swagApiUrl: 'https://vehicle-lets-secure.azurewebsites.net'
+  //azureApiUrl: 'http://apils.centralindia.cloudapp.azure.com',
+  azureApiUrl: 'https://letssecure-insurance-portal-dev.azurewebsites.net/services',
+  swagApiUrl: 'https://letssecure-insurance-portal-dev.azurewebsites.net/services'
 };
 
 /*

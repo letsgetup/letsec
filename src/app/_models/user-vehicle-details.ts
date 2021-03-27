@@ -1,9 +1,9 @@
 export class UserVehicleDetails {
-    vehicleType: string;
-    rtoRegistrationNo?: string;
+    vehicleType?: string;
+    rtoRegistrationNo?: string = "";
     state?: string;
     city?: string;
-    rtoCode?: string;
+    rtoCode?: string = "";
     vehicleMenufacturer?: string;
     vehicleModel?: string;
     vehicleVariant?: string;
@@ -11,6 +11,7 @@ export class UserVehicleDetails {
     year?: string;
     isNewVehicle: boolean = false;
     isClaim: boolean;
+    claimBonus?: string;
     user: UserDetails;
 }
 
