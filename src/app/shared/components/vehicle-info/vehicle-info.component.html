@@ -76,7 +76,7 @@
                     {{maker.Make}}
                 </option>
             </select>
-            <select name="model" [(ngModel)]='modelSelect' id="model" formControlName="model" (change)="modelChange($event.target.value)" class="form-control mx-auto my-4">
+            <select name="model" [(ngModel)]='modelSelect' id="model" formControlName="model" (change)="modelChange($event.target.value)" class="form-control mx-auto my-2">
                 <option value="0" selected>Select Car Model</option>
                 <option *ngFor="let model of modelList" value={{model.Model}}>
                     {{model.Model}}

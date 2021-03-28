@@ -2,14 +2,14 @@
     <ng-template #content let-modal>
         <div class="modal-header">
             <div class="ques">
-                <p>When does your policy expire?</p>
+                <h6 class="modal-title">When does your policy expire?</h6>
             </div>
         </div>
-        <p style="max-width: 500px">
+        <div class="px-3 pt-3">
             <ngx-calendar #ngxCalendar1 [options]="calendarOptions" (onChooseDate)="onChooseDate($event, confirm)">
             </ngx-calendar>
-        </p>
-        <div class="dont_know">
+        </div>
+        <div class="dont_know py-3">
             <a class="dont_know" (click)="openCalender(expiry)"><b><u>Don't know the policy expiry date?</u></b></a>
         </div>
     </ng-template>
@@ -21,7 +21,7 @@
     </div>
     <div class="modal-body">
         <div *ngFor="let claim of eClaim | keyvalue; let i = index">
-            <div class="custom-control custom-radio bg-light border rounded px-5 py-2">
+            <div class="custom-control custom-radio bg-light border rounded px-5 py-2 mb-3">
                 <input type="radio" [id]="i+'-claim'" [checked]="selectedClaimValue == claim.value"
                     class="custom-control-input" (change)="onClaimChange(claim)">
                 <label class="custom-control-label" [for]="i+'-claim'">{{ claim.value }}</label>
