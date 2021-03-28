@@ -1,16 +1,16 @@
 <form [formGroup]="motorInfoForm">
 
-    <div id="form-viewPlans">
+    <div id="form-viewPlans" class="col-md-10 mx-auto">
         <!-- <h2 class="font-weight-light text-center mb-5">Save upto 70% on your Car Insurance</h2> -->
         <h2 class="font-weight-light text-center mb-5 c-heading">{{ motorDetails }}</h2>
-        <div class="d-flex justify-content-center car-form">
+        <div class="row m-0 car-form">
 
             <input formControlName="vehicleNo" autofocus
                 [ngClass]="{ 'is-invalid': submitted && formControl.vehicleNo.errors }"
                 onkeyup="this.value = this.value.toUpperCase();" type="text"
-                class="form-control form-control-lg w-50 rounded-left carNo"
-                placeholder="enter {{ vehicleType }} Number ex. MH14AH5001" maxlength="10" />
-            <button class="btn btn-danger btn-lg rounded-right viewplans" (click)="validateRtoNoViewPlanClick()"
+                class="form-control form-control-lg rounded-left carNo col-md-9"
+                placeholder="Enter {{ vehicleType }} Number ex. MH14AH5001" maxlength="10" />
+            <button class="btn btn-danger btn-lg rounded-right viewplans col-md-3" (click)="validateRtoNoViewPlanClick()"
                 id="btn-viewplans">View Plans</button>
             
             <!-- <div class="err" *ngIf="submitted && formControl.vehicleNo.errors.required" >
@@ -20,14 +20,14 @@
             <!-- <button class="btn btn-lg btn-outline-primary" (click)="openModal(content)">Launch demo modal</button>-->
         </div>
         <p *ngIf="formControl.vehicleNo.errors?.required || formControl.vehicleNo.hasError('pattern') || isRegistrationNoValid" 
-                class="small form-text text-red text-center">
+                class="small form-text text-red my-2">
             Please enter valid {{vehicleType}} registration number
         </p>
 
-        <p class="form-text text-red text-center d-none" >Please enter correct {{ vehicleType }} number</p>
-        <div class="d-flex justify-content-center my-4">
-            <button id="btn-proceedwithoutNum" class="btn btn-secondary mr-3" (click)="selectWithOutRegNo()">Proceed without {{ vehicleType }} Number</button>
-            <button id="btn-proceednewcar" class="btn btn-secondary" (click)="selectNewVehicle()">Click here for Brand New {{ vehicleType }}?</button>
+        <p class="form-text text-red d-none" >Please enter correct {{ vehicleType }} number</p>
+        <div class="d-flex justify-content-start my-2">
+            <button id="btn-proceedwithoutNum" class="btn btn-secondary w-50 mr-3" (click)="selectWithOutRegNo()">Proceed without {{ vehicleType }} Number</button>
+            <button id="btn-proceednewcar" class="btn btn-secondary w-50" (click)="selectNewVehicle()">Click here for Brand New {{ vehicleType }}?</button>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
                     {{rtoitem.region_code}}
                 </option>
             </select>
-            <select formControlName="state" class="form-control mx-auto my-4">
+            <select formControlName="state" class="form-control mx-auto my-2">
                 <option value="0" selected>Select State</option>
                 <option *ngIf="formControl.state.value!=0" selected>{{ formControl.state.value }}</option>
                 <option *ngFor="let state of stateList" [value]="state.Name">
@@ -98,7 +98,7 @@
                 </option>
             </select>
             <select id="model" formControlName="model" (change)="modelChange($event.target.value)"
-                class="form-control mx-auto my-4">
+                class="form-control mx-auto my-2">
                 <option value="0" selected>Select {{vehicleType}} Model</option>
                 <option *ngFor="let model of modelList" value={{model}}>
                     {{model}}
@@ -111,13 +111,13 @@
                     {{ftype}}cc
                 </option>
             </select>
-            <select id="fueltype" formControlName="fueltype" class="rto-number form-control my-4">
+            <select id="fueltype" formControlName="fueltype" class="rto-number form-control my-2">
                 <option value="0" selected>Select Fuel Type</option>
                 <option *ngFor="let ftype of fuelList" value={{ftype}}>
                     {{ftype}}
                 </option>
             </select>
-            <select id="fueltype" formControlName="year" class="rto-number form-control my-4">
+            <select id="fueltype" formControlName="year" class="rto-number form-control my-2">
                 <option value="0" selected>Select Registration Year</option>
                 <option *ngFor="let year of calenderYear" value={{year.id}}>
                     {{ year.id }}
