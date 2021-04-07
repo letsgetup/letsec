@@ -18,27 +18,40 @@
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
                         data-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
                         aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-                    <div class="navbar-collapse collapse" id="navbarsExample03" style="">
+                    <div class="navbar-collapse collapse" id="navbarsExample03">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown"> <a href="#" class="nav-link dropdown-toggle text-body"
-                                    data-toggle="dropdown">Health Insurance</a>
-                                <div class="dropdown-menu dropdown-menu-right shadow-lg"> 
-                                    <a routerLinkActive="active" 
-                                        *ngFor="let healthMenuItem of healthMenuItems"
-                                        [routerLink]="[healthMenuItem.path]" class="dropdown-item {{healthMenuItem.class}}">
-                                        {{healthMenuItem.title}}</a>
-                                </div>
+                            <li class="nav-item dropdown position-static megaMenu">
+                                <a class="nav-link dropdown-toggle text-body" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Insurance Products </a>
+                                <ul class="dropdown-menu w-100 shadow p-0 border" id="navbarDropdownMega">
+                                    <li class="dropdown-item bg-white">
+                                        <div class="row py-3">
+                                            <div class="col-md-6 col-lg-3 pb-2">
+                                                <h6 class="font-weight-bold text-muted border-bottom pb-2"><img src="assets/images/heart-rate.png" width="24" /> Health Insurance</h6>
+                                                <a routerLinkActive="active" 
+                                                *ngFor="let healthMenuItem of healthMenuItems"
+                                                [routerLink]="[healthMenuItem.path]" class="nav-link pl-2 text-black-50 {{healthMenuItem.class}}">
+                                                {{healthMenuItem.title}}</a>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 pb-2">
+                                                <h6 class="font-weight-bold text-muted border-bottom pb-2"><img src="assets/images/car-sm.png" width="24"/> Motor Insurance</h6>
+                                                <a routerLinkActive="active" 
+                                                *ngFor="let motorMenuItem of motorMenuItems"
+                                                [routerLink]="[motorMenuItem.path]" class="nav-link pl-2 text-black-50 {{motorMenuItem.class}}">
+                                                {{motorMenuItem.title}}</a>
+
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 pb-2">
+                                                <h6 class="font-weight-bold text-muted border-bottom pb-2"><img src="assets/images/insurance.png" width="24"/> Life Insurance</h6>
+                                            </div>
+                                            <div class="col-md-6 col-lg-3 pb-2">
+                                                <h6 class="font-weight-bold text-muted border-bottom pb-2"><img src="assets/images/suitcase.png" width="24"/> Other Insurance</h6>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="nav-item dropdown"> 
-                                    <a href="#" class="nav-link dropdown-toggle text-body"
-                                    data-toggle="dropdown">Motor Insurance</a>
-                                <div class="dropdown-menu dropdown-menu-right shadow-lg">
-                                    <a routerLinkActive="active" 
-                                        *ngFor="let motorMenuItem of motorMenuItems"
-                                        [routerLink]="[motorMenuItem.path]" class="dropdown-item {{motorMenuItem.class}}">
-                                        {{motorMenuItem.title}}</a>
-                                </div>
-                            </li>
+                           
+                          
 
 
                             <li><a href="#" class="nav-link text-body pr-0">myAccount</a></li>
